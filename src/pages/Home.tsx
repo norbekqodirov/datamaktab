@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { maktabData } from '../data/content';
+import { motion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useSiteSettings } from '../hooks/useSiteSettings';
+import EditableText from '../components/EditableText';
+import EditableImage from '../components/EditableImage';
 
 export default function Home() {
+  const { t } = useLanguage();
+  const { get, saveKey } = useSiteSettings();
+
   const openEnrollModal = (e: React.MouseEvent) => {
     e.preventDefault();
     window.dispatchEvent(new Event('open-enroll-modal'));
@@ -10,223 +18,181 @@ export default function Home() {
 
   return (
     <div className="bg-transparent font-body text-on-surface">
-      {/* Hero Section */}
+      {/* ─── HERO ─── */}
       <section className="relative min-h-[100svh] overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
-          <img
-            className="w-full h-full object-cover grayscale-[30%] scale-105"
-            src="/maktab.jpg"
+          <EditableImage
+            src={get('hero_bg', '/maktab.jpg')}
             alt="DATA Maktabi"
+            onSave={v => saveKey('hero_bg', v)}
+            className="w-full h-full"
+            imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         </div>
 
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pt-32 pb-0 flex-grow flex flex-col justify-end">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-4 items-end flex-grow">
-
-            {/* Left Column: Text and Stats */}
             <div className="max-w-xl mx-auto lg:mx-0 anim-slide-up text-center lg:text-left pb-16 lg:pb-24">
               <span className="inline-block px-4 py-1.5 mb-5 text-[10px] tracking-[0.2em] font-extrabold text-white uppercase bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-                {maktabData.hero.subtitle}
+                {t.hero.badge}
               </span>
               <h1 className="font-headline text-5xl md:text-6xl lg:text-[5.5rem] font-extrabold text-white tracking-[-0.03em] leading-[1.05] mb-6">
-                Xorazmning eng <br className="hidden lg:block" />
-                <span className="text-secondary-light">zamonaviy</span> maktabi
+                <EditableText value={get('hero_title1', t.hero.title1)} onSave={v => saveKey('hero_title1', v)} className="inline">{get('hero_title1', t.hero.title1)}</EditableText>
+                {' '}<span className="text-secondary-light">
+                  <EditableText value={get('hero_title2', t.hero.title2)} onSave={v => saveKey('hero_title2', v)} className="inline">{get('hero_title2', t.hero.title2)}</EditableText>
+                </span>{' '}
+                <EditableText value={get('hero_title3', t.hero.title3)} onSave={v => saveKey('hero_title3', v)} className="inline">{get('hero_title3', t.hero.title3)}</EditableText>
               </h1>
-              <p className="text-white/90 text-base md:text-lg max-w-md mx-auto lg:mx-0 font-body font-light mb-8 leading-relaxed">
-                IT va ingliz tili ta'limiga ixtisoslashgan innovatsion maskan. Yoshlarning bilim bo'shliqlarini amaliy ko'nikmalar bilan to'ldiramiz.
-              </p>
-
+              <EditableText value={get('hero_desc', t.hero.desc)} onSave={v => saveKey('hero_desc', v)} as="p" multiline className="text-white/90 text-base md:text-lg max-w-md mx-auto lg:mx-0 font-light mb-8 leading-relaxed">
+                {get('hero_desc', t.hero.desc)}
+              </EditableText>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-10">
-                <button
-                  onClick={openEnrollModal}
-                  className="btn-primary px-8 py-3.5 rounded-full text-[11px] uppercase font-bold tracking-widest shadow-[0_10px_40px_-5px_rgba(1,202,255,0.4)]"
-                >
-                  Qabul hujjatlari
+                <button onClick={openEnrollModal} className="btn-primary px-8 py-3.5 rounded-full text-[11px] uppercase font-bold tracking-widest shadow-[0_10px_40px_-5px_rgba(1,202,255,0.4)]">
+                  {t.hero.cta_primary}
                 </button>
-                <Link
-                  to="/maktab-haqida"
-                  className="bg-white/10 backdrop-blur-lg border border-white/20 text-white px-8 py-3.5 rounded-full font-headline font-bold uppercase tracking-widest text-[11px] hover:bg-white hover:text-primary transition-all flex items-center justify-center"
-                >
-                  Maktab bilan tanishuv
+                <Link to="/maktab-haqida" className="bg-white/10 backdrop-blur-lg border border-white/20 text-white px-8 py-3.5 rounded-full font-headline font-bold uppercase tracking-widest text-[11px] hover:bg-white hover:text-primary transition-all flex items-center justify-center">
+                  {t.hero.cta_secondary}
                 </Link>
               </div>
-
               <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-md mx-auto lg:mx-0 anim-fade-in delay-300">
-                {maktabData.hero.stats.map((stat, idx) => (
+                {[
+                  { val: t.hero.stat1_val, label: t.hero.stat1_label },
+                  { val: t.hero.stat2_val, label: t.hero.stat2_label },
+                  { val: t.hero.stat3_val, label: t.hero.stat3_label },
+                ].map((stat, idx) => (
                   <div key={idx} className="glass-panel p-3 md:p-5 rounded-2xl text-center">
-                    <h4 className="text-2xl md:text-3xl font-extrabold text-primary mb-1 font-headline">{stat.value}</h4>
+                    <h4 className="text-2xl md:text-3xl font-extrabold text-primary mb-1 font-headline">{stat.val}</h4>
                     <p className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-on-surface-muted">{stat.label}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right Column: Image Placeholder */}
             <div className="hidden lg:flex justify-end items-start anim-fade-in delay-200 relative h-full w-full">
-              <div className="absolute top-[-5%] right-[-10%] w-[150%] h-full flex justify-end items-start pointer-events-none">
-                {/* Dekorativ elementlar: rasm orqasida chiroyli nur effektlari */}
-                <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0"></div>
-                <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0"></div>
-
-                {/* Rasm qismi (fonsiz) */}
-                <img
-                  src="/students-hero.png"
+              <div className="absolute top-[-5%] right-[-10%] w-[125%] h-full flex justify-end items-start pointer-events-none">
+                <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
+                <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
+                <EditableImage
+                  src={get('hero_student_img', '/students-hero.png')}
                   alt="O'quvchilar"
-                  className="w-[110%] max-w-[110%] h-auto object-contain object-top relative z-10 pointer-events-auto transform translate-y-4 translate-x-4 lg:translate-x-12"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    if(target.src.includes('students-hero')) {
-                       // O'zgargan bo'lsa hech nima qilmaymiz,
-                    }
-                  }}
+                  onSave={v => saveKey('hero_student_img', v)}
+                  className="w-full h-auto relative z-10 transform translate-y-4 translate-x-8 lg:translate-x-24 pointer-events-auto"
+                  imgClassName="w-full h-auto object-contain object-top"
                 />
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Why DATA? Bento Grid */}
-      <section className="py-32 relative z-20 bg-surface-muted pb-40">
+      {/* ─── FEATURES ─── */}
+      <section className="py-28 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div className="max-w-3xl">
-              <span className="inline-block px-4 py-1.5 mb-6 text-[10px] tracking-[0.25em] font-extrabold text-secondary uppercase bg-secondary/10 rounded-full">
-                Ekotizim Afzalliklari
-              </span>
-              <h2 className="font-headline text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-[1.1] text-on-surface">Maktabdan ko'proq — <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Ertangi kun poydevori</span></h2>
-            </div>
-            <p className="text-on-surface-muted max-w-sm font-body text-base md:text-lg leading-relaxed mb-4">
-              Biz farzandingizning har tomonlama rivojlanishi uchun xalqaro standartdagi premium qulayliklarni yaratdik.
-            </p>
+          <div className="text-center mb-20">
+            <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-headline font-extrabold text-primary tracking-tighter">{t.features.title}</h2>
+            <p className="mt-4 text-on-surface-muted max-w-2xl mx-auto">{t.features.subtitle}</p>
           </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {t.features.items.map((item, idx) => (
+              <motion.div key={idx} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.08 }} viewport={{ once: true }}
+                className="glass-card rounded-3xl p-8 group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-primary/5">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/20">
+                  <span className="material-symbols-outlined text-white text-2xl">{item.icon}</span>
+                </div>
+                <h3 className="font-headline font-extrabold text-xl text-primary mb-3">{item.title}</h3>
+                <p className="text-on-surface-muted text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(300px,auto)]">
-            {/* IT */}
-            <div className="md:col-span-8 glass-card rounded-[2rem] overflow-hidden relative group p-10 md:p-16 flex flex-col justify-end min-h-[480px]">
-              <img
-                className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-1000 ease-out"
-                src="https://picsum.photos/seed/it-c/800/600"
-                alt="IT Lab"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
-              <div className="relative z-10 text-white mt-auto">
-                <span className="material-symbols-outlined text-secondary-light mb-6 text-5xl bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/20">desktop_mac</span>
-                <h3 className="font-headline text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-md">Zamonaviy IT Ta'limi</h3>
-                <p className="text-white/90 max-w-2xl font-body text-lg leading-relaxed drop-shadow-sm">Har bir sinfda "Alisa" sun'iy intellekti, maxsus iMacs laboratoriyasi hamda VR ko'zoynaklar bilan boyitilgan dasturlash tizimi.</p>
-              </div>
-            </div>
-
-            {/* IELTS */}
-            <div className="md:col-span-4 bg-gradient-to-br from-primary to-[#051e7a] rounded-[2rem] p-10 md:p-14 relative overflow-hidden flex flex-col justify-between min-h-[480px] shadow-xl group hover:shadow-primary/30 transition-all duration-500">
-              <div className="absolute top-0 right-0 w-[150%] h-[150%] bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-secondary/40 via-transparent to-transparent opacity-80 group-hover:scale-110 transition-transform duration-1000"></div>
-              <div className="relative z-10 w-full h-full flex flex-col">
-                <span className="material-symbols-outlined text-white mb-auto text-5xl bg-white/10 w-max p-4 rounded-2xl backdrop-blur-md border border-white/10">language</span>
-                <div className="mt-8">
-                   <h3 className="font-headline text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">Xalqaro<br/>IELTS Standarti</h3>
-                   <p className="text-secondary-light font-body text-base leading-relaxed">Kembrij va British Council asosidagi darslar, muntazam mock testlar va IELTS 8.5 gacha ustozlar.</p>
+      {/* ─── PRESIDENT QUOTE ─── */}
+      <section className="py-16 md:py-24 relative overflow-hidden bg-surface">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-16">
+          <div className="bg-white rounded-[2.5rem] p-6 md:p-10 lg:p-12 relative border border-primary/5 shadow-2xl shadow-primary/5 overflow-hidden">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10">
+              <div className="lg:col-span-7 relative">
+                <span className="material-symbols-outlined text-[80px] absolute -top-8 -left-6 text-[#03caff]/10 -rotate-12 pointer-events-none">format_quote</span>
+                <div className="relative z-10 pl-6 border-l-4 border-[#03caff]">
+                  <EditableText value={get('prez_quote', t.president.quote)} onSave={v => saveKey('prez_quote', v)} as="h2" multiline
+                    className="text-xl md:text-2xl lg:text-3xl font-headline font-extrabold text-primary mb-8 leading-relaxed tracking-tight">
+                    {get('prez_quote', t.president.quote)}
+                  </EditableText>
+                  
+                  <div>
+                    <EditableText value={get('prez_author', t.president.author)} onSave={v => saveKey('prez_author', v)} as="p" className="text-xs font-bold uppercase tracking-[0.2em] text-[#062bad]">
+                      {get('prez_author', t.president.author)}
+                    </EditableText>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-on-surface-muted mt-1.5">{t.president.role}</p>
+                    
+                    <div className="mt-6 inline-flex px-4 py-1.5 border border-[#03caff]/30 rounded-full bg-[#03caff]/5">
+                      <p className="text-[10px] font-bold text-[#062bad]">{t.president.badge}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Safety */}
-            <div className="md:col-span-4 bg-gradient-to-bl from-secondary to-[#029bc4] rounded-[2rem] p-10 flex flex-col justify-between min-h-[350px] relative overflow-hidden shadow-xl group hover:-translate-y-1 transition-transform">
-              <div className="absolute -bottom-10 -right-10 opacity-[0.08] group-hover:rotate-12 transition-transform duration-1000">
-                <span className="material-symbols-outlined text-[200px] text-black">security</span>
-              </div>
-              <div className="relative z-10 flex flex-col h-full">
-                <span className="material-symbols-outlined text-primary mb-auto text-5xl bg-white w-max p-4 rounded-2xl shadow-md">security</span>
-                <div className="mt-8">
-                   <h3 className="font-headline text-2xl md:text-3xl font-extrabold text-white mb-3">Xavfsiz Muhit</h3>
-                   <p className="text-white/90 font-body text-sm leading-relaxed">Milliy gvardiya qo'riqlovi, 24/7 CCTV, Face ID va 20 MLN gacha sug'urta.</p>
+              <div className="lg:col-span-5 flex flex-col justify-center gap-3 lg:gap-4 h-full xl:pl-4">
+                <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                  <EditableImage src={get('prez_img1', '/images/prezident-1.jpg')} alt="Prezident" onSave={v => saveKey('prez_img1', v)}
+                    className="relative w-full aspect-[4/3] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-md border border-primary/5 group bg-slate-100"
+                    imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <EditableImage src={get('prez_img2', '/images/prezident-2.jpg')} alt="Prezident" onSave={v => saveKey('prez_img2', v)}
+                    className="relative w-full aspect-[4/3] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-md border border-primary/5 group bg-slate-100"
+                    imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
-              </div>
-            </div>
-
-            {/* Nutrition */}
-            <div className="md:col-span-4 bg-white rounded-[2rem] p-10 flex flex-col justify-between min-h-[350px] border border-black/5 hover:border-primary/20 shadow-lg hover:shadow-xl transition-all">
-              <div className="flex flex-col h-full">
-                <span className="material-symbols-outlined text-secondary mb-auto text-5xl bg-secondary/10 w-max p-4 rounded-2xl">restaurant</span>
-                <div className="mt-8">
-                   <h3 className="font-headline text-2xl md:text-3xl font-extrabold text-primary mb-3">3 Mahal Ovqat</h3>
-                   <p className="text-on-surface-muted font-body text-sm leading-relaxed">Dietolog nazoratidagi halol, sog'lom va to'yimli menu farzandlarimiz uchun maxsus tayyorlanadi.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Transport */}
-            <div className="md:col-span-4 bg-white rounded-[2rem] p-10 flex flex-col justify-between min-h-[350px] border border-black/5 hover:border-primary/20 shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
-              <div className="absolute right-0 bottom-0 w-32 h-32 bg-primary blur-[80px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
-              <div className="flex flex-col h-full relative z-10">
-                <span className="material-symbols-outlined text-primary mb-auto text-5xl bg-primary/10 w-max p-4 rounded-2xl">directions_bus</span>
-                <div className="mt-8">
-                   <h3 className="font-headline text-2xl md:text-3xl font-extrabold text-primary mb-3">Xavfsiz Transport</h3>
-                   <p className="text-on-surface-muted font-body text-sm leading-relaxed">4 ta yangi maxsus maktab avtobuslari GPS tizimi bilan jihozlangan holda uydan maktabga xavfsiz eltadi.</p>
-                </div>
+                <EditableImage src={get('prez_img3', '/images/prezident-3.jpg')} alt="Prezident" onSave={v => saveKey('prez_img3', v)}
+                  className="relative w-full aspect-[16/9] lg:aspect-[2/1] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-md border border-primary/5 group bg-slate-100"
+                  imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* President Visit Quote */}
-      <section className="py-24 relative overflow-hidden">
+      {/* ─── STATS STRIP ─── */}
+      <section className="py-16 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="glass-card bg-primary/5 rounded-[3rem] p-10 md:p-20 relative border-0 shadow-2xl">
-            <span className="material-symbols-outlined text-[150px] absolute -top-10 -left-10 text-primary/5 -rotate-12">format_quote</span>
-            <div className="max-w-4xl mx-auto text-center relative z-10">
-              <h2 className="text-3xl md:text-5xl font-headline font-extrabold text-primary mb-8 leading-tight">
-                "Agar mendan sizni nima qiynaydi deb so'rasangiz, farzandlarimizning ta'lim va tarbiyasi deb javob beraman."
-              </h2>
-              <div className="w-20 h-1 bg-secondary mx-auto mb-8 rounded-full"></div>
-              <p className="text-sm font-bold uppercase tracking-widest text-on-surface-muted">Shavkat Mirziyoyev — O'zbekiston Respublikasi Prezidenti</p>
-              <p className="mt-8 text-on-surface-muted max-w-2xl mx-auto">2023 va 2025-yillarda Prezident tashrifi bilan e'tirof etilgan muassasa.</p>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+            {[
+              { val: '2023', label: 'Asos solingan yil' },
+              { val: '500+', label: "O'quvchilar" },
+              { val: '50+', label: "O'qituvchilar" },
+              { val: '95%', label: 'Mamnunlik darajasi' },
+            ].map((s, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }} className="space-y-2">
+                <p className="text-4xl md:text-5xl font-headline font-extrabold">{s.val}</p>
+                <p className="text-white/60 text-xs font-bold uppercase tracking-widest">{s.label}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Admission CTA */}
+      {/* ─── CTA ─── */}
       <section className="py-32">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-24 md:py-32 px-6 md:px-16 text-center shadow-2xl">
             <div className="absolute inset-0">
-              <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10"></div>
-              <img
-                className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay"
-                src="https://picsum.photos/seed/kadorr/1920/1080"
-                alt="Kadorr Building"
-                referrerPolicy="no-referrer"
-              />
+              <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10" />
+              <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.jpg" alt="" />
             </div>
-            <div className="relative z-20 max-w-4xl mx-auto">
-              <span className="inline-block px-5 py-2 mb-8 text-[11px] tracking-[0.25em] font-extrabold text-secondary uppercase bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-                DATA Qabul Markazi
-              </span>
-              <h2 className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] mb-8 leading-none">
-                Yangi 500 o'rinli bino<br />sizni kutmoqda
-              </h2>
-              <p className="text-white/80 text-xl md:text-2xl mb-16 font-body font-light">
-                1-10 sinflar uchun qabul davom etmoqda. Oldindan to'lovda 10% chegirma.
-              </p>
-              <div className="flex flex-col md:flex-row justify-center gap-5">
-                <button
-                  onClick={openEnrollModal}
-                  className="bg-white text-primary px-12 py-6 rounded-full font-headline font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-[0_20px_50px_rgba(255,255,255,0.3)] transition-all"
-                >
-                  Ariza topshirish
-                </button>
-                <Link
-                  to="/qabul"
-                  className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-12 py-6 rounded-full font-headline font-bold uppercase tracking-widest text-sm hover:bg-white/20 hover:text-white transition-all inline-flex items-center justify-center"
-                >
-                  Qabul narxlari
-                </Link>
-              </div>
+            <div className="relative z-10">
+              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-white tracking-[-0.03em] leading-tight mb-6">{t.cta.title}</h2>
+                <p className="text-white/80 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">{t.cta.desc}</p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button onClick={openEnrollModal} className="btn-secondary px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">
+                    {t.cta.primary}
+                  </button>
+                  <Link to="/maktab-haqida" className="bg-white/10 border border-white/30 backdrop-blur-lg text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all flex items-center gap-2 justify-center">
+                    {t.cta.secondary} <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>

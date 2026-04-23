@@ -3,11 +3,29 @@ import { createServer as createViteServer } from 'vite';
 import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
+import multer from 'multer';
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+// Setup Multer for file uploads
+const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, 'file-' + uniqueSuffix + ext);
+  }
+});
+const upload = multer({ storage });
 
 // Database setup
 const dbPath = path.join(process.cwd(), 'database.sqlite');
@@ -54,6 +72,14 @@ db.exec(`
 `);
 
 // API Routes
+
+// --- Uploads ---
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Fayl yuklanmadi' });
+  }
+  res.json({ url: `/uploads/${req.file.filename}` });
+});
 
 // --- Stats ---
 app.get('/api/stats', (req, res) => {
@@ -180,6 +206,9 @@ app.post('/api/auth/login', (req, res) => {
 });
 
 async function startServer() {
+  // Serve uploaded files from public/uploads
+  app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads')));
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({

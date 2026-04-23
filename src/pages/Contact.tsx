@@ -1,169 +1,191 @@
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Youtube } from 'lucide-react';
+import { Phone, MapPin, Mail, Send, MessageSquare, Clock } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Contact() {
+  const { t } = useLanguage();
+  const c = t.contact;
+  const [form, setForm] = useState({ name: '', phone: '', message: '' });
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    try {
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      setSent(true);
+      setForm({ name: '', phone: '', message: '' });
+    } catch {
+      alert('Xatolik yuz berdi, qayta urinib ko\'ring');
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const infoCards = [
+    { icon: <Phone size={20} />, label: c.phone, val: '+998 55 602 00 55', href: 'tel:+998556020055', color: 'from-primary to-[#041c80]' },
+    { icon: <MapPin size={20} />, label: c.address, val: "Xorazm vil., Urganch tum., Oyoqbog' MFY, Xiva shox ko'cha", href: 'https://yandex.com/maps/', color: 'from-[#03caff] to-primary' },
+    { icon: <Mail size={20} />, label: 'Email', val: 'info@datamaktab.uz', href: 'mailto:info@datamaktab.uz', color: 'from-[#041c80] to-secondary' },
+    { icon: <Clock size={20} />, label: c.hours, val: c.hours_val, href: null, color: 'from-secondary to-primary' },
+  ];
+
   return (
-    <div className="bg-surface min-h-screen font-body text-on-surface pb-20">
-      {/* Hero Section */}
-      <section className="relative h-[500px] overflow-hidden flex items-center">
-        <div className="absolute inset-0 z-0">
-          <img 
-            className="w-full h-full object-cover grayscale-[20%]" 
-            src="https://picsum.photos/seed/contact-hero/1920/1080" 
-            alt="Biz bilan bog'laning" 
-            referrerPolicy="no-referrer" 
-          />
-          <div className="absolute inset-0 bg-primary/80 backdrop-blur-sm"></div>
+    <div className="bg-surface font-body text-on-surface">
+      {/* Hero */}
+      <section className="relative h-[45vh] min-h-[320px] overflow-hidden flex items-end">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
+        <div className="absolute top-12 right-16 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-14">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
+            <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter">{c.title}</h1>
+          </motion.div>
         </div>
-        <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-12 relative z-10">
-          <div className="max-w-3xl mt-20">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+      </section>
+
+      {/* Info Cards + Form */}
+      <section className="py-20">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Info cards */}
+            <div className="space-y-5">
+              {infoCards.map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="glass-card rounded-2xl p-6 border border-primary/5 flex items-start gap-5 hover:shadow-lg transition-all group"
+                >
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${card.color} shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform text-white`}>
+                    {card.icon}
+                  </div>
+                  <div>
+                    <p className="text-xs font-extrabold uppercase tracking-widest text-on-surface-muted mb-1">{card.label}</p>
+                    {card.href ? (
+                      <a href={card.href} target={card.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
+                        className="font-semibold text-primary hover:text-secondary transition-colors leading-snug">
+                        {card.val}
+                      </a>
+                    ) : (
+                      <p className="font-semibold text-primary leading-snug">{card.val}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* Social Links */}
+              <div className="glass-card rounded-2xl p-6 border border-primary/5">
+                <p className="text-xs font-extrabold uppercase tracking-widest text-on-surface-muted mb-4">Ijtimoiy tarmoqlar</p>
+                <div className="flex gap-3">
+                  {[
+                    { icon: 'instagram', label: 'Instagram', href: 'https://instagram.com/data_maktabi' },
+                    { icon: 'telegram', label: 'Telegram', href: 'https://t.me/data_maktabi' },
+                    { icon: 'facebook', label: 'Facebook', href: 'https://facebook.com/data_maktabi' },
+                  ].map(s => (
+                    <a key={s.label} href={s.href} target="_blank" rel="noreferrer"
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-primary/10 hover:bg-primary hover:text-white hover:border-primary text-primary transition-all text-sm font-bold">
+                      <span className="material-symbols-outlined text-base">{s.icon === 'telegram' ? 'send' : s.icon === 'instagram' ? 'photo_camera' : 'thumb_up'}</span>
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="glass-card rounded-3xl p-8 md:p-10 border border-primary/10 shadow-xl"
             >
-              <span className="inline-block px-4 py-1 mb-6 text-[10px] tracking-[0.3em] font-bold text-white uppercase bg-secondary/20 backdrop-blur-md rounded-full">
-                Aloqa
-              </span>
-              <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter leading-tight mb-6">
-                Biz bilan bog'laning
-              </h1>
-              <p className="text-white/80 text-lg md:text-xl font-body leading-relaxed">
-                Savollaringiz bormi? Biz sizga yordam berishdan xursandmiz.
-              </p>
+              {sent ? (
+                <div className="text-center py-16">
+                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                    <Send size={28} className="text-green-600" />
+                  </div>
+                  <h3 className="font-headline font-extrabold text-2xl text-primary mb-2">{c.form_success}</h3>
+                  <p className="text-on-surface-muted">Tez orada siz bilan bog'lanamiz.</p>
+                  <button onClick={() => setSent(false)} className="mt-8 px-6 py-2.5 bg-primary text-white rounded-full font-bold text-sm hover:bg-primary/90 transition-colors">
+                    Yangi xabar
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                      <MessageSquare size={18} className="text-white" />
+                    </div>
+                    <h2 className="font-headline font-extrabold text-2xl text-primary">Xabar yuborish</h2>
+                  </div>
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    {[
+                      { key: 'name', label: c.form_name, type: 'text', placeholder: 'Ism Familiya' },
+                      { key: 'phone', label: c.form_phone, type: 'tel', placeholder: '+998 90 123 45 67' },
+                    ].map(field => (
+                      <div key={field.key}>
+                        <label className="block text-xs font-extrabold uppercase tracking-widest text-on-surface-muted mb-2">{field.label}</label>
+                        <input
+                          type={field.type}
+                          required
+                          placeholder={field.placeholder}
+                          value={(form as any)[field.key]}
+                          onChange={e => setForm({ ...form, [field.key]: e.target.value })}
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#062bad]/30 focus:border-[#062bad] outline-none transition-all bg-white"
+                        />
+                      </div>
+                    ))}
+                    <div>
+                      <label className="block text-xs font-extrabold uppercase tracking-widest text-on-surface-muted mb-2">{c.form_message}</label>
+                      <textarea
+                        required
+                        rows={5}
+                        placeholder="Xabaringizni yozing..."
+                        value={form.message}
+                        onChange={e => setForm({ ...form, message: e.target.value })}
+                        className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#062bad]/30 focus:border-[#062bad] outline-none resize-none transition-all bg-white"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={sending}
+                      className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-xl hover:shadow-primary/20 transition-all flex items-center justify-center gap-2"
+                    >
+                      <Send size={16} />
+                      {sending ? 'Yuklanmoqda...' : c.form_submit}
+                    </button>
+                  </form>
+                </>
+              )}
             </motion.div>
           </div>
         </div>
       </section>
 
-      <div className="max-w-screen-2xl mx-auto px-4 md:px-12 -mt-10 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {/* Contact Info */}
-          <div className="bg-surface p-10 md:p-14 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100">
-            <h2 className="font-headline text-3xl font-extrabold text-primary mb-10">Aloqa ma'lumotlari</h2>
-            
-            <div className="space-y-8">
-              <div className="flex items-start gap-6 group">
-                <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center text-primary shrink-0 group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
-                  <MapPin size={28} />
-                </div>
-                <div>
-                  <h3 className="font-headline font-extrabold text-primary text-xl mb-2">Manzil</h3>
-                  <p className="text-on-surface-muted leading-relaxed">Xorazm viloyati, Urganch tumani, Oyoqbog' MFY, Xiva shox ko'cha</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-6 group">
-                <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center text-primary shrink-0 group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
-                  <Phone size={28} />
-                </div>
-                <div>
-                  <h3 className="font-headline font-extrabold text-primary text-xl mb-2">Telefon</h3>
-                  <a href="tel:+998556020055" className="text-on-surface-muted hover:text-secondary transition-colors font-medium">55 602 00 55</a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-6 group">
-                <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center text-primary shrink-0 group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
-                  <Mail size={28} />
-                </div>
-                <div>
-                  <h3 className="font-headline font-extrabold text-primary text-xl mb-2">Email</h3>
-                  <a href="mailto:info@datamaktab.uz" className="text-on-surface-muted hover:text-secondary transition-colors font-medium">info@datamaktab.uz</a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-6 group">
-                <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center text-primary shrink-0 group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
-                  <Clock size={28} />
-                </div>
-                <div>
-                  <h3 className="font-headline font-extrabold text-primary text-xl mb-2">Ish vaqti</h3>
-                  <p className="text-on-surface-muted mb-1">Dushanba - Juma: 09:00 - 18:00</p>
-                  <p className="text-on-surface-muted">Shanba: 09:00 - 15:00</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="bg-primary text-white p-10 md:p-14 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.04)] relative overflow-hidden group">
-            <div className="absolute -right-10 -bottom-10 opacity-10 group-hover:opacity-20 transition-opacity">
-              <span className="material-symbols-outlined text-[200px]">mail</span>
-            </div>
-            <h2 className="font-headline text-3xl font-extrabold mb-10 relative z-10">Xabar yuborish</h2>
-            <form className="space-y-6 relative z-10" onSubmit={async (e) => { 
-              e.preventDefault(); 
-              const formData = new FormData(e.currentTarget);
-              const data = {
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                message: formData.get('message')
-              };
-              try {
-                const res = await fetch('/api/messages', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(data)
-                });
-                if (res.ok) {
-                  alert("Xabaringiz yuborildi!");
-                  (e.target as HTMLFormElement).reset();
-                } else {
-                  alert("Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
-                }
-              } catch (err) {
-                console.error(err);
-                alert("Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
-              }
-            }}>
-              <div>
-                <label className="block text-sm font-bold text-white/80 mb-2 uppercase tracking-wider">Ismingiz</label>
-                <input type="text" name="name" required className="w-full px-5 py-4 rounded-2xl border border-white/20 bg-white/5 text-white placeholder-white/40 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all backdrop-blur-sm" placeholder="Ismingizni kiriting" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-white/80 mb-2 uppercase tracking-wider">Telefon raqam</label>
-                <input type="tel" name="phone" required className="w-full px-5 py-4 rounded-2xl border border-white/20 bg-white/5 text-white placeholder-white/40 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all backdrop-blur-sm" placeholder="+998 90 123 45 67" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-white/80 mb-2 uppercase tracking-wider">Xabar</label>
-                <textarea name="message" required rows={4} className="w-full px-5 py-4 rounded-2xl border border-white/20 bg-white/5 text-white placeholder-white/40 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all resize-none backdrop-blur-sm" placeholder="Xabaringizni yozing..."></textarea>
-              </div>
-              <button type="submit" className="w-full editorial-gradient text-white py-4 rounded-2xl font-manrope font-bold uppercase tracking-wider text-sm transition-all hover:shadow-[0_0_30px_rgba(0,229,255,0.3)] mt-4">
-                Yuborish
-              </button>
-            </form>
-            
-            <div className="mt-12 pt-8 border-t border-white/10 relative z-10">
-              <p className="text-white/80 mb-6 font-bold text-sm uppercase tracking-wider">Ijtimoiy tarmoqlar</p>
-              <div className="flex gap-4">
-                <a href="https://instagram.com/data_maktab" target="_blank" rel="noreferrer" className="bg-white/10 p-4 rounded-2xl hover:bg-secondary hover:-translate-y-1 transition-all duration-300">
-                  <Instagram size={24} />
-                </a>
-                <a href="#" className="bg-white/10 p-4 rounded-2xl hover:bg-secondary hover:-translate-y-1 transition-all duration-300">
-                  <Facebook size={24} />
-                </a>
-                <a href="#" className="bg-white/10 p-4 rounded-2xl hover:bg-secondary hover:-translate-y-1 transition-all duration-300">
-                  <Youtube size={24} />
-                </a>
-              </div>
-            </div>
+      {/* Map */}
+      <section className="py-10 pb-20">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-100 h-[400px]">
+            <iframe
+              src="https://yandex.com/map-widget/v1/?um=constructor%3A&ll=60.633558%2C41.553197&z=16&l=map"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              allowFullScreen
+              title={c.map_title}
+              className="w-full h-full"
+            />
           </div>
         </div>
-
-        {/* Map */}
-        <div className="rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-slate-100 h-[500px]">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.498424074211!2d60.6215!3d41.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDMzJzAwLjAiTiA2MMKwMzcnMTcuNCJF!5e0!3m2!1sen!2s!4v1630000000000!5m2!1sen!2s" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={true} 
-            loading="lazy"
-            title="DATA Maktabi Xaritada"
-          ></iframe>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
