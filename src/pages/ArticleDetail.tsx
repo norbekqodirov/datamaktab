@@ -51,80 +51,87 @@ export default function ArticleDetail() {
   const readTimeMin = Math.max(1, Math.ceil(article.content.split(' ').length / 200));
 
   return (
-    <div className="bg-surface pt-28 pb-24 min-h-screen font-body">
-      {/* Hero */}
-      {article.image_url && (
-        <div className="relative h-[50vh] min-h-[380px] overflow-hidden mb-0">
-          <img
-            src={article.image_url}
-            alt={article.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-primary/80" />
-        </div>
-      )}
-
-      <div className="max-w-4xl mx-auto px-6 md:px-8">
-        {/* Back Link */}
+    <div className="bg-white min-h-screen font-body pb-24">
+      {/* Top Nav / Back */}
+      <div className="max-w-6xl mx-auto px-6 md:px-8 pt-32 pb-8">
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 text-on-surface-muted hover:text-primary transition-colors font-semibold text-sm py-8 group"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-semibold text-sm group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           {t.news.title}
         </Link>
+      </div>
 
-        {/* Article Card */}
-        <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden"
-        >
-          <div className="p-8 md:p-12">
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 mb-8">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 text-primary rounded-full text-xs font-extrabold uppercase tracking-widest">
-                <Calendar size={13} />
-                {new Date(article.created_at).toLocaleDateString('uz-UZ', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 text-secondary rounded-full text-xs font-extrabold uppercase tracking-widest">
-                <Clock size={13} />
-                {readTimeMin} min
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="font-headline text-3xl md:text-5xl font-extrabold text-primary leading-tight mb-6">
-              {article.title}
-            </h1>
-
-            {/* Excerpt */}
-            {article.excerpt && (
-              <p className="text-on-surface-muted text-lg leading-relaxed mb-10 border-l-4 border-secondary pl-6 italic">
-                {article.excerpt}
-              </p>
-            )}
-
-            {/* Content */}
-            <div 
-              className="prose prose-slate prose-lg max-w-none text-on-surface leading-relaxed prose-headings:font-headline prose-headings:font-extrabold prose-a:text-[#062bad] prose-img:rounded-2xl prose-strong:text-slate-900"
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
+      <article className="max-w-4xl mx-auto px-6 md:px-8">
+        {/* Header Section */}
+        <header className="mb-10 text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6">
+            <span className="inline-flex items-center gap-1.5 text-primary text-sm font-extrabold uppercase tracking-widest bg-primary/5 px-3 py-1 rounded-md">
+              <Calendar size={14} />
+              {new Date(article.created_at).toLocaleDateString('uz-UZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-slate-400 text-sm font-bold uppercase tracking-widest">
+              <Clock size={14} />
+              {readTimeMin} min
+            </span>
           </div>
-        </motion.article>
 
-        {/* Bottom CTA */}
-        <div className="mt-12 flex flex-col sm:flex-row gap-4 items-center justify-between">
+          <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight">
+            {article.title}
+          </h1>
+
+          {article.excerpt && (
+            <p className="text-xl md:text-2xl text-slate-500 font-light leading-relaxed mb-8">
+              {article.excerpt}
+            </p>
+          )}
+        </header>
+      </article>
+
+      {/* Hero Image */}
+      {article.image_url && (
+        <div className="max-w-5xl mx-auto px-4 md:px-8 mb-16">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="w-full aspect-video md:aspect-[21/9] rounded-2xl md:rounded-[2rem] overflow-hidden bg-slate-100 shadow-2xl shadow-slate-200/50"
+          >
+            <img
+              src={article.image_url}
+              alt={article.title}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </div>
+      )}
+
+      {/* Content Section */}
+      <div className="max-w-3xl mx-auto px-6 md:px-8">
+        <div 
+          className="prose prose-slate prose-lg md:prose-xl max-w-none text-slate-800 leading-relaxed 
+                     prose-headings:font-headline prose-headings:font-bold prose-headings:tracking-tight 
+                     prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                     prose-a:text-[#062bad] prose-a:underline-offset-4 hover:prose-a:text-blue-700
+                     prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-10 prose-img:mx-auto
+                     prose-strong:text-slate-900 prose-ul:list-disc prose-ul:marker:text-[#062bad]
+                     prose-li:my-2 prose-p:my-6"
+          dangerouslySetInnerHTML={{ __html: article.content }}
+        />
+
+        {/* Footer CTA */}
+        <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col sm:flex-row gap-6 items-center justify-between">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-primary hover:text-secondary transition-colors font-bold group"
+            className="inline-flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-bold group"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             {t.news.title}
           </Link>
           <button
             onClick={() => window.dispatchEvent(new Event('open-enroll-modal'))}
-            className="btn-primary px-8 py-3.5 rounded-full text-xs font-extrabold uppercase tracking-widest"
+            className="btn-primary px-10 py-4 rounded-full text-sm font-extrabold uppercase tracking-widest shadow-xl shadow-[#03caff]/20"
           >
             {t.nav.enroll}
           </button>

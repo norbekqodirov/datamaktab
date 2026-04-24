@@ -454,6 +454,28 @@ function RichTextEditor({ value, onChange }: { value: string; onChange: (html: s
     onChange(editorRef.current?.innerHTML || '');
   };
 
+  const insertImage = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = () => {
+      const file = input.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target?.result) {
+            editorRef.current?.focus();
+            // Insert the image
+            document.execCommand('insertImage', false, e.target.result.toString());
+            onChange(editorRef.current?.innerHTML || '');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  };
+
   const tools = [
     { icon: 'format_bold', cmd: 'bold', title: 'Bold' },
     { icon: 'format_italic', cmd: 'italic', title: 'Italic' },
@@ -466,7 +488,7 @@ function RichTextEditor({ value, onChange }: { value: string; onChange: (html: s
   ];
 
   return (
-    <div className="border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#062bad] focus-within:border-[#062bad]">
+    <div className="border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#062bad] focus-within:border-[#062bad] bg-white">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-1 px-3 py-2 bg-slate-50 border-b border-slate-200">
         <select
@@ -489,6 +511,16 @@ function RichTextEditor({ value, onChange }: { value: string; onChange: (html: s
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>{t.icon}</span>
           </button>
         ))}
+        {/* Insert Image Button */}
+        <div className="h-4 w-px bg-slate-300 mx-1"></div>
+        <button
+          type="button"
+          title="Rasm qo'shish (Matn ichida)"
+          onMouseDown={e => { e.preventDefault(); insertImage(); }}
+          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-blue-100 text-blue-600 transition-colors text-sm"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: 18 }}>add_photo_alternate</span>
+        </button>
       </div>
       {/* Content editable area */}
       <div
@@ -496,7 +528,7 @@ function RichTextEditor({ value, onChange }: { value: string; onChange: (html: s
         contentEditable
         suppressContentEditableWarning
         onInput={() => onChange(editorRef.current?.innerHTML || '')}
-        className="min-h-[250px] p-4 text-sm text-slate-800 leading-relaxed outline-none prose prose-sm max-w-none"
+        className="min-h-[250px] p-5 text-[15px] text-slate-800 leading-relaxed outline-none prose prose-slate max-w-none prose-img:rounded-xl prose-img:shadow-sm prose-img:my-4 prose-p:my-2"
         style={{ fontFamily: 'inherit' }}
       />
     </div>
