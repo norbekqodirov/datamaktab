@@ -363,36 +363,39 @@ export default function Home() {
       {/* ─── VIP VISITORS ─── */}
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Rasmiy Tashrif</span>
-              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                Nufuzli mehmonlar <span className="text-[#03caff]">manzili</span>
-              </h2>
-              <p className="text-on-surface-muted text-lg leading-relaxed mb-10">Ochiqligimiz va natijalarimiz tufayli maktabimiz davlat va hukumat vakillari uchun ham diqqatga tushgan manzilga aylandi.</p>
-              <div className="space-y-4">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+            <div className="flex flex-col justify-between py-2">
+              <div className="mb-8">
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Rasmiy Tashrif</span>
+                <h2 className="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-4 leading-tight">
+                  Nufuzli mehmonlar <span className="text-[#03caff]">manzili</span>
+                </h2>
+                <p className="text-on-surface-muted text-base leading-relaxed">Ochiqligimiz va natijalarimiz tufayli maktabimiz davlat va hukumat vakillari uchun ham diqqatga tushgan manzilga aylandi.</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
                 {vipVisitors.map((v, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}
-                    className="flex items-center gap-4 p-5 bg-surface rounded-2xl border border-slate-100 hover:shadow-md transition-all">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 text-white font-headline font-extrabold text-sm">
+                  <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}
+                    className="flex items-center gap-3 p-3.5 bg-surface rounded-2xl border border-slate-100 hover:shadow-md transition-all">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 text-white font-headline font-extrabold text-sm shadow-inner shadow-white/20">
                       {v.name.charAt(0)}
                     </div>
-                    <div>
-                      <p className="font-extrabold text-primary text-sm">{v.name}</p>
-                      <p className="text-on-surface-muted text-xs mt-0.5">{v.role}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-extrabold text-primary text-xs truncate">{v.name}</p>
+                      <p className="text-on-surface-muted text-[10px] mt-0.5 leading-tight line-clamp-2">{v.role}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
             </div>
-            <div className="relative aspect-[4/3] w-full rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+            
+            <div className="relative aspect-[4/3] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100 h-full">
               <EditableImage src={get('vip_img', '/images/vip-visit.jpg')} alt="Nufuzli Mehmonlar" onSave={v => saveKey('vip_img', v)}
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent pointer-events-none" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-5">
-                  <p className="text-white font-headline font-extrabold text-xl mb-1">O'zbekiston Prezidenti bilan</p>
-                  <p className="text-white/80 text-sm">2023-yil 31-mart va 2025-yil 1-may — ikki marta uchrashuv</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/10 to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8">
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 md:p-5 shadow-2xl">
+                  <p className="text-white font-headline font-extrabold text-lg md:text-xl mb-1">O'zbekiston Prezidenti bilan</p>
+                  <p className="text-white/80 text-xs md:text-sm">2023-yil 31-mart va 2025-yil 1-may — ikki marta uchrashuv</p>
                 </div>
               </div>
             </div>
