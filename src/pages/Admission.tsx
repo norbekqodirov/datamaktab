@@ -247,11 +247,11 @@ export default function Admission() {
               </div>
               <div className="space-y-4 mb-8">
                 <div className="p-6 md:p-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl shadow-xl">
-                  <EditableText value={get('adm_price_label', a.pricing_label)} onSave={v => saveKey('adm_price_label', v)} as="p" className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">
-                    {get('adm_price_label', a.pricing_label)}
+                  <EditableText value={get('adm_price_label', a.fee_title)} onSave={v => saveKey('adm_price_label', v)} as="p" className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">
+                    {get('adm_price_label', a.fee_title)}
                   </EditableText>
-                  <EditableText value={get('adm_price_val', a.pricing_value)} onSave={v => saveKey('adm_price_val', v)} as="p" className="text-3xl md:text-5xl font-headline font-extrabold text-white">
-                    {get('adm_price_val', a.pricing_value)}
+                  <EditableText value={get('adm_price_val', a.fee)} onSave={v => saveKey('adm_price_val', v)} as="p" className="text-3xl md:text-5xl font-headline font-extrabold text-white">
+                    {get('adm_price_val', a.fee)}
                   </EditableText>
                 </div>
                 <div className="p-6 md:p-8 bg-[#03caff]/20 border border-[#03caff]/30 rounded-3xl shadow-lg">
