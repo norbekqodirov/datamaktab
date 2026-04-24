@@ -31,7 +31,7 @@ export default function News() {
       <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-16 right-20 w-72 h-72 bg-secondary/20 rounded-full blur-3xl" />
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-14">
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-0">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
             <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter">{t.news.title}</h1>

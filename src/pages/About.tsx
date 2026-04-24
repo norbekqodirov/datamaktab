@@ -57,7 +57,7 @@ export default function About() {
             className="w-full h-full" imgClassName="w-full h-full object-cover grayscale-[10%]" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/95" />
         </div>
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-16">
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-0">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Xalqaro Maktabi</span>
             <EditableText value={get('about_hero_title', a.hero_title)} onSave={v => saveKey('about_hero_title', v)} as="h1"
@@ -65,7 +65,7 @@ export default function About() {
               {get('about_hero_title', a.hero_title)}
             </EditableText>
             <EditableText value={get('about_hero_desc', a.hero_desc)} onSave={v => saveKey('about_hero_desc', v)} as="p" multiline
-              className="mt-4 text-white/80 text-lg max-w-2xl">
+              className="mt-4 text-white/80 text-lg max-w-4xl">
               {get('about_hero_desc', a.hero_desc)}
             </EditableText>
           </motion.div>

@@ -68,14 +68,14 @@ export default function Education() {
             className="w-full h-full" imgClassName="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/95" />
         </div>
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-16">
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-0">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Xalqaro Maktabi</span>
             <EditableText value={get('edu_hero_title', e.hero_title)} onSave={v => saveKey('edu_hero_title', v)} as="h1"
               className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter">
               {get('edu_hero_title', e.hero_title)}
             </EditableText>
-            <EditableText value={get('edu_hero_desc', e.hero_desc)} onSave={v => saveKey('edu_hero_desc', v)} as="p" multiline className="mt-4 text-white/80 text-lg max-w-2xl">
+            <EditableText value={get('edu_hero_desc', e.hero_desc)} onSave={v => saveKey('edu_hero_desc', v)} as="p" multiline className="mt-4 text-white/80 text-lg max-w-4xl">
               {get('edu_hero_desc', e.hero_desc)}
             </EditableText>
           </motion.div>
