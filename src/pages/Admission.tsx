@@ -50,7 +50,7 @@ export default function Admission() {
       {/* Hero */}
       <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
-          <EditableImage src={get('adm_hero_bg', '/maktab.jpg')} alt={a.hero_title} onSave={v => saveKey('adm_hero_bg', v)}
+          <EditableImage src={get('adm_hero_bg', '/maktab.webp')} alt={a.hero_title} onSave={v => saveKey('adm_hero_bg', v)}
             className="w-full h-full" imgClassName="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/95" />
         </div>
@@ -425,7 +425,7 @@ export default function Admission() {
           <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-16 md:py-24 px-6 md:px-16 text-center shadow-2xl">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10" />
-              <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.jpg" alt="" />
+              <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.webp" alt="" />
             </div>
             <div className="relative z-10">
               <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

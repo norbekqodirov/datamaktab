@@ -64,7 +64,7 @@ export default function Education() {
       {/* Hero */}
       <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
-          <EditableImage src={get('edu_hero_bg', '/maktab.jpg')} alt={e.hero_title} onSave={v => saveKey('edu_hero_bg', v)}
+          <EditableImage src={get('edu_hero_bg', '/maktab.webp')} alt={e.hero_title} onSave={v => saveKey('edu_hero_bg', v)}
             className="w-full h-full" imgClassName="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/95" />
         </div>

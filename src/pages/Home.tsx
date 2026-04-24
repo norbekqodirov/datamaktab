@@ -72,7 +72,7 @@ export default function Home() {
         {/* Full width background to prevent bounded box appearance on ultra-wide screens */}
         <div className="absolute inset-0 z-0">
           <EditableImage
-            src={get('hero_bg', '/maktab.jpg')}
+            src={get('hero_bg', '/maktab.webp')}
             alt="DATA Maktabi"
             onSave={v => saveKey('hero_bg', v)}
             className="w-full h-full"
@@ -128,7 +128,7 @@ export default function Home() {
                 <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
                 <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
                 <EditableImage
-                  src={get('hero_student_img', '/students-hero.png')}
+                  src={get('hero_student_img', '/students-hero.webp')}
                   alt="O'quvchilar"
                   onSave={v => saveKey('hero_student_img', v)}
                   className="w-full h-full relative z-10 pointer-events-auto flex justify-end items-start"
@@ -321,7 +321,7 @@ export default function Home() {
       <section className="py-16 md:py-12 md:py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <img src="/maktab.jpg" className="w-full h-full object-cover scale-110" alt="" />
+          <img src="/maktab.webp" className="w-full h-full object-cover scale-110" alt="" />
         </div>
         <div className="max-w-[1440px] mx-auto px-6 md:px-16 relative z-10">
           <div className="text-center mb-16">
@@ -462,7 +462,7 @@ export default function Home() {
           <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-16 md:py-24 px-6 md:px-16 text-center shadow-2xl">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10" />
-              <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.jpg" alt="" />
+              <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.webp" alt="" />
             </div>
             <div className="relative z-10">
               <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

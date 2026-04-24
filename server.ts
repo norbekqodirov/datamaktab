@@ -4,28 +4,15 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
+import sharp from 'sharp';
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
 
-// Setup Multer for file uploads
-const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    cb(null, 'file-' + uniqueSuffix + ext);
-  }
-});
-const upload = multer({ storage });
+// Setup Multer with memory storage so sharp can intercept before writing to disk
+const uploadMemory = multer({ storage: multer.memoryStorage() });
 
 // Database setup
 const dbPath = path.join(process.cwd(), 'database.sqlite');
@@ -73,12 +60,56 @@ db.exec(`
 
 // API Routes
 
-// --- Uploads ---
-app.post('/api/upload', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'Fayl yuklanmadi' });
+// --- Uploads (with WebP auto-conversion) ---
+const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
+app.post('/api/upload', uploadMemory.single('file'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Fayl yuklanmadi' });
+
+  try {
+    const uniqueName = `img-${Date.now()}-${Math.round(Math.random() * 1e9)}.webp`;
+    const outPath = path.join(uploadDir, uniqueName);
+    await sharp(req.file.buffer)
+      .webp({ quality: 85, effort: 4 })
+      .toFile(outPath);
+    res.json({ url: `/uploads/${uniqueName}` });
+  } catch (err: any) {
+    console.error('Image conversion error:', err);
+    res.status(500).json({ error: 'Rasm siqishda xatolik', details: err.message });
   }
-  res.json({ url: `/uploads/${req.file.filename}` });
+});
+
+// --- One-time existing image WebP optimizer ---
+app.get('/api/optimize-existing', async (_req, res) => {
+  const publicDir = path.join(process.cwd(), 'public');
+  const dirs = [publicDir, uploadDir];
+  const results: string[] = [];
+
+  for (const dir of dirs) {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+      const ext = path.extname(file).toLowerCase();
+      if (!['.jpg', '.jpeg', '.png'].includes(ext)) continue;
+
+      const inPath = path.join(dir, file);
+      const outName = path.basename(file, ext) + '.webp';
+      const outPath = path.join(dir, outName);
+
+      if (fs.existsSync(outPath)) { results.push(`Skipped (exists): ${outName}`); continue; }
+
+      try {
+        const stat = fs.statSync(inPath);
+        await sharp(inPath).webp({ quality: 85, effort: 4 }).toFile(outPath);
+        const newStat = fs.statSync(outPath);
+        results.push(`✅ ${file} (${(stat.size/1024).toFixed(0)}KB) → ${outName} (${(newStat.size/1024).toFixed(0)}KB)`);
+      } catch (e: any) {
+        results.push(`❌ ${file}: ${e.message}`);
+      }
+    }
+  }
+
+  res.json({ converted: results.length, results });
 });
 
 // --- CRM Proxy (avoids browser CORS) ---
