@@ -11,8 +11,6 @@ import Home from './Home';
 import About from './About';
 import Education from './Education';
 import Admission from './Admission';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 // ────────────────────────────────────────────────
 // Helpers
@@ -439,6 +437,73 @@ function Settings() {
 // Enrollments & Messages removed — all leads sent directly to Durbin CRM
 
 // ────────────────────────────────────────────────
+// Custom Rich Text Editor (No external deps)
+// ────────────────────────────────────────────────
+function RichTextEditor({ value, onChange }: { value: string; onChange: (html: string) => void }) {
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (editorRef.current && editorRef.current.innerHTML !== value) {
+      editorRef.current.innerHTML = value;
+    }
+  }, []);
+
+  const exec = (cmd: string, val?: string) => {
+    editorRef.current?.focus();
+    document.execCommand(cmd, false, val);
+    onChange(editorRef.current?.innerHTML || '');
+  };
+
+  const tools = [
+    { icon: 'format_bold', cmd: 'bold', title: 'Bold' },
+    { icon: 'format_italic', cmd: 'italic', title: 'Italic' },
+    { icon: 'format_underlined', cmd: 'underline', title: 'Underline' },
+    { icon: 'format_list_bulleted', cmd: 'insertUnorderedList', title: 'Bullet List' },
+    { icon: 'format_list_numbered', cmd: 'insertOrderedList', title: 'Numbered List' },
+    { icon: 'format_align_left', cmd: 'justifyLeft', title: 'Align Left' },
+    { icon: 'format_align_center', cmd: 'justifyCenter', title: 'Align Center' },
+    { icon: 'format_align_right', cmd: 'justifyRight', title: 'Align Right' },
+  ];
+
+  return (
+    <div className="border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#062bad] focus-within:border-[#062bad]">
+      {/* Toolbar */}
+      <div className="flex flex-wrap items-center gap-1 px-3 py-2 bg-slate-50 border-b border-slate-200">
+        <select
+          onChange={e => exec('formatBlock', e.target.value)}
+          className="text-xs px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 cursor-pointer mr-1"
+        >
+          <option value="p">Oddiy matn</option>
+          <option value="h1">Sarlavha 1</option>
+          <option value="h2">Sarlavha 2</option>
+          <option value="h3">Sarlavha 3</option>
+        </select>
+        {tools.map(t => (
+          <button
+            key={t.cmd}
+            type="button"
+            title={t.title}
+            onMouseDown={e => { e.preventDefault(); exec(t.cmd); }}
+            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-200 text-slate-600 hover:text-[#062bad] transition-colors text-sm"
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>{t.icon}</span>
+          </button>
+        ))}
+      </div>
+      {/* Content editable area */}
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        onInput={() => onChange(editorRef.current?.innerHTML || '')}
+        className="min-h-[250px] p-4 text-sm text-slate-800 leading-relaxed outline-none prose prose-sm max-w-none"
+        style={{ fontFamily: 'inherit' }}
+      />
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────
 // Articles
 // ────────────────────────────────────────────────
 function ArticleList() {
@@ -539,9 +604,7 @@ function ArticleForm() {
         </div>
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase mb-1.5">To'liq matn</label>
-          <div className="bg-white rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-[#062bad] focus-within:border-[#062bad] overflow-hidden relative CustomQuillWrapper">
-            <ReactQuill theme="snow" value={content} onChange={setContent} className="custom-quill" />
-          </div>
+          <RichTextEditor value={content} onChange={setContent} />
         </div>
         <div className="flex justify-end pt-2">
           <button type="submit" disabled={saving} className="flex items-center gap-2 px-6 py-2.5 bg-[#062bad] hover:bg-[#051fa0] text-white rounded-xl font-bold text-sm transition-colors">
