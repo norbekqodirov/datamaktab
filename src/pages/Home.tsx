@@ -206,46 +206,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── PRESIDENT QUOTE ─── */}
-      <section className="py-16 md:py-12 md:py-16 relative overflow-hidden bg-surface">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-16">
-          <div className="bg-white rounded-[2.5rem] p-6 md:p-10 lg:p-12 relative border border-primary/5 shadow-2xl shadow-primary/5 overflow-hidden">
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10">
-              <div className="lg:col-span-7 relative">
-                <span className="material-symbols-outlined text-[80px] absolute -top-8 -left-6 text-[#03caff]/10 -rotate-12 pointer-events-none">format_quote</span>
-                <div className="relative z-10 pl-6 border-l-4 border-[#03caff]">
-                  <EditableText value={get('prez_quote', t.president.quote)} onSave={v => saveKey('prez_quote', v)} as="h2" multiline
-                    className="text-xl md:text-2xl lg:text-3xl font-headline font-extrabold text-primary mb-8 leading-relaxed tracking-tight">
-                    {get('prez_quote', t.president.quote)}
-                  </EditableText>
-                  <div>
-                    <EditableText value={get('prez_author', t.president.author)} onSave={v => saveKey('prez_author', v)} as="p" className="text-xs font-bold uppercase tracking-[0.2em] text-[#062bad]">
-                      {get('prez_author', t.president.author)}
-                    </EditableText>
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-on-surface-muted mt-1.5">{t.president.role}</p>
-                    <div className="mt-6 inline-flex px-4 py-1.5 border border-[#03caff]/30 rounded-full bg-[#03caff]/5">
-                      <p className="text-[10px] font-bold text-[#062bad]">{t.president.badge}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:col-span-5 flex flex-col justify-center gap-3 lg:gap-4 h-full xl:pl-4">
-                <div className="grid grid-cols-2 gap-3 lg:gap-4">
-                  <EditableImage src={get('prez_img1', '/images/prezident-1.jpg')} alt="Prezident" onSave={v => saveKey('prez_img1', v)}
-                    className="relative w-full aspect-[4/3] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-md border border-primary/5 group bg-slate-100"
-                    imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <EditableImage src={get('prez_img2', '/images/prezident-2.jpg')} alt="Prezident" onSave={v => saveKey('prez_img2', v)}
-                    className="relative w-full aspect-[4/3] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-md border border-primary/5 group bg-slate-100"
-                    imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                </div>
-                <EditableImage src={get('prez_img3', '/images/prezident-3.jpg')} alt="Prezident" onSave={v => saveKey('prez_img3', v)}
-                  className="relative w-full aspect-[16/9] lg:aspect-[2/1] rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-md border border-primary/5 group bg-slate-100"
-                  imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* ─── 4 PILLARS / NIMA UCHUN DATA ─── */}
       <section className="py-16 md:py-12 md:py-16 bg-white">
