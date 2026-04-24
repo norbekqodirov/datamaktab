@@ -175,11 +175,7 @@ export default function Home() {
                   <p className="text-[#03caff] text-sm font-semibold mt-1">"Mard o'g'lon" davlat mukofoti sohibi</p>
                 </div>
               </div>
-              {/* floating badge */}
-              <div className="absolute -top-6 -right-6 bg-[#03caff] text-white rounded-3xl px-6 py-4 shadow-2xl shadow-[#03caff]/30 z-20">
-                <p className="text-3xl font-headline font-extrabold">2019</p>
-                <p className="text-xs font-bold uppercase tracking-widest opacity-80">Asos solingan</p>
-              </div>
+
             </motion.div>
 
             {/* Right content */}
