@@ -193,17 +193,18 @@ export default function Education() {
                 </div>
               </div>
               <div className="p-6 md:p-8 flex-1 flex flex-col justify-between bg-white">
-                <div className="space-y-3 mb-8">
+                <div className="space-y-5 mb-8 relative before:absolute before:inset-y-2 before:left-[5px] before:w-px before:bg-slate-100">
                   {[
-                    { stage: '1–2-sinf', desc: "Sonlar, qo'shish-ayirish, mantiqiy fikrlash asoslari" },
-                    { stage: '3–4-sinf', desc: 'Ko\'paytirish, bo\'lish, kasrga kirish, olimpiada elementlari' },
-                    { stage: '5–6-sinf', desc: 'Algebra, kasrlar, tenglamalar — qo\'llash bosqichi' },
-                    { stage: '7–8-sinf', desc: 'Formulalar, funksiyalar, kombinatorika, olimpiada tayyorgarligi' },
-                    { stage: '9–11-sinf', desc: 'Trigonometriya, analiz, SAT va OTM masalalari' },
+                    { stage: '1–2-SINF', desc: "Sonlar, qo'shish-ayirish, mantiqiy fikrlash asoslari" },
+                    { stage: '3–4-SINF', desc: 'Ko\'paytirish, bo\'lish, kasrga kirish, olimpiada elementlari' },
+                    { stage: '5–6-SINF', desc: 'Algebra, kasrlar, tenglamalar — qo\'llash bosqichi' },
+                    { stage: '7–8-SINF', desc: 'Formulalar, funksiyalar, kombinatorika, olimpiada tayyorgarligi' },
+                    { stage: '9–11-SINF', desc: 'Trigonometriya, analiz, SAT va OTM masalalari' },
                   ].map((item, i) => (
-                    <div key={i} className="flex gap-4 px-1 py-2 rounded-2xl group/item">
-                      <span className="font-bold text-[#062bad] text-[10px] md:text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
-                      <span className="text-on-surface-muted text-xs md:text-sm leading-relaxed">{item.desc}</span>
+                    <div key={i} className="relative pl-6">
+                      <div className="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-[#062bad] border-4 border-white shadow-sm" />
+                      <span className="block font-bold text-[#062bad] text-[10px] md:text-xs uppercase tracking-widest mb-1">{item.stage}</span>
+                      <p className="text-on-surface-muted text-xs md:text-sm leading-relaxed">{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -228,20 +229,19 @@ export default function Education() {
                 </div>
               </div>
               <div className="p-6 md:p-8 flex-1 flex flex-col justify-between bg-white">
-                <div className="space-y-3 mb-8">
+                <div className="space-y-4 mb-8 relative before:absolute before:inset-y-2 before:left-[5px] before:w-px before:bg-slate-100">
                   {[
-                    { stage: '1–2-sinf', desc: 'CEFR yo\'li boshlanadi: 150–250+ so\'z zaxirasi', level: 'Pre-A1' },
-                    { stage: '3–4-sinf', desc: "A1 yakunlanadi. Oddiy dialoglar, qisqa matnlar", level: 'A1' },
-                    { stage: '5–6-sinf', desc: "Ingliz tilida fikr bildirish shakllana boshlaydi", level: 'A2–B1' },
-                    { stage: '7–8-sinf', desc: "Academic writing, speaking, debatlar. IELTS tayyorgarligi", level: 'B1–B2' },
-                    { stage: '9–11-sinf', desc: 'IELTS 6.0–7.5+. University darajasida ingliz tili', level: 'C1' },
+                    { stage: '1–2-SINF', desc: 'CEFR yo\'li boshlanadi: 150–250+ so\'z zaxirasi', level: 'Pre-A1' },
+                    { stage: '3–4-SINF', desc: "A1 yakunlanadi. Oddiy dialoglar, qisqa matnlar", level: 'A1' },
+                    { stage: '5–6-SINF', desc: "Ingliz tilida fikr bildirish shakllana boshlaydi", level: 'A2–B1' },
+                    { stage: '7–8-SINF', desc: "Academic writing, speaking, debatlar. IELTS tayyorgarligi", level: 'B1–B2' },
+                    { stage: '9–11-SINF', desc: 'IELTS 6.0–7.5+. University darajasida ingliz tili', level: 'C1' },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 px-1 py-1.5 rounded-2xl group/item">
-                      <span className="font-bold text-[#03caff] text-[10px] md:text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
-                      <div>
-                        <span className="text-on-surface-muted text-xs md:text-sm leading-relaxed block mb-0.5">{item.desc}</span>
-                        <span className="inline-block px-1.5 py-0.5 bg-[#03caff]/10 text-[#03caff] rounded font-bold text-[10px]">CEFR: {item.level}</span>
-                      </div>
+                    <div key={i} className="relative pl-6">
+                      <div className="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-[#03caff] border-4 border-white shadow-sm" />
+                      <span className="block font-bold text-[#03caff] text-[10px] md:text-xs uppercase tracking-widest mb-1">{item.stage}</span>
+                      <p className="text-on-surface-muted text-xs md:text-sm leading-relaxed mb-1.5">{item.desc}</p>
+                      <span className="inline-block px-2 py-0.5 bg-[#03caff]/10 text-[#03caff] rounded font-bold text-[10px] uppercase tracking-wide">CEFR: {item.level}</span>
                     </div>
                   ))}
                 </div>
@@ -266,20 +266,19 @@ export default function Education() {
                 </div>
               </div>
               <div className="p-6 md:p-8 flex-1 flex flex-col justify-between bg-white">
-                <div className="space-y-3 mb-8">
+                <div className="space-y-4 mb-8 relative before:absolute before:inset-y-2 before:left-[5px] before:w-px before:bg-slate-100">
                   {[
-                    { stage: '1–2-sinf', desc: 'Kompyuter bilan tanishuv, algoritmik fikrlash asoslari', tool: 'Scratch' },
-                    { stage: '3–4-sinf', desc: 'Word, Paint, Scratch, mini-o\'yinlar', tool: 'Code.org' },
-                    { stage: '5–6-sinf', desc: 'TILDA, robototexnika, Python asoslari', tool: 'Python' },
-                    { stage: '7–8-sinf', desc: 'Web-dasturlash, AI vositalari, Telegram botlar', tool: 'JavaScript' },
-                    { stage: '9–11-sinf', desc: 'Full-stack ilovalar, AI media, GitHub, startap loyihalar', tool: 'Full-Stack' },
+                    { stage: '1–2-SINF', desc: 'Kompyuter bilan tanishuv, algoritmik fikrlash asoslari', tool: 'Scratch' },
+                    { stage: '3–4-SINF', desc: 'Word, Paint, Scratch, mini-o\'yinlar', tool: 'Code.org' },
+                    { stage: '5–6-SINF', desc: 'TILDA, robototexnika, Python asoslari', tool: 'Python' },
+                    { stage: '7–8-SINF', desc: 'Web-dasturlash, AI vositalari, Telegram botlar', tool: 'JavaScript' },
+                    { stage: '9–11-SINF', desc: 'Full-stack ilovalar, GitHub, AI proyektlar, startup', tool: 'Full-Stack' },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 px-1 py-1.5 rounded-2xl group/item">
-                      <span className="font-bold text-[#041c80] text-[10px] md:text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
-                      <div>
-                        <span className="text-on-surface-muted text-xs md:text-sm leading-relaxed block mb-0.5">{item.desc}</span>
-                        <span className="inline-block px-1.5 py-0.5 bg-[#041c80]/10 text-[#041c80] rounded font-bold text-[10px]">{item.tool}</span>
-                      </div>
+                    <div key={i} className="relative pl-6">
+                      <div className="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-[#041c80] border-4 border-white shadow-sm" />
+                      <span className="block font-bold text-[#041c80] text-[10px] md:text-xs uppercase tracking-widest mb-1">{item.stage}</span>
+                      <p className="text-on-surface-muted text-xs md:text-sm leading-relaxed mb-1.5">{item.desc}</p>
+                      <span className="inline-block px-2 py-0.5 bg-[#041c80]/10 text-[#041c80] rounded font-bold text-[10px] uppercase tracking-wide">{item.tool}</span>
                     </div>
                   ))}
                 </div>
