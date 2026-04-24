@@ -385,7 +385,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="relative h-[500px] md:h-[620px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+            <div className="relative aspect-[4/3] w-full rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
               <EditableImage src={get('vip_img', '/images/vip-visit.jpg')} alt="Nufuzli Mehmonlar" onSave={v => saveKey('vip_img', v)}
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent pointer-events-none" />
