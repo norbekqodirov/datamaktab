@@ -70,9 +70,19 @@ app.post('/api/upload', uploadMemory.single('file'), async (req, res) => {
   try {
     const uniqueName = `img-${Date.now()}-${Math.round(Math.random() * 1e9)}.webp`;
     const outPath = path.join(uploadDir, uniqueName);
+    
+    const beforeSize = req.file.buffer.length;
     await sharp(req.file.buffer)
       .webp({ quality: 85, effort: 4 })
       .toFile(outPath);
+      
+    const afterSize = fs.statSync(outPath).size;
+    const reduction = (((beforeSize - afterSize) / beforeSize) * 100).toFixed(1);
+    
+    console.log(`\n📦 YUKLASH: ${req.file.originalname}`);
+    console.log(`✅ WebP Siqildi: ${(beforeSize/1024).toFixed(0)}KB -> ${(afterSize/1024).toFixed(0)}KB (Tejaldi: -${reduction}%)`);
+    console.log(`📂 Saqlandi: /uploads/${uniqueName}`);
+    
     res.json({ url: `/uploads/${uniqueName}` });
   } catch (err: any) {
     console.error('Image conversion error:', err);
