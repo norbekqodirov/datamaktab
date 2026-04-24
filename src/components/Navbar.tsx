@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { useLanguage, type Lang } from '../context/LanguageContext';
 
 export default function Navbar() {
@@ -73,20 +73,23 @@ export default function Navbar() {
           {/* Desktop Right: Lang + Phone + CTA */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
             {/* Language Switcher */}
-            <div className={`flex items-center rounded-xl overflow-hidden text-[11px] font-extrabold tracking-widest shadow-inner ${isLight ? 'bg-slate-100' : 'bg-white/10'}`}>
-              {langs.map(({ code, label }) => (
-                <button
-                  key={code}
-                  onClick={() => setLang(code)}
-                  className={`px-3 py-2 transition-all ${
-                    lang === code
-                      ? 'bg-[#062bad] text-white shadow-md'
-                      : (isLight ? 'text-slate-500 hover:text-[#062bad]' : 'text-white/70 hover:text-white')
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
+            <div className="relative group">
+              <button className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-[11px] font-extrabold tracking-widest transition-all ${isLight ? 'bg-slate-100 text-[#062bad] hover:bg-slate-200' : 'bg-white/10 text-white hover:bg-white/20'}`}>
+                {langs.find(l => l.code === lang)?.label}
+                <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
+              </button>
+              
+              <div className="absolute top-full right-0 mt-2 min-w-[80px] flex flex-col bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+                {langs.map(({ code, label }) => (
+                  <button
+                    key={code}
+                    onClick={() => setLang(code)}
+                    className={`px-4 py-2.5 text-left text-[11px] font-extrabold tracking-widest transition-colors ${lang === code ? 'text-white bg-[#062bad]' : 'text-slate-500 hover:bg-slate-50 hover:text-[#062bad]'}`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <a
@@ -106,16 +109,23 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-2">
             {/* Mobile language switcher */}
-            <div className={`flex items-center rounded-full border overflow-hidden text-[10px] font-bold ${isLight ? 'border-slate-200' : 'border-white/20'}`}>
-              {langs.map(({ code, label }) => (
-                <button
-                  key={code}
-                  onClick={() => setLang(code)}
-                  className={`px-2 py-1.5 transition-all ${lang === code ? 'bg-[#062bad] text-white' : (isLight ? 'text-slate-500' : 'text-white/70')}`}
-                >
-                  {label}
-                </button>
-              ))}
+            <div className="relative group">
+              <button className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[10px] font-bold transition-all ${isLight ? 'border-slate-200 text-[#062bad] bg-slate-50' : 'border-white/20 text-white bg-white/5'}`}>
+                {langs.find(l => l.code === lang)?.label}
+                <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
+              </button>
+              
+              <div className="absolute top-full left-0 mt-1.5 min-w-[70px] flex flex-col bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 z-[60]">
+                {langs.map(({ code, label }) => (
+                  <button
+                    key={code}
+                    onClick={() => setLang(code)}
+                    className={`px-3 py-2 text-center text-[10px] font-bold transition-colors border-b last:border-b-0 border-slate-100 ${lang === code ? 'text-white bg-[#062bad]' : 'text-slate-600 hover:bg-slate-50 hover:text-[#062bad]'}`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
