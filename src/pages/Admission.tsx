@@ -316,25 +316,25 @@ export default function Admission() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Bepul O'quv Qurollari</span>
                 </div>
               </div>
-              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
-                <p className="text-on-surface-muted leading-relaxed mb-6 text-base">DATA xalqaro maktabida barcha zarur o'quv qurollari va materiallari o'quvchilarga bepul taqdim etiladi. Ota-onalarning qo'shimcha xarajatini kamaytiramiz.</p>
-                <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100 flex-shrink-0">
-                  <p className="text-[#062bad] font-bold text-sm leading-relaxed">"Har bir o'quvchining zamonaviy, qulay va bepul o'quv jihozlari bilan ta'lim olishi — bizning sifatlilik mezonimiz."</p>
+              <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
+                <p className="text-on-surface-muted leading-relaxed mb-6 text-sm md:text-base">DATA xalqaro maktabida barcha zarur o'quv qurollari va materiallari o'quvchilarga bepul taqdim etiladi. Ota-onalarning qo'shimcha xarajatini kamaytiramiz.</p>
+                <div className="p-5 md:p-6 bg-[#062bad]/5 border border-[#062bad]/10 rounded-2xl md:rounded-3xl shadow-sm mt-auto">
+                  <p className="text-[#062bad] font-bold text-xs md:text-sm leading-relaxed italic text-center">"Har bir o'quvchining zamonaviy, qulay va bepul o'quv jihozlari bilan ta'lim olishi — bizning sifatlilik mezonimiz."</p>
                 </div>
               </div>
             </div>
             {/* Dress code */}
-            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group/card">
+            <div className="bg-surface rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group/card">
               <div className="aspect-video relative bg-slate-100 group">
                 <EditableImage src={get('adm_uniform_img', '/images/uniform.jpg')} alt="Maktab formasi" onSave={v => saveKey('adm_uniform_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-                <div className="absolute bottom-6 left-7">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none opacity-80" />
+                <div className="absolute bottom-6 left-7 pr-4">
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Maktab Formasi va Dress-Kod</span>
                 </div>
               </div>
-              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
-                <p className="text-on-surface-muted leading-relaxed mb-8 text-base">Forma — nafaqat tashqi ko'rinish, balki tartib, intizom va maktabga mansublik hissini shakllantiradi.</p>
+              <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
+                <p className="text-on-surface-muted leading-relaxed mb-6 text-sm md:text-base">Forma — nafaqat tashqi ko'rinish, balki tartib, intizom va maktabga mansublik hissini shakllantiradi.</p>
                 <div className="space-y-3 mt-auto">
                   {[
                     "O'quv kuni davomida, kelish va ketish vaqtida majburiy",
@@ -342,9 +342,9 @@ export default function Admission() {
                     "Ekstremal soch ranglari qat'iyan taqiqlanadi",
                     "Formasiz ekskursiyada ishtirok etib bo'lmaydi",
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 md:p-5 bg-white rounded-2xl shadow-sm border border-slate-100 group/item hover:-translate-y-1 transition-transform">
-                      <span className="material-symbols-outlined text-[#062bad] flex-shrink-0 bg-[#03caff]/10 w-8 h-8 rounded-full flex items-center justify-center text-sm">checkroom</span>
-                      <p className="text-primary font-bold text-sm leading-snug">{item}</p>
+                    <div key={i} className="flex items-center gap-4 p-3 md:p-4 bg-slate-50 rounded-2xl shadow-sm border border-slate-100 group/item transition-all hover:bg-white hover:border-[#062bad]/20">
+                      <span className="material-symbols-outlined text-[#062bad] text-lg lg:text-xl shrink-0">checkroom</span>
+                      <p className="text-primary font-bold text-xs md:text-sm leading-snug">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -357,12 +357,12 @@ export default function Admission() {
       {/* Prohibitions */}
       <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="py-2">
               <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Maktab Qoidalari</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6">{a.prohib_title}</h2>
-              <p className="text-on-surface-muted text-lg leading-relaxed mb-10">Xavfsiz, sog'lom va adolatli muhit uchun 5 ta asosiy qoida.</p>
-              <div className="space-y-4">
+              <p className="text-on-surface-muted text-lg leading-relaxed mb-8">Xavfsiz, sog'lom va adolatli muhit uchun 5 ta asosiy qoida.</p>
+              <div className="space-y-3">
                 {[
                   { icon: 'smartphone', title: "Telefon va elektron qurilmalar", desc: "Boshlang'ich sinf o'quvchilari uchun telefon, aqlli soat, simsiz quloqchin va mp3 player taqiqlanadi." },
                   { icon: 'cake', title: "Tug'ilgan kun nishonlash", desc: "Maktab hududida shaxsiy bayramlarni nishonlash man etilgan. Bu barcha o'quvchilarga teng muhit yaratadi." },
@@ -371,26 +371,26 @@ export default function Admission() {
                   { icon: 'card_giftcard', title: "Sovg'alar berish taqiqlanadi", desc: "O'qituvchilar va xodimlarga sovg'a yoki pul olish qat'iyan man etiladi. Shaffoflik tamoyili." },
                 ].map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                    className="flex items-start gap-4 p-5 bg-white rounded-2xl shadow-sm border border-slate-100">
+                    className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-[#03caff]/30 hover:bg-slate-50 transition-colors">
                     <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
                       <span className="material-symbols-outlined text-red-500 text-xl">{item.icon}</span>
                     </div>
                     <div>
-                      <h4 className="font-bold text-primary text-sm mb-1">{item.title}</h4>
+                      <h4 className="font-bold text-primary text-sm mb-0.5">{item.title}</h4>
                       <p className="text-on-surface-muted text-xs leading-relaxed">{item.desc}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
             </div>
-            <div className="relative h-[540px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+            <div className="relative h-full min-h-[400px] rounded-[2.5rem] overflow-hidden shadow-xl group bg-slate-100 flex flex-col justify-end">
               <EditableImage src={get('adm_prohib_img', '/images/school-rules.jpg')} alt="Maktab qoidalari" onSave={v => saveKey('adm_prohib_img', v)}
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-5">
-                  <p className="text-white font-headline font-extrabold text-lg">Xavfsiz va Baxtli Maktab Muhiti</p>
-                  <p className="text-white/80 text-sm mt-1">Har bir o'quvchi uchun adolatli, teng va qulay sharoit</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#041c80]/90 via-[#041c80]/20 to-transparent pointer-events-none opacity-90" />
+              <div className="relative z-10 w-full p-6 md:p-8 mt-auto">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 md:p-6 shadow-2xl">
+                  <p className="text-white font-headline font-extrabold text-xl md:text-2xl drop-shadow-md">Xavfsiz va Baxtli Maktab Muhiti</p>
+                  <p className="text-white/80 text-sm mt-2 max-w-sm">Har bir o'quvchi uchun adolatli, teng va qulay sharoit</p>
                 </div>
               </div>
             </div>
@@ -418,7 +418,7 @@ export default function Admission() {
                 </EditableText>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button onClick={openEnrollModal} className="bg-white text-primary hover:bg-slate-50 transition-colors px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">
-                    {a.cta_primary}
+                    {t.cta.primary}
                   </button>
                   <a href="tel:+998556020055" className="bg-white/10 border border-white/30 backdrop-blur-lg text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all flex items-center gap-2 justify-center">
                     <span className="material-symbols-outlined text-lg">phone</span>
