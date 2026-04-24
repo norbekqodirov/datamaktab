@@ -11,6 +11,7 @@ import Home from './Home';
 import About from './About';
 import Education from './Education';
 import Admission from './Admission';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 // ────────────────────────────────────────────────
 // Helpers
@@ -593,6 +594,7 @@ function ArticleForm() {
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [saving, setSaving] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
   const isEdit = window.location.pathname.includes('/edit/');
   const id = isEdit ? window.location.pathname.split('/').pop() : null;
@@ -605,8 +607,15 @@ function ArticleForm() {
     }
   }, [isEdit, id]);
 
+  // intercept submit — just show confirm dialog
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setShowConfirm(true);
+  };
+
+  // actual save — called only after user confirms
+  const doSave = async () => {
+    setShowConfirm(false);
     setSaving(true);
     const url = isEdit ? `/api/articles/${id}` : '/api/articles';
     const method = isEdit ? 'PUT' : 'POST';
@@ -644,6 +653,21 @@ function ArticleForm() {
           </button>
         </div>
       </form>
+
+      {/* Publish confirmation */}
+      <ConfirmDialog
+        isOpen={showConfirm}
+        title={isEdit ? 'O\'zgarishlarni saqlaysizmi?' : 'Maqolani joylaysizmi?'}
+        message={isEdit
+          ? 'Maqoladagi o\'zgarishlar saqlanadi va saytga chiqadi. Tasdiqlaysizmi?'
+          : 'Bu maqola barcha tashrif buyuruvchilarga ko\'rinadi. Joylashtirishni tasdiqlaysizmi?'
+        }
+        confirmLabel={isEdit ? 'Ha, saqlash' : 'Ha, joylashtirish'}
+        cancelLabel="Bekor qilish"
+        variant="publish"
+        onConfirm={doSave}
+        onCancel={() => setShowConfirm(false)}
+      />
     </div>
   );
 }

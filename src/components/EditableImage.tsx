@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useEditMode } from '../context/EditModeContext';
 import { Camera, Upload, Move, ZoomIn, X } from 'lucide-react';
+import ConfirmDialog from './ConfirmDialog';
 
 interface ImageStyle {
   scale: number;
@@ -49,6 +50,7 @@ export default function EditableImage({
   const { isEditMode } = useEditMode();
   const [uploading, setUploading] = useState(false);
   const [showPanel, setShowPanel] = useState(false);
+  const [pendingSave, setPendingSave] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { url, style: initialStyle } = decodeSrc(src);
@@ -73,7 +75,7 @@ export default function EditableImage({
       const newStyle: ImageStyle = { scale: 1, posX: 50, posY: 50 };
       setImgUrl(data.url);
       setStyle(newStyle);
-      await onSave(encodeSrc(data.url, newStyle));
+      setPendingSave(encodeSrc(data.url, newStyle)); // queue for confirm
     } catch {
       alert('Yuklashda xatolik');
     } finally {
@@ -85,7 +87,22 @@ export default function EditableImage({
   const updateStyle = (patch: Partial<ImageStyle>) => {
     const newStyle = { ...style, ...patch };
     setStyle(newStyle);
-    onSave(encodeSrc(imgUrl, newStyle));
+    setPendingSave(encodeSrc(imgUrl, newStyle)); // queue for confirm
+  };
+
+  const handleConfirmSave = async () => {
+    if (pendingSave !== null) {
+      await onSave(pendingSave);
+      setPendingSave(null);
+    }
+  };
+
+  const handleCancelSave = () => {
+    // Revert local state back to the original from DB
+    const { url: u, style: s } = decodeSrc(src);
+    setImgUrl(u);
+    setStyle(s);
+    setPendingSave(null);
   };
 
   const imgStyle: React.CSSProperties = {
@@ -196,6 +213,18 @@ export default function EditableImage({
       )}
 
       <input ref={inputRef} type="file" accept="image/*" hidden onChange={handleUpload} />
+
+      {/* Save confirmation */}
+      <ConfirmDialog
+        isOpen={pendingSave !== null}
+        title="O'zgarishlarni saqlaysizmi?"
+        message="Rasm yoki pozitsiya o'zgartirildi. Saqlashni tasdiqlaysizmi?"
+        confirmLabel="Ha, saqlash"
+        cancelLabel="Bekor qilish"
+        variant="save"
+        onConfirm={handleConfirmSave}
+        onCancel={handleCancelSave}
+      />
     </div>
   );
 }
