@@ -203,8 +203,6 @@ export default function Admin() {
     { path: '/maktabpanel/content/about', icon: <School size={18} />, label: 'Maktab haqida' },
     { path: '/maktabpanel/content/education', icon: <BookOpen size={18} />, label: "Ta'lim" },
     { path: '/maktabpanel/content/admission', icon: <ClipboardList size={18} />, label: 'Qabul' },
-    { path: '/maktabpanel/enrollments', icon: <Users size={18} />, label: 'Arizalar' },
-    { path: '/maktabpanel/messages', icon: <MessageSquare size={18} />, label: 'Xabarlar' },
     { path: '/maktabpanel/articles', icon: <FileText size={18} />, label: 'Yangiliklar' },
     { path: '/maktabpanel/settings', icon: <SettingsIcon size={18} />, label: 'Sozlamalar' },
   ];
@@ -273,8 +271,7 @@ export default function Admin() {
             <Route path="/content/about" element={<AdminPagePreview page="about" />} />
             <Route path="/content/education" element={<AdminPagePreview page="education" />} />
             <Route path="/content/admission" element={<AdminPagePreview page="admission" />} />
-            <Route path="/enrollments" element={<EnrollmentsList />} />
-            <Route path="/messages" element={<MessagesList />} />
+
             <Route path="/articles" element={<ArticleList />} />
             <Route path="/article/new" element={<ArticleForm />} />
             <Route path="/article/edit/:id" element={<ArticleForm />} />
@@ -290,15 +287,13 @@ export default function Admin() {
 // Dashboard
 // ────────────────────────────────────────────────
 function Dashboard() {
-  const [stats, setStats] = useState({ articles: 0, enrollments: 0, messages: 0 });
+  const [stats, setStats] = useState({ articles: 0 });
 
   useEffect(() => {
     fetch('/api/stats').then(r => r.json()).then(setStats).catch(console.error);
   }, []);
 
   const cards = [
-    { icon: <Users size={24} />, label: 'Jami Arizalar', value: stats.enrollments, color: 'bg-blue-50 text-[#062bad]', link: '/maktabpanel/enrollments' },
-    { icon: <MessageSquare size={24} />, label: 'Yangi Xabarlar', value: stats.messages, color: 'bg-cyan-50 text-cyan-700', link: '/maktabpanel/messages' },
     { icon: <FileText size={24} />, label: 'Yangiliklar', value: stats.articles, color: 'bg-purple-50 text-purple-700', link: '/maktabpanel/articles' },
   ];
 
@@ -439,110 +434,7 @@ function Settings() {
   );
 }
 
-// ────────────────────────────────────────────────
-// Enrollments
-// ────────────────────────────────────────────────
-function EnrollmentsList() {
-  const [enrollments, setEnrollments] = useState<any[]>([]);
-
-  const fetch_ = () => fetch('/api/enrollments').then(r => r.json()).then(setEnrollments).catch(console.error);
-  useEffect(() => { fetch_(); }, []);
-
-  const updateStatus = async (id: number, status: string) => {
-    await fetch(`/api/enrollments/${id}/status`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
-    fetch_();
-  };
-  const del = async (id: number) => {
-    if (!confirm("O'chirilsinmi?")) return;
-    await fetch(`/api/enrollments/${id}`, { method: 'DELETE' });
-    fetch_();
-  };
-
-  const statusColor: Record<string, string> = {
-    YANGI: 'bg-yellow-100 text-yellow-800',
-    KORIB_CHIQILMOQDA: 'bg-blue-100 text-blue-800',
-    QABUL_QILINDI: 'bg-green-100 text-green-800',
-    RAD_ETILDI: 'bg-red-100 text-red-800',
-  };
-
-  return (
-    <div className="p-8">
-      <h1 className="text-2xl font-extrabold text-slate-900 mb-6">Arizalar</h1>
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden overflow-x-auto">
-        <table className="min-w-full divide-y divide-slate-100">
-          <thead className="bg-slate-50 text-xs font-bold text-slate-400 uppercase tracking-wider">
-            <tr>
-              {["O'quvchi","Sinf/Til","Ota-ona/Tel","Manba","Holat","Sana","Amallar"].map(h => (
-                <th key={h} className="px-5 py-3 text-left last:text-right">{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-50">
-            {enrollments.map(item => (
-              <tr key={item.id} className="hover:bg-slate-50/50 text-sm">
-                <td className="px-5 py-3"><p className="font-semibold text-slate-800">{item.child_name}</p><p className="text-xs text-slate-400">{item.birth_date}</p></td>
-                <td className="px-5 py-3"><p className="font-medium">{item.grade}</p><p className="text-xs text-slate-400">{item.language}</p></td>
-                <td className="px-5 py-3"><p className="font-medium">{item.parent_name}</p><p className="text-xs text-slate-400">{item.phone}</p></td>
-                <td className="px-5 py-3 text-slate-500">{item.source}</td>
-                <td className="px-5 py-3">
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${statusColor[item.status] || 'bg-slate-100 text-slate-600'}`}>{item.status}</span>
-                </td>
-                <td className="px-5 py-3 text-slate-400 text-xs">{new Date(item.created_at).toLocaleDateString('uz-UZ')}</td>
-                <td className="px-5 py-3 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    {item.status === 'YANGI' && <button onClick={() => updateStatus(item.id, 'KORIB_CHIQILMOQDA')} className="text-[#062bad] hover:text-[#051fa0]"><CheckCircle size={16}/></button>}
-                    {item.status === 'KORIB_CHIQILMOQDA' && <>
-                      <button onClick={() => updateStatus(item.id, 'QABUL_QILINDI')} className="text-green-600 hover:text-green-800"><CheckCircle size={16}/></button>
-                      <button onClick={() => updateStatus(item.id, 'RAD_ETILDI')} className="text-red-500 hover:text-red-700"><XCircle size={16}/></button>
-                    </>}
-                    <button onClick={() => del(item.id)} className="text-red-400 hover:text-red-600"><Trash2 size={16}/></button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {!enrollments.length && <tr><td colSpan={7} className="px-5 py-10 text-center text-slate-400">Hozircha arizalar yo'q</td></tr>}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-// ────────────────────────────────────────────────
-// Messages
-// ────────────────────────────────────────────────
-function MessagesList() {
-  const [messages, setMessages] = useState<any[]>([]);
-  const fetch_ = () => fetch('/api/messages').then(r => r.json()).then(setMessages).catch(console.error);
-  useEffect(() => { fetch_(); }, []);
-  const del = async (id: number) => {
-    if (!confirm("O'chirilsinmi?")) return;
-    await fetch(`/api/messages/${id}`, { method: 'DELETE' });
-    fetch_();
-  };
-
-  return (
-    <div className="p-8">
-      <h1 className="text-2xl font-extrabold text-slate-900 mb-6">Xabarlar</h1>
-      <div className="grid gap-4 max-w-4xl">
-        {messages.map(item => (
-          <div key={item.id} className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm flex gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <p className="font-bold text-slate-800">{item.name}</p>
-                <p className="text-xs text-slate-400 font-medium">{item.phone}</p>
-                <span className="ml-auto text-xs text-slate-300">{new Date(item.created_at).toLocaleDateString('uz-UZ')}</span>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed">{item.message}</p>
-            </div>
-            <button onClick={() => del(item.id)} className="text-red-300 hover:text-red-500 self-start mt-1 transition-colors"><Trash2 size={16}/></button>
-          </div>
-        ))}
-        {!messages.length && <div className="text-center text-slate-400 py-16 bg-white rounded-2xl border border-slate-100">Hozircha xabarlar yo'q</div>}
-      </div>
-    </div>
-  );
-}
+// Enrollments & Messages removed — all leads sent directly to Durbin CRM
 
 // ────────────────────────────────────────────────
 // Articles

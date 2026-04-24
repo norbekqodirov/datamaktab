@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2 } from 'lucide-react';
 
+const CRM_API = 'https://durbin.uz/api/v1/external/leads';
+const CRM_KEY = 'Gengohghei0bo9iGu9UMahchai4ohye5Joo4Tei1oVii8ohw5geesouNoh4aph4u';
+
 export default function EnrollModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
@@ -15,37 +19,66 @@ export default function EnrollModal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = {
-      child_name: formData.get('child_name'),
-      birth_date: formData.get('birth_date'),
-      grade: formData.get('grade'),
-      language: formData.get('language'),
-      parent_name: formData.get('parent_name'),
-      phone: formData.get('phone'),
-      email: formData.get('email'),
-      source: formData.get('source'),
-      message: formData.get('message')
+
+    const parentName = (formData.get('parent_name') as string) || '';
+    const childName = (formData.get('child_name') as string) || '';
+    const phone = (formData.get('phone') as string) || '';
+    const grade = (formData.get('grade') as string) || '';
+    const language = (formData.get('language') as string) || '';
+    const source = (formData.get('source') as string) || '';
+    const email = (formData.get('email') as string) || '';
+    const message = (formData.get('message') as string) || '';
+
+    // Split parent name into firstName / lastName
+    const nameParts = parentName.trim().split(/\s+/);
+    const firstName = nameParts[0] || parentName;
+    const lastName = nameParts.slice(1).join(' ') || '';
+
+    // Build description with all enrollment details
+    const descParts = [
+      `O'quvchi: ${childName}`,
+      `Sinf: ${grade}`,
+      `Ta'lim tili: ${language}`,
+      source ? `Manba: ${source}` : '',
+      email ? `Email: ${email}` : '',
+      message ? `Xabar: ${message}` : '',
+    ].filter(Boolean);
+
+    const crmBody = {
+      firstName,
+      phone,
+      lastName,
+      description: descParts.join(' | '),
     };
 
     try {
-      const res = await fetch('/api/enrollments', {
+      const res = await fetch(CRM_API, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Api-Key': CRM_KEY,
+        },
+        body: JSON.stringify(crmBody),
       });
-      if (res.ok) {
+
+      if (res.ok || res.status === 201) {
         setIsSuccess(true);
         setTimeout(() => {
           setIsOpen(false);
           setIsSuccess(false);
         }, 3000);
       } else {
+        const errText = await res.text();
+        console.error('CRM error:', res.status, errText);
         alert("Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
       }
     } catch (err) {
       console.error(err);
       alert("Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -140,8 +173,8 @@ export default function EnrollModal() {
                   <textarea name="message" rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50 resize-none" placeholder="O'zingizni qiziqtirgan savollarni yozishingiz mumkin..."></textarea>
                 </div>
 
-                <button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-bold text-lg transition-colors shadow-lg shadow-blue-900/20">
-                  Arizani yuborish
+                <button type="submit" disabled={loading} className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-bold text-lg transition-colors shadow-lg shadow-blue-900/20 disabled:opacity-60">
+                  {loading ? 'Yuborilmoqda...' : 'Arizani yuborish'}
                 </button>
               </form>
             </div>

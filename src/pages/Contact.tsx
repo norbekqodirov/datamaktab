@@ -14,15 +14,32 @@ export default function Contact() {
     e.preventDefault();
     setSending(true);
     try {
-      await fetch('/api/messages', {
+      const nameParts = form.name.trim().split(/\s+/);
+      const firstName = nameParts[0] || form.name;
+      const lastName = nameParts.slice(1).join(' ') || '';
+
+      const res = await fetch('https://durbin.uz/api/v1/external/leads', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Api-Key': 'Gengohghei0bo9iGu9UMahchai4ohye5Joo4Tei1oVii8ohw5geesouNoh4aph4u',
+        },
+        body: JSON.stringify({
+          firstName,
+          phone: form.phone,
+          lastName,
+          description: `[Sayt Xabar] ${form.message}`,
+        }),
       });
-      setSent(true);
-      setForm({ name: '', phone: '', message: '' });
+
+      if (res.ok || res.status === 201) {
+        setSent(true);
+        setForm({ name: '', phone: '', message: '' });
+      } else {
+        alert("Xatolik yuz berdi, qayta urinib ko'ring");
+      }
     } catch {
-      alert('Xatolik yuz berdi, qayta urinib ko\'ring');
+      alert("Xatolik yuz berdi, qayta urinib ko'ring");
     } finally {
       setSending(false);
     }

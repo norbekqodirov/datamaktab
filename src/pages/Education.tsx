@@ -9,208 +9,522 @@ export default function Education() {
   const { get, saveKey } = useSiteSettings();
   const e = t.education;
 
-  const getArr = (key: string, arrIdx: number, valIdx: number, fb: string) => {
-    try {
-       const arr = JSON.parse(get(key, '[]'));
-       if (arr[arrIdx] && arr[arrIdx][valIdx]) return arr[arrIdx][valIdx];
-    } catch {}
-    return fb;
-  };
-
-  const saveArr = (key: string, arrIdx: number, valIdx: number, fbArr: any[], val: string) => {
-    try {
-      let arr = JSON.parse(get(key, '[]'));
-      if (!Array.isArray(arr) || arr.length === 0) arr = fbArr;
-      arr[arrIdx][valIdx] = val;
-      saveKey(key, JSON.stringify(arr));
-    } catch {
-      const arr = [...fbArr];
-      arr[arrIdx][valIdx] = val;
-      saveKey(key, JSON.stringify(arr));
-    }
-  };
-
-  const roadmapFB = [
-    { grade: '1-4',  title: "Boshlang'ich",    tag: t.nav.education, color: 'from-[#03caff] to-[#062bad]', desc: "Montessori yondashuvi, o'yin orqali o'rganish, ingliz tilining asoslari." },
-    { grade: '5-7',  title: "O'rta bosqich",    tag: 'IELTS B1', color: 'from-[#062bad] to-[#041c80]', desc: "Chuqurlashtirilgan IT va matematika, IELTS B1 darajasiga tayyorlik." },
-    { grade: '8-9',  title: "Yuqori o'rta",     tag: 'SAT 500+', color: 'from-[#041c80] to-[#03caff]', desc: "Profilaktik fanlar, international olympiads, SAT tayyorgarligi." },
-    { grade: '10-11', title: "Tayyorlov",        tag: 'IELTS 7.5+', color: 'from-[#03caff] to-[#062bad]', desc: "Universitet tanlov, IELTS 7.5+, kasbiy yo'naltirish." },
+  const roadmap = [
+    { sinf: '1-2-sinf', yosh: '7–8', title: 'Maktab hayotiga kirish', desc: "Maktab muhitiga moslashish, o'qish va hisoblash ko'nikmalarini shakllantirish. Ingliz tili bilan tanishuv (150–250+ so'z)." },
+    { sinf: '3-4-sinf', yosh: '9–10', title: 'Tizimli bilim va birinchi olimpiada', desc: "Kuchli fanlarda chuqurlashuv va birinchi portfolio. A1 darajani yakunlash, ingliz tilida muloqot boshlanishi." },
+    { sinf: '5-6-sinf', yosh: '11–12', title: 'Akademik jiddiylik va darajaga bo\'linish', desc: "Algebra, kasrlar, tenglamalar boshlanadi. Ingliz tili A2 dan B1 ga o'tadi. TILDA, Scratch, Python asoslari." },
+    { sinf: '7-8-sinf', yosh: '12–14', title: 'IELTS va IT\'ga jiddiy kirish', desc: "Portfolio shakllantirish. B1 dan B2 darajaga chiqadi. IELTS tayyorgarligi boshlanadi. AI vositalari, Telegram botlar." },
+    { sinf: '9-10-sinf', yosh: '14–16', title: 'Xalqaro sertifikat va universitetga kirish', desc: "IELTS 6.0–7.5+ darajaga chiqadi. Xorijiy oliygohlarga hujjat topshirish va amaliy tajriba." },
+    { sinf: '11-sinf', yosh: '16–17', title: 'Final bosqich — natija va kelajak', desc: "Trigonometriya, analiz, SAT va OTM darajasidagi masalalar. Full-stack ilovalar, AI media, GitHub portfolio." },
   ];
 
-  const certsFB = [
-    { name: 'IELTS', target: '6.0 → 7.5+', icon: 'language', partner: 'British Council' },
-    { name: 'SAT', target: '530+', icon: 'calculate', partner: 'College Board' },
-    { name: 'TOPIK', target: 'II daraja', icon: 'g_translate', partner: 'NIIED Korea' },
-    { name: 'Cambridge', target: 'B2–C1', icon: 'school', partner: 'Cambridge Assesment' },
-    { name: 'Milliy Sertifikat', target: 'B+', icon: 'workspace_premium', partner: "O'zbekiston DTM" },
-    { name: 'BOND Olympiad', target: 'Top 10%', icon: 'emoji_events', partner: 'International BOND' },
+  const competitions = [
+    { name: 'TASIMO', subject: 'Matematika', stages: '3 bosqich', scope: "O'zbekiston" },
+    { name: 'Al-Khorazmiy', subject: 'Matematika', stages: '2 bosqich', scope: 'Markaziy Osiyo' },
+    { name: 'SASMO', subject: 'Matematika', stages: '2 bosqich', scope: '42 ta davlat' },
+    { name: 'HIPPO', subject: 'Ingliz tili', stages: '4 bosqich', scope: 'Final — Italiyada' },
+    { name: 'Copernicus', subject: 'Matematika', stages: '3 bosqich', scope: 'Final — AQSH' },
+    { name: 'KHISO', subject: 'Ingliz, rus, informatika, fizika', stages: '3 bosqich', scope: "O'zbekiston" },
+    { name: 'KENGURU', subject: 'Matematika', stages: '1 bosqich', scope: 'Xalqaro' },
+    { name: 'BOND', subject: 'Ingliz, matematika, IT', stages: '1 bosqich', scope: "O'zbekiston" },
   ];
 
-  const structureFB = [
-    { label: "Matematika", pct: 23, color: '#062bad' },
-    { label: "Ingliz tili", pct: 23, color: '#03caff' },
-    { label: "IT va Dasturlash", pct: 10, color: '#041c80' },
-    { label: "Qolgan fanlar", pct: 44, color: '#e2ebff' },
+  const clubs = [
+    { icon: 'chess', name: 'Shahmat', type: 'Akademik' },
+    { icon: 'code', name: 'Dasturlash', type: 'IT' },
+    { icon: 'calculate', name: 'Mental Arifmetika', type: 'Akademik' },
+    { icon: 'precision_manufacturing', name: 'Robototexnika', type: 'IT' },
+    { icon: 'sports_martial_arts', name: 'Karate', type: 'Sport' },
+    { icon: 'sports_gymnastics', name: 'Gimnastika', type: 'Sport' },
+    { icon: 'language', name: 'Koreys/Xitoy/Rus tili', type: 'Til' },
+    { icon: 'photo_camera', name: 'Mobilografiya', type: 'Ijodiy' },
+    { icon: 'psychology', name: 'Sun\'iy intellekt', type: 'IT' },
+    { icon: 'school', name: 'IELTS/SAT tayyorlov', type: 'Akademik' },
+    { icon: 'palette', name: 'Dizayn va San\'at', type: 'Ijodiy' },
+    { icon: 'trending_up', name: 'Tadbirkorlik asoslari', type: 'Biznes' },
   ];
 
-  const montesFeatsFB = ['Mustaqil fikrlash', 'Ijodiy rivojlanish', 'Amaliy o\'rganish', 'Individual yondashuv'];
+  const certs = [
+    { subject: 'Ingliz tili', cert: 'IELTS', target: '6 – 7.5' },
+    { subject: 'Matematika', cert: 'Milliy sertifikat, SAT', target: 'B+ – A+ / 530+' },
+    { subject: 'Koreys tili', cert: 'TOPIK', target: '3 – 5 daraja' },
+    { subject: 'Informatika', cert: "Xalqaro IT sertifikatlari", target: 'Foundation – Advanced' },
+    { subject: 'Tarix, Kimyo, Ona tili', cert: 'Milliy sertifikat', target: 'B+ – A+' },
+  ];
+
+  const itTeachers = [
+    { name: "G'ayrat Latipov", subject: 'Robototexnika fani ustozi' },
+    { name: 'Kamronbek Atabayev', subject: 'Dasturlash fani ustozi' },
+    { name: 'Anvarbek Sapayev', subject: 'Informatika fani ustozi' },
+  ];
 
   return (
     <div className="bg-surface font-body text-on-surface">
+
       {/* Hero */}
-      <section className="relative h-[55vh] min-h-[380px] overflow-hidden flex items-end bg-primary">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary opacity-90" />
-          <div className="absolute top-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-10 w-64 h-64 bg-primary/40 rounded-full blur-2xl" />
+      <section className="relative h-[60vh] min-h-[400px] overflow-hidden flex items-end">
+        <div className="absolute inset-0 z-0">
+          <EditableImage src={get('edu_hero_bg', '/maktab.jpg')} alt={e.hero_title} onSave={v => saveKey('edu_hero_bg', v)}
+            className="w-full h-full" imgClassName="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/95" />
         </div>
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-16">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-            <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
-            <EditableText value={get('edu_hero_title', e.hero_title)} onSave={v => saveKey('edu_hero_title', v)} as="h1" className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter">
+            <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Xalqaro Maktabi</span>
+            <EditableText value={get('edu_hero_title', e.hero_title)} onSave={v => saveKey('edu_hero_title', v)} as="h1"
+              className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter">
               {get('edu_hero_title', e.hero_title)}
             </EditableText>
-            <EditableText value={get('edu_hero_desc', e.hero_desc)} onSave={v => saveKey('edu_hero_desc', v)} as="p" multiline className="mt-3 text-white/80 text-lg max-w-2xl">
+            <EditableText value={get('edu_hero_desc', e.hero_desc)} onSave={v => saveKey('edu_hero_desc', v)} as="p" multiline className="mt-4 text-white/80 text-lg max-w-2xl">
               {get('edu_hero_desc', e.hero_desc)}
             </EditableText>
           </motion.div>
         </div>
       </section>
 
-      {/* 11-Year Roadmap */}
-      <section className="py-24">
+      {/* 11-Year Roadmap Visual */}
+      <section className="py-28 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{e.roadmap_title}</h2>
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">1-sinfdan 11-sinfgacha</span>
+            <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">
+              11 yillik <span className="text-[#03caff]">ta'lim yo'l xaritasi</span>
+            </h2>
+            <p className="mt-5 text-on-surface-muted max-w-2xl mx-auto text-lg">Har bir sinf uchun aniq natija maqsadlari va kompetensiya darajalari belgilangan.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {roadmapFB.map((step, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="glass-card rounded-3xl overflow-hidden border border-primary/10 shadow-md hover:-translate-y-2 hover:shadow-xl transition-all flex flex-col bg-white">
-                <div className="aspect-[4/3] w-full relative group overflow-hidden bg-slate-100">
-                  <EditableImage src={get(`edu_roadmap_img_${i}`, `/images/edu-roadmap-${i+1}.jpg`)} alt={step.title} onSave={v => saveKey(`edu_roadmap_img_${i}`, v)}
-                    className="absolute inset-0 w-full h-full"
-                    imgClassName="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${step.color} z-10`} />
-                </div>
-                <div className="p-7 flex-1 flex flex-col">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-3xl font-headline font-extrabold text-primary/20">{step.grade}</span>
-                    <EditableText value={getArr('edu_roadmap', i, 0, step.tag)} onSave={v => saveArr('edu_roadmap', i, 0, roadmapFB.map(x=>[x.tag,x.title,x.desc]), v)}
-                      as="span" className="text-[10px] font-extrabold uppercase tracking-widest px-3 py-1.5 bg-[#03caff]/10 text-[#062bad] rounded-full">
-                      {getArr('edu_roadmap', i, 0, step.tag)}
-                    </EditableText>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {roadmap.map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
+                className="flex flex-col rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 bg-white hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
+                <div className="aspect-[16/9] relative bg-slate-100">
+                  <EditableImage src={get(`edu_road_img_${i}`, `/images/grade-${i+1}.jpg`)} alt={item.sinf} onSave={v => saveKey(`edu_road_img_${i}`, v)}
+                    className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 flex items-end gap-3">
+                    <span className="bg-[#03caff] text-white font-headline font-extrabold text-xl px-5 py-2 rounded-2xl shadow-lg shadow-[#03caff]/30">{item.sinf}</span>
+                    <span className="text-white/80 font-bold text-sm">{item.yosh} yosh</span>
                   </div>
-                  <EditableText value={getArr('edu_roadmap', i, 1, step.title)} onSave={v => saveArr('edu_roadmap', i, 1, roadmapFB.map(x=>[x.tag,x.title,x.desc]), v)}
-                    as="h3" className="font-headline font-extrabold text-xl text-primary mb-3">
-                    {getArr('edu_roadmap', i, 1, step.title)}
-                  </EditableText>
-                  <EditableText value={getArr('edu_roadmap', i, 2, step.desc)} onSave={v => saveArr('edu_roadmap', i, 2, roadmapFB.map(x=>[x.tag,x.title,x.desc]), v)}
-                    as="p" multiline className="text-on-surface-muted text-sm leading-relaxed flex-1">
-                    {getArr('edu_roadmap', i, 2, step.desc)}
-                  </EditableText>
+                </div>
+                <div className="p-7 flex-1">
+                  <h3 className="font-headline font-extrabold text-primary text-lg mb-3 leading-snug">{item.title}</h3>
+                  <p className="text-on-surface-muted text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* International Certs */}
-      <section className="py-24 bg-gradient-to-b from-white to-slate-50/50">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="text-center mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{e.cert_title}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {certsFB.map((cert, i) => (
-              <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}
-                className="glass-card rounded-2xl p-6 border border-primary/5 flex items-center gap-5 hover:shadow-lg transition-all group">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-white text-lg">{cert.icon}</span>
-                </div>
-                <div>
-                  <EditableText value={getArr('edu_certs', i, 0, cert.name)} onSave={v => saveArr('edu_certs', i, 0, certsFB.map(x=>[x.name,x.target,x.partner]), v)}
-                    as="h3" className="font-headline font-extrabold text-primary">{getArr('edu_certs', i, 0, cert.name)}</EditableText>
-                  <EditableText value={getArr('edu_certs', i, 1, cert.target)} onSave={v => saveArr('edu_certs', i, 1, certsFB.map(x=>[x.name,x.target,x.partner]), v)}
-                    as="p" className="text-secondary font-bold text-sm">{getArr('edu_certs', i, 1, cert.target)}</EditableText>
-                  <EditableText value={getArr('edu_certs', i, 2, cert.partner)} onSave={v => saveArr('edu_certs', i, 2, certsFB.map(x=>[x.name,x.target,x.partner]), v)}
-                    as="p" className="text-on-surface-muted text-[11px] mt-0.5">{getArr('edu_certs', i, 2, cert.partner)}</EditableText>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Montessori */}
-      <section className="py-24">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="bg-white rounded-[3rem] p-8 md:p-16 border border-primary/5 shadow-2xl shadow-primary/5">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              
-              {/* Left Images */}
-              <div className="relative h-[400px] md:h-[500px]">
-                <div className="absolute top-0 left-0 w-3/4 h-[80%] rounded-[2rem] overflow-hidden shadow-xl z-10 border-4 border-white bg-slate-100 group">
-                  <EditableImage src={get('edu_mont_img1', '/images/montessori-1.jpg')} alt="Montessori" onSave={v => saveKey('edu_mont_img1', v)}
-                    className="w-full h-full" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                </div>
-                <div className="absolute bottom-0 right-0 w-[60%] h-[60%] rounded-[2rem] overflow-hidden shadow-2xl z-20 border-4 border-white bg-slate-100 group">
-                  <EditableImage src={get('edu_mont_img2', '/images/montessori-2.jpg')} alt="Montessori" onSave={v => saveKey('edu_mont_img2', v)}
-                    className="w-full h-full" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                </div>
-              </div>
-
-              {/* Right Content */}
-              <div>
-                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">2027–2028 yildan boshlab</span>
-                <EditableText value={get('edu_mont_title', e.montessori_title)} onSave={v => saveKey('edu_mont_title', v)} as="h2" className="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                  {get('edu_mont_title', e.montessori_title)}
-                </EditableText>
-                <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
-                <EditableText value={get('edu_mont_desc', e.montessori_desc)} onSave={v => saveKey('edu_mont_desc', v)} as="p" multiline className="text-on-surface-muted leading-relaxed text-lg mb-10">
-                  {get('edu_mont_desc', e.montessori_desc)}
-                </EditableText>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  {montesFeatsFB.map((feat, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full bg-[#03caff]/20 flex items-center justify-center flex-shrink-0 text-[#062bad]">
-                        <span className="material-symbols-outlined text-sm">check</span>
-                      </div>
-                      <EditableText value={get(`edu_mont_f${i}`, feat)} onSave={v => saveKey(`edu_mont_f${i}`, v)} as="span" className="font-bold text-sm text-primary">
-                        {get(`edu_mont_f${i}`, feat)}
-                      </EditableText>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
+          {/* Methodologies */}
+          <div className="mt-16 p-8 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-3xl border border-primary/10">
+            <h3 className="font-headline font-extrabold text-primary text-2xl mb-6 text-center">Dastur qurilgan metodikalar</h3>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {['Outcome-Based Education (OBE)', 'Competency-Based Learning', 'Project-Based Learning (PBL)', 'STEAM Education', 'Hybrid Global Education Model', 'College Prep Model (AQSH)', 'Differentiated Instruction', 'Montessori'].map((m, i) => (
+                <span key={i} className="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border border-primary/15 shadow-sm">{m}</span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Lesson structure */}
+      {/* Lesson Distribution */}
       <section className="py-24 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="text-center mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{e.structure_title}</h2>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Dars Soatlari Taqsimoti</span>
+              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6">
+                Ixtisoslashuvga <span className="text-[#03caff]">56%</span>
+              </h2>
+              <p className="text-on-surface-muted text-lg leading-relaxed mb-10">
+                Dasturimizning deyarli yarmidan ko'prog'i — 56% — maktabning ixtisoslashgan fanlariga ajratilgan. Bu o'quvchilarda mantiqiy fikrlash, global til kompetensiyalari va zamonaviy raqamli savodxonlikni erta bosqichdan shakllantiradi.
+              </p>
+              <div className="space-y-5">
+                {[
+                  { subject: 'Matematika', pct: 23, color: '#062bad' },
+                  { subject: 'Ingliz tili', pct: 23, color: '#03caff' },
+                  { subject: 'IT (Axborot texnologiyalari)', pct: 10, color: '#041c80' },
+                  { subject: '12 ta umumta\'lim fanlari', pct: 44, color: '#64748b' },
+                ].map((item, i) => (
+                  <div key={i}>
+                    <div className="flex justify-between mb-2">
+                      <span className="font-semibold text-primary text-sm">{item.subject}</span>
+                      <span className="font-bold text-sm" style={{ color: item.color }}>{item.pct}%</span>
+                    </div>
+                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} whileInView={{ width: `${item.pct}%` }} transition={{ duration: 1, ease: 'easeOut' }} viewport={{ once: true }}
+                        className="h-full rounded-full" style={{ backgroundColor: item.color }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative h-[480px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+              <EditableImage src={get('edu_lessons_img', '/images/classroom.jpg')} alt="Darslar" onSave={v => saveKey('edu_lessons_img', v)}
+                className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent pointer-events-none" />
+              <div className="absolute bottom-8 left-8 right-8 grid grid-cols-3 gap-3">
+                {[{ val: '09:00', label: 'Dars boshlanadi' }, { val: '45 min', label: 'Dars davomiyligi' }, { val: '17:00', label: 'Dars tugaydi' }].map((stat, i) => (
+                  <div key={i} className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-4 text-center text-white">
+                    <p className="font-headline font-extrabold text-xl">{stat.val}</p>
+                    <p className="text-[10px] uppercase tracking-widest opacity-80 mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="max-w-3xl mx-auto space-y-5">
-            {structureFB.map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="flex items-center gap-6">
-                <EditableText value={getArr('edu_struct', i, 0, item.label)} onSave={v => saveArr('edu_struct', i, 0, structureFB.map(x=>[x.label]), v)}
-                  as="p" className="w-32 text-right font-bold text-sm text-primary">{getArr('edu_struct', i, 0, item.label)}</EditableText>
-                <div className="flex-1 h-12 bg-white rounded-full overflow-hidden shadow-inner border border-slate-100 flex items-center">
-                  <motion.div className="h-full flex items-center justify-end px-4 shadow-[inset_-5px_0_15px_rgba(0,0,0,0.1)]"
-                    style={{ width: `${item.pct}%`, backgroundColor: item.color }} initial={{ width: 0 }} whileInView={{ width: `${item.pct}%` }} transition={{ duration: 1, delay: 0.2 }} viewport={{ once: true }}>
-                    <span className="text-white font-extrabold text-sm">{item.pct}%</span>
-                  </motion.div>
+        </div>
+      </section>
+
+      {/* Subject Roadmaps — Math, English, IT */}
+      <section className="py-28 bg-white">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Fan Yo'l Xaritalari</span>
+            <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-primary">Matematika · Ingliz tili · IT</h2>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Math */}
+            <div className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+              <div className="aspect-video relative bg-slate-100 group">
+                <EditableImage src={get('edu_math_img', '/images/math.jpg')} alt="Matematika" onSave={v => saveKey('edu_math_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#062bad]/80 to-transparent pointer-events-none" />
+                <div className="absolute bottom-5 left-6">
+                  <span className="text-white font-headline font-extrabold text-2xl">Matematika</span>
+                  <p className="text-[#03caff] text-sm font-bold">Formula emas — fikrlash tizimi</p>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { stage: '1–2-sinf', desc: "Sonlar, qo'shish-ayirish, mantiqiy fikrlash asoslari" },
+                  { stage: '3–4-sinf', desc: 'Ko\'paytirish, bo\'lish, kasrga kirish, olimpiada elementlari' },
+                  { stage: '5–6-sinf', desc: 'Algebra, kasrlar, tenglamalar — qo\'llash bosqichi' },
+                  { stage: '7–8-sinf', desc: 'Formulalar, funksiyalar, kombinatorika, olimpiada tayyorgarligi' },
+                  { stage: '9–11-sinf', desc: 'Trigonometriya, analiz, SAT va OTM masalalari' },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-3 p-4 bg-white rounded-2xl">
+                    <span className="font-bold text-[#062bad] text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
+                    <span className="text-on-surface-muted text-sm">{item.desc}</span>
+                  </div>
+                ))}
+                <div className="p-5 bg-[#062bad]/5 rounded-2xl mt-2">
+                  <p className="text-xs font-bold text-[#062bad] uppercase tracking-widest mb-2">Ustozlar jamoasi</p>
+                  {['Azizbek Matchanov — 4 yil, IELTS C1, SAT 1200', 'Feruza Abdullayeva — 3 yil, A+, SAT 1200', "Nargiza Amangaldiyevna — 28 yillik tajriba, SAT 930"].map((t, i) => (
+                    <p key={i} className="text-xs text-on-surface-muted py-1 border-b border-slate-100 last:border-0">{t}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* English */}
+            <div className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+              <div className="aspect-video relative bg-slate-100 group">
+                <EditableImage src={get('edu_eng_img', '/images/english.jpg')} alt="Ingliz tili" onSave={v => saveKey('edu_eng_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#03caff]/80 to-transparent pointer-events-none" />
+                <div className="absolute bottom-5 left-6">
+                  <span className="text-white font-headline font-extrabold text-2xl">Ingliz tili</span>
+                  <p className="text-white/80 text-sm font-bold">Global dunyoga ochilgan eshik</p>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { stage: '1–2-sinf', desc: 'CEFR yo\'li boshlanadi: 150–250+ so\'z zaxirasi', level: 'Pre-A1' },
+                  { stage: '3–4-sinf', desc: "A1 yakunlanadi. Oddiy dialoglar, qisqa matnlar", level: 'A1' },
+                  { stage: '5–6-sinf', desc: "Ingliz tilida fikr bildirish shakllana boshlaydi", level: 'A2–B1' },
+                  { stage: '7–8-sinf', desc: "Academic writing, speaking, debatlar. IELTS tayyorgarligi", level: 'B1–B2' },
+                  { stage: '9–11-sinf', desc: 'IELTS 6.0–7.5+. University darajasida ingliz tili', level: 'C1' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-2xl">
+                    <span className="font-bold text-[#03caff] text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
+                    <div>
+                      <span className="text-on-surface-muted text-sm">{item.desc}</span>
+                      <span className="block text-[#03caff] font-bold text-xs mt-1">CEFR: {item.level}</span>
+                    </div>
+                  </div>
+                ))}
+                <div className="p-5 bg-[#03caff]/5 rounded-2xl mt-2">
+                  <p className="text-xs font-bold text-[#03caff] uppercase tracking-widest mb-2">Ustozlar jamoasi</p>
+                  {['Jumazoda Shohida — 13 yil, CEFR C1', 'Zaripbayeva Nasiba — CEFR C1, magistr', 'Durdiboev Malik — IELTS 8.0, 7 yil'].map((t, i) => (
+                    <p key={i} className="text-xs text-on-surface-muted py-1 border-b border-slate-100 last:border-0">{t}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* IT */}
+            <div className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+              <div className="aspect-video relative bg-slate-100 group">
+                <EditableImage src={get('edu_it_img', '/images/it.jpg')} alt="IT" onSave={v => saveKey('edu_it_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#041c80]/80 to-transparent pointer-events-none" />
+                <div className="absolute bottom-5 left-6">
+                  <span className="text-white font-headline font-extrabold text-2xl">IT Ta'lim</span>
+                  <p className="text-[#03caff] text-sm font-bold">Ertangi kasb — bugundan</p>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                {[
+                  { stage: '1–2-sinf', desc: 'Kompyuter bilan tanishuv, algoritmik fikrlash asoslari', tool: 'Scratch' },
+                  { stage: '3–4-sinf', desc: 'Word, Paint, Scratch, mini-o\'yinlar', tool: 'Code.org' },
+                  { stage: '5–6-sinf', desc: 'TILDA, robototexnika, Python asoslari', tool: 'Python' },
+                  { stage: '7–8-sinf', desc: 'Web-dasturlash, AI vositalari, Telegram botlar', tool: 'JavaScript' },
+                  { stage: '9–11-sinf', desc: 'Full-stack ilovalar, AI media, GitHub, startap loyihalar', tool: 'Full-Stack' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-2xl">
+                    <span className="font-bold text-[#041c80] text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
+                    <div>
+                      <span className="text-on-surface-muted text-sm">{item.desc}</span>
+                      <span className="block text-[#041c80] font-bold text-xs mt-1">{item.tool}</span>
+                    </div>
+                  </div>
+                ))}
+                <div className="p-5 bg-[#041c80]/5 rounded-2xl mt-2">
+                  <p className="text-xs font-bold text-[#041c80] uppercase tracking-widest mb-2">Ustozlar jamoasi</p>
+                  {itTeachers.map((t, i) => (
+                    <p key={i} className="text-xs text-on-surface-muted py-1 border-b border-slate-100 last:border-0">{t.name} — {t.subject}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section className="py-24 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="text-center mb-16">
+            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-white">{e.certs_title}</h2>
+            <p className="mt-4 text-white/70 max-w-2xl mx-auto text-lg">Fan sertifikati — imtiyozdir. Oliygohga kirish imtihonlarida real ustunlik va kengroq imkoniyatlar.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            {certs.map((cert, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
+                className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 text-white hover:bg-white/20 transition-all">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#03caff]/20 flex items-center justify-center flex-shrink-0">
+                    <span className="material-symbols-outlined text-[#03caff] text-xl">verified</span>
+                  </div>
+                  <div>
+                    <h3 className="font-headline font-extrabold text-lg mb-1">{cert.subject}</h3>
+                    <p className="text-white/70 text-sm mb-2">{cert.cert}</p>
+                    <span className="px-3 py-1 bg-[#03caff]/20 border border-[#03caff]/30 rounded-full text-[#03caff] text-xs font-bold">{cert.target}</span>
+                  </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+          {/* SAT Center + IELTS Center */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white/10 border border-white/20 rounded-3xl p-8 flex items-start gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-[#03caff]/20 flex items-center justify-center flex-shrink-0">
+                <span className="material-symbols-outlined text-[#03caff] text-3xl">fact_check</span>
+              </div>
+              <div>
+                <h3 className="font-headline font-extrabold text-white text-2xl mb-2">Rasmiy SAT Markazi</h3>
+                <p className="text-white/70 text-sm leading-relaxed">College Board tomonidan akkreditatsiyalangan — viloyatimizdagi uchinchi rasmiy markaz. 1200+ ball — davlat granti kafolati (VMQ 578-son).</p>
+              </div>
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-3xl p-8 flex items-start gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-[#03caff]/20 flex items-center justify-center flex-shrink-0">
+                <span className="material-symbols-outlined text-[#03caff] text-3xl">translate</span>
+              </div>
+              <div>
+                <h3 className="font-headline font-extrabold text-white text-2xl mb-2">Kompyuter IELTS Markazi</h3>
+                <p className="text-white/70 text-sm leading-relaxed">Xorazmdagi kompyuter IELTS markazi aynan DATA hududida. British Council bilan rasmiy hamkorlik.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Olympiads Table */}
+      <section className="py-28 bg-white">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Xalqaro Olimpiadalar</span>
+              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6">Chempionlar <span className="text-[#03caff]">maktabi</span></h2>
+              <p className="text-on-surface-muted leading-relaxed text-lg mb-10">2026–2027 o'quv yilida 8 ta ustuvor olimpiada.</p>
+              <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-sm">
+                <table className="w-full text-sm">
+                  <thead className="bg-gradient-to-r from-primary to-[#041c80] text-white">
+                    <tr>
+                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest">Olimpiada</th>
+                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest">Yo'nalish</th>
+                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest">Qamrov</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {competitions.map((comp, i) => (
+                      <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                        <td className="p-4 font-bold text-primary">{comp.name}</td>
+                        <td className="p-4 text-on-surface-muted">{comp.subject}</td>
+                        <td className="p-4"><span className="px-3 py-1 bg-[#03caff]/10 text-[#062bad] rounded-full text-xs font-bold">{comp.scope}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="space-y-6">
+              <div className="relative h-[300px] rounded-[2.5rem] overflow-hidden shadow-2xl group bg-slate-100">
+                <EditableImage src={get('edu_olymp_img', '/images/olympiad.jpg')} alt="Olimpiadalar" onSave={v => saveKey('edu_olymp_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-7">
+                  <p className="text-white font-bold text-sm uppercase tracking-widest mb-1">2025–2026 natijalar</p>
+                  <p className="text-white font-headline font-extrabold text-2xl">15+ musobaqa — o'rinlar</p>
+                </div>
+              </div>
+              {/* BOND badge */}
+              <div className="p-7 bg-gradient-to-r from-[#062bad] to-[#03caff] rounded-3xl text-white">
+                <h3 className="font-headline font-extrabold text-2xl mb-3">BOND Olimpiadasi Loyihasi</h3>
+                <p className="text-white/80 text-sm leading-relaxed mb-4">DATA'ning o'z olimpiadasi — O'zbekiston bo'ylab 1–11-sinf o'quvchilari uchun.</p>
+                <a href="https://bondolympiad.uz" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white text-[#062bad] px-5 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform">
+                  bondolympiad.uz
+                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Clubs */}
+      <section className="py-28 bg-surface">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Qo'shimcha rivojlanish</span>
+            <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-primary">{e.clubs_title}</h2>
+            <p className="mt-4 text-on-surface-muted max-w-2xl mx-auto text-lg">Darsdan tashqari vaqt — kelajakni qurish vaqti. 12 ta faol to'garak.</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {clubs.map((club, i) => (
+              <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}
+                className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all text-center group cursor-default">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined">{club.icon}</span>
+                </div>
+                <h3 className="font-headline font-extrabold text-primary text-base mb-1">{club.name}</h3>
+                <span className="text-[10px] uppercase tracking-widest font-bold text-on-surface-muted">{club.type}</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-12 p-7 bg-white rounded-3xl border border-slate-100 shadow-sm">
+            <h3 className="font-headline font-extrabold text-primary text-lg mb-4">2026–2027 o'quv yilida rejadagi yangi to'garaklar</h3>
+            <div className="flex flex-wrap gap-3">
+              {['Kulolchilik', 'Duradgorlik', 'Musiqa', 'Dron Futbol', 'Kasb Tanlash', "Sahna Madaniyati va Nutq"].map((t, i) => (
+                <span key={i} className="px-4 py-2 bg-[#03caff]/10 text-[#062bad] rounded-full text-sm font-bold border border-[#03caff]/20">{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Montessori */}
+      <section className="py-28 bg-white">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative h-[520px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+              <EditableImage src={get('edu_montessori_img', '/images/montessori.jpg')} alt="Montessori" onSave={v => saveKey('edu_montessori_img', v)}
+                className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent pointer-events-none" />
+              <div className="absolute top-6 right-6 bg-[#03caff] text-white px-5 py-3 rounded-2xl shadow-lg">
+                <p className="font-headline font-extrabold text-xl">2027–2028</p>
+                <p className="text-xs uppercase tracking-widest opacity-80">boshlang'ich sinflar</p>
+              </div>
+            </div>
+            <div>
+              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{e.montessori_title}</span>
+              <EditableText value={get('edu_mont_h', e.montessori_heading)} onSave={v => saveKey('edu_mont_h', v)} as="h2"
+                className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
+                {get('edu_mont_h', e.montessori_heading)}
+              </EditableText>
+              <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
+              <EditableText value={get('edu_mont_desc', e.montessori_desc)} onSave={v => saveKey('edu_mont_desc', v)} as="p" multiline
+                className="text-on-surface-muted leading-relaxed text-lg mb-10">
+                {get('edu_mont_desc', e.montessori_desc)}
+              </EditableText>
+              <div className="space-y-4 mb-8">
+                {[
+                  { icon: 'self_improvement', title: 'Mustaqillik', desc: 'Bola o\'zi tanlaydi, o\'zi bajaradi, o\'zi xulosa qiladi' },
+                  { icon: 'person_celebrate', title: 'Individual rivojlanish', desc: 'Har bir o\'quvchi o\'z tezligida o\'sadi' },
+                  { icon: 'science', title: 'Amaliy o\'rganish', desc: 'Bilim tajriba va harakat orqali shakllanadi' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 p-5 bg-surface rounded-2xl">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white flex-shrink-0">
+                      <span className="material-symbols-outlined text-xl">{item.icon}</span>
+                    </div>
+                    <div>
+                      <strong className="text-primary block mb-1">{item.title}</strong>
+                      <span className="text-on-surface-muted text-sm">{item.desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="p-5 bg-[#062bad]/5 rounded-2xl border border-primary/10">
+                <p className="text-[#062bad] font-bold italic text-sm">"Biz bolalarni tizimga moslashtirmaymiz — biz tizimni bolaga moslashtiramiz."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tutor + Coin System */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Tutor */}
+            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
+              <div className="aspect-video relative bg-slate-100 group">
+                <EditableImage src={get('edu_tutor_img', '/images/tutor.jpg')} alt="Tyutor" onSave={v => saveKey('edu_tutor_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-7">
+                  <span className="text-white font-headline font-extrabold text-2xl">Tyutor Tizimi</span>
+                </div>
+              </div>
+              <div className="p-8">
+                <p className="text-on-surface-muted leading-relaxed mb-6">Yuqori sinflardagi har bir o'quvchiga individual yondashuv asosida kundalik kuzatib boruvchi tyutor biriktiriladi.</p>
+                <div className="space-y-3">
+                  {["O'quvchining bilim darajasini tahlil qilish", "Qiziqishlarini aniqlab, muhim tashabbularga jalb etish", "Ota-onalar bilan doimiy aloqa yuritish", "Intizom va maktab qoidalariga rioyani nazorat qilish"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 p-4 bg-surface rounded-2xl">
+                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-xl">check_circle</span>
+                      <span className="text-sm font-semibold text-primary">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {/* Coin */}
+            <div className="bg-gradient-to-br from-[#062bad]/5 to-[#03caff]/5 rounded-[2.5rem] overflow-hidden shadow-lg border border-primary/10">
+              <div className="aspect-video relative bg-slate-100 group">
+                <EditableImage src={get('edu_coin_img', '/images/coin.jpg')} alt="Coin Tizimi" onSave={v => saveKey('edu_coin_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#062bad]/70 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-7">
+                  <span className="text-white font-headline font-extrabold text-2xl">COIN Motivatsiya Tizimi</span>
+                </div>
+              </div>
+              <div className="p-8">
+                <p className="text-on-surface-muted leading-relaxed mb-6">O'quvchilarni rag'batlantiruvchi maxsus coin tizimi — bilim, xulq va faollik uchun ballar yig'iladi va yarmarkada sarflanadi.</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { name: 'Merkuriy Coin', val: '1 000 ball', color: '#94a3b8' },
+                    { name: 'Venera Coin', val: '5 000 ball', color: '#c084fc' },
+                    { name: 'Yupiter Coin', val: '10 000 ball', color: '#60a5fa' },
+                    { name: 'Saturn Super Coin', val: '25 000 ball', color: '#fbbf24' },
+                  ].map((coin, i) => (
+                    <div key={i} className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm text-center">
+                      <div className="w-8 h-8 rounded-full mx-auto mb-2" style={{ backgroundColor: coin.color }} />
+                      <p className="font-bold text-primary text-xs">{coin.name}</p>
+                      <p className="text-[#03caff] font-extrabold text-sm">{coin.val}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
