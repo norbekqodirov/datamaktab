@@ -119,16 +119,16 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden lg:flex justify-end items-start anim-fade-in delay-200 relative h-full w-full">
-              <div className="absolute top-[-5%] right-[-10%] w-[125%] h-full flex justify-end items-start pointer-events-none">
+            <div className="hidden lg:flex justify-end items-end anim-fade-in delay-200 relative h-full w-full flex-shrink-0">
+              <div className="relative w-[115%] flex justify-end items-end pointer-events-none transform translate-x-8">
                 <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
                 <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
                 <EditableImage
                   src={get('hero_student_img', '/students-hero.png')}
                   alt="O'quvchilar"
                   onSave={v => saveKey('hero_student_img', v)}
-                  className="w-full h-auto relative z-10 transform translate-y-4 translate-x-8 lg:translate-x-24 pointer-events-auto"
-                  imgClassName="w-full h-auto object-contain object-top"
+                  className="w-full relative z-10 pointer-events-auto"
+                  imgClassName="w-full h-auto max-h-[85vh] object-contain object-bottom drop-shadow-2xl"
                 />
               </div>
             </div>

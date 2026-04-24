@@ -11,6 +11,8 @@ import Home from './Home';
 import About from './About';
 import Education from './Education';
 import Admission from './Admission';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 // ────────────────────────────────────────────────
 // Helpers
@@ -537,7 +539,9 @@ function ArticleForm() {
         </div>
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase mb-1.5">To'liq matn</label>
-          <textarea required rows={12} value={content} onChange={e => setContent(e.target.value)} className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-[#062bad] outline-none resize-none" />
+          <div className="bg-white rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-[#062bad] focus-within:border-[#062bad] overflow-hidden">
+            <ReactQuill theme="snow" value={content} onChange={setContent} className="custom-quill" />
+          </div>
         </div>
         <div className="flex justify-end pt-2">
           <button type="submit" disabled={saving} className="flex items-center gap-2 px-6 py-2.5 bg-[#062bad] hover:bg-[#051fa0] text-white rounded-xl font-bold text-sm transition-colors">

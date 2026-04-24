@@ -106,9 +106,10 @@ export default function ArticleDetail() {
             )}
 
             {/* Content */}
-            <div className="prose prose-lg max-w-none text-on-surface leading-relaxed whitespace-pre-wrap">
-              {article.content}
-            </div>
+            <div 
+              className="prose prose-slate prose-lg max-w-none text-on-surface leading-relaxed prose-headings:font-headline prose-headings:font-extrabold prose-a:text-[#062bad] prose-img:rounded-2xl prose-strong:text-slate-900"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
           </div>
         </motion.article>
 
