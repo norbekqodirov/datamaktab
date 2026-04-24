@@ -122,18 +122,17 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Hero Image aligned to the bottom to prevent vertical separation on zoom out, 
-                scaled massively and shifted down to recreate the bottom-crop effect */}
-            <div className="hidden lg:flex justify-end items-end anim-fade-in delay-200 relative h-full w-full">
-              <div className="absolute bottom-[-15%] right-[-5%] w-[130%] min-w-[600px] max-w-[850px] flex justify-end items-end pointer-events-none">
-                <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
+            {/* Hero Image strictly bounded to perfectly align top with the text badge and right with the Navbar button */}
+            <div className="hidden lg:flex justify-end items-end relative h-full w-full pointer-events-none pb-0">
+              <div className="relative w-full h-full flex justify-end items-end">
+                <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
                 <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
                 <EditableImage
                   src={get('hero_student_img', '/students-hero.png')}
                   alt="O'quvchilar"
                   onSave={v => saveKey('hero_student_img', v)}
-                  className="w-full relative z-10 pointer-events-auto flex justify-end"
-                  imgClassName="w-full h-auto object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                  className="w-full h-full relative z-10 pointer-events-auto flex justify-end items-start"
+                  imgClassName="w-full h-full object-contain object-right-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
                 />
               </div>
             </div>
