@@ -303,53 +303,76 @@ export default function Admission() {
       </section>
 
       {/* Free supplies + Dress Code */}
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-10 md:py-14 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-10 items-stretch">
+
             {/* Free supplies */}
-            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group">
-              <div className="aspect-video relative bg-slate-100 group">
-                <EditableImage src={get('adm_supplies_img', '/images/supplies.jpg')} alt="Bepul o'quv qurollari" onSave={v => saveKey('adm_supplies_img', v)}
-                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-                <div className="absolute bottom-6 left-7">
-                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Bepul O'quv Qurollari</span>
+            <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
+              {/* Hero banner */}
+              <div className="bg-gradient-to-br from-[#062bad] to-[#03caff] px-8 py-10 flex items-center gap-6">
+                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <span className="material-symbols-outlined text-white text-4xl">menu_book</span>
+                </div>
+                <div>
+                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Maktab imkoniyati</p>
+                  <h3 className="text-white font-headline font-extrabold text-2xl leading-tight">Bepul O'quv Qurollari</h3>
                 </div>
               </div>
+              {/* Content */}
               <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
-                <p className="text-on-surface-muted leading-relaxed mb-6 text-sm md:text-base">DATA xalqaro maktabida barcha zarur o'quv qurollari va materiallari o'quvchilarga bepul taqdim etiladi. Ota-onalarning qo'shimcha xarajatini kamaytiramiz.</p>
-                <div className="p-5 md:p-6 bg-[#062bad]/5 border border-[#062bad]/10 rounded-2xl md:rounded-3xl shadow-sm mt-auto">
-                  <p className="text-[#062bad] font-bold text-xs md:text-sm leading-relaxed italic text-center">"Har bir o'quvchining zamonaviy, qulay va bepul o'quv jihozlari bilan ta'lim olishi — bizning sifatlilik mezonimiz."</p>
+                <p className="text-on-surface-muted leading-relaxed text-sm md:text-base mb-6">
+                  DATA xalqaro maktabida barcha zarur o'quv qurollari va materiallari o'quvchilarga bepul taqdim etiladi. Ota-onalarning qo'shimcha xarajatini kamaytiramiz.
+                </p>
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  {["Daftarlar", "Kitoblar", "Qalam va ruchkalar", "O'quv jihozlari"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 p-3 bg-[#03caff]/5 border border-[#03caff]/15 rounded-xl">
+                      <span className="material-symbols-outlined text-[#03caff] text-base">check_circle</span>
+                      <span className="text-primary font-semibold text-xs">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="p-4 bg-[#062bad]/5 border-l-4 border-[#062bad] rounded-r-2xl mt-auto">
+                  <p className="text-[#062bad] font-bold text-xs md:text-sm leading-relaxed italic">
+                    "Har bir o'quvchining zamonaviy, qulay va bepul o'quv jihozlari bilan ta'lim olishi — bizning sifatlilik mezonimiz."
+                  </p>
                 </div>
               </div>
             </div>
+
             {/* Dress code */}
-            <div className="bg-surface rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group/card">
-              <div className="aspect-video relative bg-slate-100 group">
-                <EditableImage src={get('adm_uniform_img', '/images/uniform.jpg')} alt="Maktab formasi" onSave={v => saveKey('adm_uniform_img', v)}
-                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none opacity-80" />
-                <div className="absolute bottom-6 left-7 pr-4">
-                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Maktab Formasi va Dress-Kod</span>
+            <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
+              {/* Hero banner */}
+              <div className="bg-gradient-to-br from-[#041c80] via-[#062bad] to-[#4f63d2] px-8 py-10 flex items-center gap-6">
+                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <span className="material-symbols-outlined text-white text-4xl">checkroom</span>
+                </div>
+                <div>
+                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Intizom va tartib</p>
+                  <h3 className="text-white font-headline font-extrabold text-2xl leading-tight">Maktab Formasi va Dress-Kod</h3>
                 </div>
               </div>
+              {/* Content */}
               <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
-                <p className="text-on-surface-muted leading-relaxed mb-6 text-sm md:text-base">Forma — nafaqat tashqi ko'rinish, balki tartib, intizom va maktabga mansublik hissini shakllantiradi.</p>
-                <div className="space-y-3 mt-auto">
+                <p className="text-on-surface-muted leading-relaxed text-sm md:text-base mb-6">
+                  Forma — nafaqat tashqi ko'rinish, balki tartib, intizom va maktabga mansublik hissini shakllantiradi.
+                </p>
+                <div className="space-y-2.5 flex-1">
                   {[
                     "O'quv kuni davomida, kelish va ketish vaqtida majburiy",
                     "Ekskursiya va rasmiy tadbirlarda majburiy",
                     "Ekstremal soch ranglari qat'iyan taqiqlanadi",
                     "Formasiz ekskursiyada ishtirok etib bo'lmaydi",
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-3 md:p-4 bg-slate-50 rounded-2xl shadow-sm border border-slate-100 group/item transition-all hover:bg-white hover:border-[#062bad]/20">
-                      <span className="material-symbols-outlined text-[#062bad] text-lg lg:text-xl shrink-0">checkroom</span>
+                    <div key={i} className="flex items-center gap-3 p-3.5 bg-slate-50 hover:bg-white border border-slate-100 hover:border-[#062bad]/20 rounded-2xl transition-colors">
+                      <span className="material-symbols-outlined text-[#062bad] text-lg shrink-0">checkroom</span>
                       <p className="text-primary font-bold text-xs md:text-sm leading-snug">{item}</p>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
