@@ -71,10 +71,10 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Right: Lang + Phone + CTA */}
-          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-5 lg:gap-6 flex-shrink-0">
             {/* Language Switcher */}
             <div className="relative group">
-              <button className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-[11px] font-extrabold tracking-widest transition-all ${isLight ? 'bg-slate-100 text-[#062bad] hover:bg-slate-200' : 'bg-white/10 text-white hover:bg-white/20'}`}>
+              <button className={`flex items-center gap-1 py-2 text-[12px] font-extrabold tracking-widest transition-all hover:opacity-70 ${isLight ? 'text-[#062bad]' : 'text-white'}`}>
                 {langs.find(l => l.code === lang)?.label}
                 <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
               </button>
