@@ -70,18 +70,33 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section className="relative min-h-[100svh] overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
-          <EditableImage
-            src={get('hero_bg', '/maktab.jpg')}
-            alt="DATA Maktabi"
-            onSave={v => saveKey('hero_bg', v)}
-            className="w-full h-full"
-            imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
-          />
+          <div className="w-full h-full">
+            <EditableImage
+              src={get('hero_bg', '/maktab.jpg')}
+              alt="DATA Maktabi"
+              onSave={v => saveKey('hero_bg', v)}
+              className="w-full h-full"
+              imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         </div>
 
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pt-32 pb-0 flex-grow flex flex-col justify-end">
+        {/* HERO IMAGE - Absolute to screen edge for ultra-wide zoom stability */}
+        <div className="absolute bottom-0 right-0 w-[50%] lg:w-[45%] max-w-[850px] hidden lg:flex justify-end items-end pointer-events-none z-10 px-8 xl:px-16 pb-0">
+          <div className="absolute bottom-1/4 right-20 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
+          <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
+          <EditableImage
+            src={get('hero_student_img', '/students-hero.png')}
+            alt="O'quvchilar"
+            onSave={v => saveKey('hero_student_img', v)}
+            className="w-full relative z-10 pointer-events-auto flex justify-end"
+            imgClassName="w-full h-auto max-h-[85vh] object-contain object-bottom drop-shadow-2xl"
+          />
+        </div>
+
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-20 pt-32 pb-0 flex-grow flex flex-col justify-end">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-4 items-end flex-grow">
             <div className="max-w-xl mx-auto lg:mx-0 anim-slide-up text-center lg:text-left pb-16 lg:pb-24">
               <span className="inline-block px-4 py-1.5 mb-5 text-[10px] tracking-[0.2em] font-extrabold text-white uppercase bg-white/10 backdrop-blur-md rounded-full border border-white/20">
@@ -111,27 +126,16 @@ export default function Home() {
                   { val: t.hero.stat2_val, label: t.hero.stat2_label },
                   { val: t.hero.stat3_val, label: t.hero.stat3_label },
                 ].map((stat, idx) => (
-                  <div key={idx} className="glass-panel p-3 md:p-5 rounded-2xl text-center">
-                    <h4 className="text-2xl md:text-3xl font-extrabold text-primary mb-1 font-headline">{stat.val}</h4>
-                    <p className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-on-surface-muted">{stat.label}</p>
+                  <div key={idx} className="glass-card p-3 md:p-5 rounded-2xl text-center">
+                    <h4 className="text-2xl md:text-3xl font-extrabold text-white mb-1 font-headline">{stat.val}</h4>
+                    <p className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-white/70">{stat.label}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="hidden lg:flex justify-end items-end anim-fade-in delay-200 relative h-full w-full flex-shrink-0">
-              <div className="relative w-[115%] flex justify-end items-end pointer-events-none transform translate-x-8">
-                <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
-                <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
-                <EditableImage
-                  src={get('hero_student_img', '/students-hero.png')}
-                  alt="O'quvchilar"
-                  onSave={v => saveKey('hero_student_img', v)}
-                  className="w-full relative z-10 pointer-events-auto"
-                  imgClassName="w-full h-auto max-h-[85vh] object-contain object-bottom drop-shadow-2xl"
-                />
-              </div>
-            </div>
+            {/* Empty right column for grid layout alignment */}
+            <div className="hidden lg:block w-full"></div>
           </div>
         </div>
       </section>
