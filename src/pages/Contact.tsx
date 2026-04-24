@@ -18,12 +18,9 @@ export default function Contact() {
       const firstName = nameParts[0] || form.name;
       const lastName = nameParts.slice(1).join(' ') || '';
 
-      const res = await fetch('https://durbin.uz/api/v1/external/leads', {
+      const res = await fetch('/api/crm/lead', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Api-Key': 'Gengohghei0bo9iGu9UMahchai4ohye5Joo4Tei1oVii8ohw5geesouNoh4aph4u',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           firstName,
           phone: form.phone,

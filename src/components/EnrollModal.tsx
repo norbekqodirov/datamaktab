@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2 } from 'lucide-react';
 
-const CRM_API = 'https://durbin.uz/api/v1/external/leads';
-const CRM_KEY = 'Gengohghei0bo9iGu9UMahchai4ohye5Joo4Tei1oVii8ohw5geesouNoh4aph4u';
+
 
 export default function EnrollModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,12 +53,9 @@ export default function EnrollModal() {
     };
 
     try {
-      const res = await fetch(CRM_API, {
+      const res = await fetch('/api/crm/lead', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Api-Key': CRM_KEY,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(crmBody),
       });
 

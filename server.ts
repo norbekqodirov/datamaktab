@@ -81,15 +81,30 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   res.json({ url: `/uploads/${req.file.filename}` });
 });
 
+// --- CRM Proxy (avoids browser CORS) ---
+app.post('/api/crm/lead', async (req, res) => {
+  try {
+    const crmRes = await fetch('https://durbin.uz/api/v1/external/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': 'Gengohghei0bo9iGu9UMahchai4ohye5Joo4Tei1oVii8ohw5geesouNoh4aph4u',
+      },
+      body: JSON.stringify(req.body),
+    });
+    const text = await crmRes.text();
+    res.status(crmRes.status).send(text);
+  } catch (err: any) {
+    console.error('CRM proxy error:', err);
+    res.status(502).json({ error: 'CRM ulanishida xatolik', details: err.message });
+  }
+});
+
 // --- Stats ---
 app.get('/api/stats', (req, res) => {
   const articlesCount = db.prepare('SELECT COUNT(*) as count FROM articles').get() as { count: number };
-  const enrollmentsCount = db.prepare('SELECT COUNT(*) as count FROM enrollments').get() as { count: number };
-  const messagesCount = db.prepare('SELECT COUNT(*) as count FROM messages').get() as { count: number };
   res.json({
     articles: articlesCount.count,
-    enrollments: enrollmentsCount.count,
-    messages: messagesCount.count
   });
 });
 
