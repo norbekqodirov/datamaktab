@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Users, UserCheck, GraduationCap, Award, Globe } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Team() {
   const management = [
@@ -24,6 +25,7 @@ export default function Team() {
     <div className="bg-surface font-body text-on-surface pb-20">
       {/* Hero Section */}
       <section className="relative h-[500px] overflow-hidden flex items-center">
+        <SEO url="/maktab-haqida/jamoa" title="Jamoa" description="DATA Xalqaro Maktabi rahbariyati va o'qituvchilar jamoasi. Tajribali pedagoglar, rahbariyat va qo'llab-quvvatlash xodimlari haqida batafsil ma'lumot." />
         <div className="absolute inset-0 z-0">
           <img 
             className="w-full h-full object-cover grayscale-[20%]" 

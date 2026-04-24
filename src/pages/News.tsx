@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 interface Article {
   id: number;
@@ -27,6 +28,7 @@ export default function News() {
 
   return (
     <div className="bg-surface min-h-screen font-body text-on-surface pb-20">
+      <SEO url="/blog" title="Yangiliklar" description="DATA Xalqaro Maktabidagi so'nggi yangiliklar, maqolalar va e'lonlar. Maktab hayoti va ta'lim bo'yicha eng yangi ma'lumotlar." />
       {/* Hero */}
       <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />

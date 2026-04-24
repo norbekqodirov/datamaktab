@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, MapPin, Mail, Send, MessageSquare, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -52,6 +53,7 @@ export default function Contact() {
   return (
     <div className="bg-surface font-body text-on-surface">
       {/* Hero */}
+      <SEO url="/aloqa" title="Aloqa" description="DATA Xalqaro Maktabi bilan bog'lanish: telefon, email, manzil. Savollaringiz bo'lsa, biz doim yordamga tayyormiz." />
       <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-12 right-16 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />

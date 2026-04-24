@@ -9,7 +9,7 @@ import compression from 'compression';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const IS_PROD = process.env.NODE_ENV === 'production';
+
 
 // Gzip compression — critical for production
 app.use(compression());
