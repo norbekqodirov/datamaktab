@@ -77,60 +77,64 @@ export default function Admission() {
               2026–2027 o'quv yili <span className="text-[#03caff]">qabuli</span>
             </h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 mb-16 items-stretch">
             {/* Grade 1 */}
-            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-surface rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50">
+              <div className="aspect-video relative bg-slate-100 group flex-shrink-0">
                 <EditableImage src={get('adm_step1_img', '/images/admission-1.jpg')} alt="1-sinf qabuli" onSave={v => saveKey('adm_step1_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#062bad] to-transparent pointer-events-none opacity-80" />
                 <div className="absolute bottom-6 left-7">
-                  <span className="bg-[#03caff] text-white text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2 inline-block">1-sinflar</span>
-                  <p className="text-white font-headline font-extrabold text-2xl">Individual Suhbat</p>
+                  <span className="bg-[#03caff] text-white text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2 inline-block shadow-md">1-sinflar</span>
+                  <p className="text-white font-headline font-extrabold text-2xl md:text-3xl drop-shadow-lg">Individual Suhbat</p>
                 </div>
               </div>
-              <div className="p-8">
-                <p className="text-on-surface-muted leading-relaxed mb-6">1-sinfga qabul faqat individual suhbat asosida amalga oshiriladi. Maktab psixologi va pedagoglar:</p>
-                <div className="space-y-3">
+              <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
+                <p className="text-on-surface-muted leading-relaxed mb-6">1-sinfga qabul faqat individual suhbat asosida amalga oshiriladi. Maktab psixologi va pedagoglar shularga alohida baho berishadi:</p>
+                <div className="space-y-3 mb-8">
                   {["Eshitish va tushunish darajasi", "Fikrlash va e'tibor salohiyati", "Nutq rivojlanishi", "Psixologik tayyorgarlik"].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 bg-white rounded-2xl">
-                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0">check_circle</span>
-                      <span className="text-sm font-semibold text-primary">{item}</span>
+                    <div key={i} className="flex items-center gap-4 px-1 py-1 group/item">
+                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-xl">check_circle</span>
+                      <span className="text-sm md:text-base font-semibold text-primary">{item}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-            {/* Grade 2-10 */}
-            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
-                <EditableImage src={get('adm_step2_img', '/images/admission-2.jpg')} alt="2-10 sinf qabuli" onSave={v => saveKey('adm_step2_img', v)}
-                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#041c80]/80 to-transparent pointer-events-none" />
-                <div className="absolute bottom-6 left-7">
-                  <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2 inline-block border border-white/30">2–10-sinflar</span>
-                  <p className="text-white font-headline font-extrabold text-2xl">2 Bosqichli Qabul</p>
+                <div className="p-4 bg-[#062bad]/5 border border-[#062bad]/10 rounded-2xl mt-auto">
+                  <p className="text-[#062bad] font-bold text-xs md:text-sm text-center">Tayyorgarliksiz qabul qilinish ehtimoli past.</p>
                 </div>
               </div>
-              <div className="p-8">
-                <div className="space-y-5">
-                  <div className="flex gap-5 p-5 bg-white rounded-2xl">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-extrabold flex-shrink-0">1</div>
-                    <div>
-                      <h4 className="font-bold text-primary mb-1">Yozma Test Sinovi (45–60 daqiqa)</h4>
-                      <p className="text-on-surface-muted text-sm">Matematika (mantiqiy fikrlash), Ona tili (o'zbek yoki rus), Ingliz tili (majburiy)</p>
+            </div>
+
+            {/* Grade 2-10 */}
+            <div className="bg-surface rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50">
+              <div className="aspect-video relative bg-slate-100 group flex-shrink-0">
+                <EditableImage src={get('adm_step2_img', '/images/admission-2.jpg')} alt="2-10 sinf qabuli" onSave={v => saveKey('adm_step2_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#041c80] to-transparent pointer-events-none opacity-80" />
+                <div className="absolute bottom-6 left-7">
+                  <span className="bg-white/20 backdrop-blur-md text-white text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2 inline-block border border-white/30 shadow-md">2–10-sinflar</span>
+                  <p className="text-white font-headline font-extrabold text-2xl md:text-3xl drop-shadow-lg">2 Bosqichli Qabul</p>
+                </div>
+              </div>
+              <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
+                <div className="space-y-4 mb-8">
+                  <div className="flex gap-4 p-4 border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-[#03caff]/30 transition-colors rounded-2xl">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#062bad] to-[#03caff] text-white flex items-center justify-center font-extrabold flex-shrink-0 shadow-md">1</div>
+                    <div className="mt-1">
+                      <h4 className="font-bold text-primary mb-1">Yozma Test Sinovi <span className="text-xs text-on-surface-muted italic font-normal ml-1">(45–60 daqiqa)</span></h4>
+                      <p className="text-on-surface-muted text-xs md:text-sm leading-relaxed">Matematika (mantiqiy fikrlash), Ona tili (o'zbek yoki rus), Ingliz tili (majburiy)</p>
                     </div>
                   </div>
-                  <div className="flex gap-5 p-5 bg-white rounded-2xl">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-extrabold flex-shrink-0">2</div>
-                    <div>
+                  <div className="flex gap-4 p-4 border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-[#03caff]/30 transition-colors rounded-2xl">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#062bad] to-[#03caff] text-white flex items-center justify-center font-extrabold flex-shrink-0 shadow-md">2</div>
+                    <div className="mt-1">
                       <h4 className="font-bold text-primary mb-1">Individual Suhbat</h4>
-                      <p className="text-on-surface-muted text-sm">Testdan o'tgan o'quvchilar fikrlash darajasi va o'zini tutish madaniyatiga baholanadi</p>
+                      <p className="text-on-surface-muted text-xs md:text-sm leading-relaxed">Testdan o'tgan o'quvchilar fikrlash darajasi va o'zini tutish madaniyatiga baholanadi</p>
                     </div>
                   </div>
-                  <div className="p-4 bg-[#03caff]/10 border border-[#03caff]/20 rounded-2xl">
-                    <p className="text-[#062bad] font-bold text-sm">Natija 3 ish kuni ichida SMS yoki telefon orqali e'lon qilinadi</p>
-                  </div>
+                </div>
+                <div className="p-4 bg-[#03caff]/10 border border-[#03caff]/20 rounded-2xl mt-auto">
+                  <p className="text-[#062bad] font-bold text-xs md:text-sm text-center">Natija 3 ish kuni ichida SMS yoki telefon orqali e'lon qilinadi</p>
                 </div>
               </div>
             </div>
