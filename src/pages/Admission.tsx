@@ -308,15 +308,14 @@ export default function Admission() {
           <div className="grid md:grid-cols-2 gap-6 lg:gap-10 items-stretch">
 
             {/* Free supplies */}
-            <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
-              {/* Hero banner */}
-              <div className="bg-gradient-to-br from-[#062bad] to-[#03caff] px-8 py-10 flex items-center gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <span className="material-symbols-outlined text-white text-4xl">menu_book</span>
-                </div>
-                <div>
-                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Maktab imkoniyati</p>
-                  <h3 className="text-white font-headline font-extrabold text-2xl leading-tight">Bepul O'quv Qurollari</h3>
+            <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full group/card">
+              <div className="aspect-[16/10] relative bg-slate-100 overflow-hidden">
+                <EditableImage src={get('adm_supplies_img', '/images/supplies.jpg')} alt="Bepul o'quv qurollari" onSave={v => saveKey('adm_supplies_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white/80 text-[10px] font-bold uppercase tracking-widest mb-1 drop-shadow-sm">Maktab imkoniyati</p>
+                  <h3 className="text-white font-headline font-extrabold text-2xl drop-shadow-md">Bepul O'quv Qurollari</h3>
                 </div>
               </div>
               {/* Content */}
@@ -341,15 +340,14 @@ export default function Admission() {
             </div>
 
             {/* Dress code */}
-            <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
-              {/* Hero banner */}
-              <div className="bg-gradient-to-br from-[#041c80] via-[#062bad] to-[#4f63d2] px-8 py-10 flex items-center gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <span className="material-symbols-outlined text-white text-4xl">checkroom</span>
-                </div>
-                <div>
-                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Intizom va tartib</p>
-                  <h3 className="text-white font-headline font-extrabold text-2xl leading-tight">Maktab Formasi va Dress-Kod</h3>
+            <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full group/card">
+              <div className="aspect-[16/10] relative bg-slate-100 overflow-hidden">
+                <EditableImage src={get('adm_uniform_img', '/images/uniform.jpg')} alt="Maktab formasi" onSave={v => saveKey('adm_uniform_img', v)}
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white/80 text-[10px] font-bold uppercase tracking-widest mb-1 drop-shadow-sm">Intizom va tartib</p>
+                  <h3 className="text-white font-headline font-extrabold text-2xl drop-shadow-md">Maktab Formasi va Dress-Kod</h3>
                 </div>
               </div>
               {/* Content */}
