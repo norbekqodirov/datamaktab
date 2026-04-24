@@ -122,9 +122,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Hero Image gracefully bounded within 1440px layout */}
+            {/* Hero Image aligned to the bottom to prevent vertical separation on zoom out, 
+                scaled massively and shifted down to recreate the bottom-crop effect */}
             <div className="hidden lg:flex justify-end items-end anim-fade-in delay-200 relative h-full w-full">
-              <div className="relative w-full min-w-[500px] max-w-[700px] flex justify-end items-end pointer-events-none translate-x-4 lg:translate-x-12 translate-y-4">
+              <div className="absolute bottom-[-15%] right-[-5%] w-[130%] min-w-[600px] max-w-[850px] flex justify-end items-end pointer-events-none">
                 <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-secondary blur-[120px] rounded-full opacity-60 z-0" />
                 <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary blur-[120px] rounded-full opacity-50 z-0" />
                 <EditableImage
@@ -132,7 +133,7 @@ export default function Home() {
                   alt="O'quvchilar"
                   onSave={v => saveKey('hero_student_img', v)}
                   className="w-full relative z-10 pointer-events-auto flex justify-end"
-                  imgClassName="w-[110%] h-auto max-h-[85vh] object-contain object-bottom drop-shadow-2xl"
+                  imgClassName="w-full h-auto object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
                 />
               </div>
             </div>
