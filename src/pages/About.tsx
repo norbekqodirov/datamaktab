@@ -75,20 +75,22 @@ export default function About() {
       {/* History + Logo Meaning */}
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Bizning Tarix</span>
-              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                DATA ta'lim ekotizimi — <span className="text-[#03caff]">2019 yildan</span>
-              </h2>
-              <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
-              <p className="text-on-surface-muted leading-relaxed text-lg mb-6">
-                DATA ta'lim markazi 2019-yilda Xorazm viloyatining Urganch shahrida tashkil etilgan. IT texnologiyalari va xorijiy tillar yo'nalishlariga ixtisoslashgan bo'lib, <strong className="text-primary">16 000 nafara yaqin yoshlarning</strong> kasb-hunar egallashiga hissa qo'shib kelmoqda.
-              </p>
-              <p className="text-on-surface-muted leading-relaxed text-lg mb-10">
-                2024-yilda ilk maktabni Urganch tumanida ishga tushirib, kurslardan boshlanib maktabgacha o'sgan yaxlit ta'lim ekotizimiga ega bo'ldik.
-              </p>
-              <div className="p-6 bg-surface rounded-3xl border border-primary/5 space-y-4">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+            <div className="flex flex-col justify-between py-2">
+              <div className="mb-8">
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Bizning Tarix</span>
+                <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
+                  DATA ta'lim ekotizimi — <span className="text-[#03caff]">2019 yildan</span>
+                </h2>
+                <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
+                <p className="text-on-surface-muted leading-relaxed text-lg mb-6">
+                  DATA ta'lim markazi 2019-yilda Xorazm viloyatining Urganch shahrida tashkil etilgan. IT texnologiyalari va xorijiy tillar yo'nalishlariga ixtisoslashgan bo'lib, <strong className="text-primary">16 000 nafara yaqin yoshlarning</strong> kasb-hunar egallashiga hissa qo'shib kelmoqda.
+                </p>
+                <p className="text-on-surface-muted leading-relaxed text-lg mb-10">
+                  2024-yilda ilk maktabni Urganch tumanida ishga tushirib, kurslardan boshlanib maktabgacha o'sgan yaxlit ta'lim ekotizimiga ega bo'ldik.
+                </p>
+              </div>
+              <div className="p-6 bg-surface rounded-3xl border border-primary/5 space-y-4 mt-auto">
                 <h3 className="font-headline font-extrabold text-primary text-xl">Logotipimiz ortidagi g'oya</h3>
                 {[
                   { d: 'Birinchi "D"', desc: "Ichki bo'shliq bilan — o'quvchining boshlang'ich bilim darajasi." },
@@ -97,24 +99,24 @@ export default function About() {
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <span className="font-headline font-extrabold text-2xl text-[#03caff] w-8 flex-shrink-0">{i + 1}</span>
-                    <div><strong className="text-primary">{item.d}</strong> — <span className="text-on-surface-muted">{item.desc}</span></div>
+                    <div><strong className="text-primary">{item.d}</strong> — <span className="text-on-surface-muted max-w-4xl">{item.desc}</span></div>
                   </div>
                 ))}
-                <p className="text-[#062bad] font-bold italic">"Bilimga to'ldiramiz!" — shiorimizdagi mazmun ham aynan shu.</p>
+                <p className="text-[#062bad] font-bold italic mt-2">"Bilimga to'ldiramiz!" — shiorimizdagi mazmun ham aynan shu.</p>
               </div>
             </div>
-            <div className="relative h-[560px]">
+            <div className="relative h-full min-h-[460px] w-full">
               <div className="absolute top-0 left-0 w-[72%] h-[75%] rounded-[2.5rem] overflow-hidden shadow-2xl z-10 group bg-slate-100">
                 <EditableImage src={get('about_hist_img1', '/images/about-1.jpg')} alt="DATA tarixi" onSave={v => saveKey('about_hist_img1', v)}
-                  className="w-full h-full" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="absolute bottom-0 right-0 w-[60%] h-[60%] rounded-[2.5rem] overflow-hidden shadow-2xl z-20 border-4 border-white group bg-slate-100">
                 <EditableImage src={get('about_hist_img2', '/images/about-2.jpg')} alt="DATA tarixi" onSave={v => saveKey('about_hist_img2', v)}
-                  className="w-full h-full" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="absolute top-1/2 -translate-y-1/2 right-4 z-30 bg-[#03caff] text-white rounded-3xl p-5 shadow-2xl shadow-[#03caff]/30">
-                <p className="font-headline font-extrabold text-3xl">16K+</p>
-                <p className="text-xs uppercase tracking-widest opacity-80 mt-1">Yetishtirilgan yosh</p>
+                <p className="font-headline font-extrabold text-3xl md:text-4xl">16K+</p>
+                <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1 font-bold">Yetishtirilgan yosh</p>
               </div>
             </div>
           </div>
