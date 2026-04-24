@@ -180,107 +180,113 @@ export default function Education() {
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Fan Yo'l Xaritalari</span>
             <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-primary">Matematika · Ingliz tili · IT</h2>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8 items-stretch">
             {/* Math */}
-            <div className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-surface rounded-3xl overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group">
+              <div className="aspect-video relative bg-slate-100">
                 <EditableImage src={get('edu_math_img', '/images/math.jpg')} alt="Matematika" onSave={v => saveKey('edu_math_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#062bad]/80 to-transparent pointer-events-none" />
-                <div className="absolute bottom-5 left-6">
-                  <span className="text-white font-headline font-extrabold text-2xl">Matematika</span>
-                  <p className="text-[#03caff] text-sm font-bold">Formula emas — fikrlash tizimi</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#062bad] to-transparent pointer-events-none opacity-80" />
+                <div className="absolute bottom-5 left-6 pr-4">
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-md">Matematika</span>
+                  <p className="text-[#03caff] text-xs font-bold uppercase tracking-widest mt-1 opacity-90 drop-shadow-md">Formula emas — fikrlash tizimi</p>
                 </div>
               </div>
-              <div className="p-6 space-y-3">
-                {[
-                  { stage: '1–2-sinf', desc: "Sonlar, qo'shish-ayirish, mantiqiy fikrlash asoslari" },
-                  { stage: '3–4-sinf', desc: 'Ko\'paytirish, bo\'lish, kasrga kirish, olimpiada elementlari' },
-                  { stage: '5–6-sinf', desc: 'Algebra, kasrlar, tenglamalar — qo\'llash bosqichi' },
-                  { stage: '7–8-sinf', desc: 'Formulalar, funksiyalar, kombinatorika, olimpiada tayyorgarligi' },
-                  { stage: '9–11-sinf', desc: 'Trigonometriya, analiz, SAT va OTM masalalari' },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-3 p-4 bg-white rounded-2xl">
-                    <span className="font-bold text-[#062bad] text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
-                    <span className="text-on-surface-muted text-sm">{item.desc}</span>
-                  </div>
-                ))}
-                <div className="p-5 bg-[#062bad]/5 rounded-2xl mt-2">
-                  <p className="text-xs font-bold text-[#062bad] uppercase tracking-widest mb-2">Ustozlar jamoasi</p>
+              <div className="p-6 md:p-8 flex-1 flex flex-col justify-between bg-white">
+                <div className="space-y-3 mb-8">
+                  {[
+                    { stage: '1–2-sinf', desc: "Sonlar, qo'shish-ayirish, mantiqiy fikrlash asoslari" },
+                    { stage: '3–4-sinf', desc: 'Ko\'paytirish, bo\'lish, kasrga kirish, olimpiada elementlari' },
+                    { stage: '5–6-sinf', desc: 'Algebra, kasrlar, tenglamalar — qo\'llash bosqichi' },
+                    { stage: '7–8-sinf', desc: 'Formulalar, funksiyalar, kombinatorika, olimpiada tayyorgarligi' },
+                    { stage: '9–11-sinf', desc: 'Trigonometriya, analiz, SAT va OTM masalalari' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4 px-1 py-2 rounded-2xl group/item">
+                      <span className="font-bold text-[#062bad] text-[10px] md:text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
+                      <span className="text-on-surface-muted text-xs md:text-sm leading-relaxed">{item.desc}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="p-5 bg-[#062bad]/5 rounded-2xl border border-[#062bad]/10 mt-auto flex-shrink-0">
+                  <p className="text-[10px] font-bold text-[#062bad] uppercase tracking-widest mb-3">Ustozlar jamoasi</p>
                   {['Azizbek Matchanov — 4 yil, IELTS C1, SAT 1200', 'Feruza Abdullayeva — 3 yil, A+, SAT 1200', "Nargiza Amangaldiyevna — 28 yillik tajriba, SAT 930"].map((t, i) => (
-                    <p key={i} className="text-xs text-on-surface-muted py-1 border-b border-slate-100 last:border-0">{t}</p>
+                    <p key={i} className="text-xs text-on-surface-muted font-medium py-1.5 border-b border-[#062bad]/5 last:border-0">{t}</p>
                   ))}
                 </div>
               </div>
             </div>
 
             {/* English */}
-            <div className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-surface rounded-3xl overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group">
+              <div className="aspect-video relative bg-slate-100">
                 <EditableImage src={get('edu_eng_img', '/images/english.jpg')} alt="Ingliz tili" onSave={v => saveKey('edu_eng_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#03caff]/80 to-transparent pointer-events-none" />
-                <div className="absolute bottom-5 left-6">
-                  <span className="text-white font-headline font-extrabold text-2xl">Ingliz tili</span>
-                  <p className="text-white/80 text-sm font-bold">Global dunyoga ochilgan eshik</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#03caff] to-transparent pointer-events-none opacity-80" />
+                <div className="absolute bottom-5 left-6 pr-4">
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-md">Ingliz tili</span>
+                  <p className="text-white/90 text-xs font-bold uppercase tracking-widest mt-1 drop-shadow-md">Global dunyoga ochilgan eshik</p>
                 </div>
               </div>
-              <div className="p-6 space-y-3">
-                {[
-                  { stage: '1–2-sinf', desc: 'CEFR yo\'li boshlanadi: 150–250+ so\'z zaxirasi', level: 'Pre-A1' },
-                  { stage: '3–4-sinf', desc: "A1 yakunlanadi. Oddiy dialoglar, qisqa matnlar", level: 'A1' },
-                  { stage: '5–6-sinf', desc: "Ingliz tilida fikr bildirish shakllana boshlaydi", level: 'A2–B1' },
-                  { stage: '7–8-sinf', desc: "Academic writing, speaking, debatlar. IELTS tayyorgarligi", level: 'B1–B2' },
-                  { stage: '9–11-sinf', desc: 'IELTS 6.0–7.5+. University darajasida ingliz tili', level: 'C1' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-2xl">
-                    <span className="font-bold text-[#03caff] text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
-                    <div>
-                      <span className="text-on-surface-muted text-sm">{item.desc}</span>
-                      <span className="block text-[#03caff] font-bold text-xs mt-1">CEFR: {item.level}</span>
+              <div className="p-6 md:p-8 flex-1 flex flex-col justify-between bg-white">
+                <div className="space-y-3 mb-8">
+                  {[
+                    { stage: '1–2-sinf', desc: 'CEFR yo\'li boshlanadi: 150–250+ so\'z zaxirasi', level: 'Pre-A1' },
+                    { stage: '3–4-sinf', desc: "A1 yakunlanadi. Oddiy dialoglar, qisqa matnlar", level: 'A1' },
+                    { stage: '5–6-sinf', desc: "Ingliz tilida fikr bildirish shakllana boshlaydi", level: 'A2–B1' },
+                    { stage: '7–8-sinf', desc: "Academic writing, speaking, debatlar. IELTS tayyorgarligi", level: 'B1–B2' },
+                    { stage: '9–11-sinf', desc: 'IELTS 6.0–7.5+. University darajasida ingliz tili', level: 'C1' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4 px-1 py-1.5 rounded-2xl group/item">
+                      <span className="font-bold text-[#03caff] text-[10px] md:text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
+                      <div>
+                        <span className="text-on-surface-muted text-xs md:text-sm leading-relaxed block mb-0.5">{item.desc}</span>
+                        <span className="inline-block px-1.5 py-0.5 bg-[#03caff]/10 text-[#03caff] rounded font-bold text-[10px]">CEFR: {item.level}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-                <div className="p-5 bg-[#03caff]/5 rounded-2xl mt-2">
-                  <p className="text-xs font-bold text-[#03caff] uppercase tracking-widest mb-2">Ustozlar jamoasi</p>
+                  ))}
+                </div>
+                <div className="p-5 bg-[#03caff]/5 rounded-2xl border border-[#03caff]/10 mt-auto flex-shrink-0">
+                  <p className="text-[10px] font-bold text-[#03caff] uppercase tracking-widest mb-3">Ustozlar jamoasi</p>
                   {['Jumazoda Shohida — 13 yil, CEFR C1', 'Zaripbayeva Nasiba — CEFR C1, magistr', 'Durdiboev Malik — IELTS 8.0, 7 yil'].map((t, i) => (
-                    <p key={i} className="text-xs text-on-surface-muted py-1 border-b border-slate-100 last:border-0">{t}</p>
+                    <p key={i} className="text-xs text-on-surface-muted font-medium py-1.5 border-b border-[#03caff]/5 last:border-0">{t}</p>
                   ))}
                 </div>
               </div>
             </div>
 
             {/* IT */}
-            <div className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-surface rounded-3xl overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group">
+              <div className="aspect-video relative bg-slate-100">
                 <EditableImage src={get('edu_it_img', '/images/it.jpg')} alt="IT" onSave={v => saveKey('edu_it_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#041c80]/80 to-transparent pointer-events-none" />
-                <div className="absolute bottom-5 left-6">
-                  <span className="text-white font-headline font-extrabold text-2xl">IT Ta'lim</span>
-                  <p className="text-[#03caff] text-sm font-bold">Ertangi kasb — bugundan</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#041c80] to-transparent pointer-events-none opacity-80" />
+                <div className="absolute bottom-5 left-6 pr-4">
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-md">IT Ta'lim</span>
+                  <p className="text-[#03caff] text-xs font-bold uppercase tracking-widest mt-1 opacity-90 drop-shadow-md">Ertangi kasb — bugundan</p>
                 </div>
               </div>
-              <div className="p-6 space-y-3">
-                {[
-                  { stage: '1–2-sinf', desc: 'Kompyuter bilan tanishuv, algoritmik fikrlash asoslari', tool: 'Scratch' },
-                  { stage: '3–4-sinf', desc: 'Word, Paint, Scratch, mini-o\'yinlar', tool: 'Code.org' },
-                  { stage: '5–6-sinf', desc: 'TILDA, robototexnika, Python asoslari', tool: 'Python' },
-                  { stage: '7–8-sinf', desc: 'Web-dasturlash, AI vositalari, Telegram botlar', tool: 'JavaScript' },
-                  { stage: '9–11-sinf', desc: 'Full-stack ilovalar, AI media, GitHub, startap loyihalar', tool: 'Full-Stack' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-2xl">
-                    <span className="font-bold text-[#041c80] text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
-                    <div>
-                      <span className="text-on-surface-muted text-sm">{item.desc}</span>
-                      <span className="block text-[#041c80] font-bold text-xs mt-1">{item.tool}</span>
+              <div className="p-6 md:p-8 flex-1 flex flex-col justify-between bg-white">
+                <div className="space-y-3 mb-8">
+                  {[
+                    { stage: '1–2-sinf', desc: 'Kompyuter bilan tanishuv, algoritmik fikrlash asoslari', tool: 'Scratch' },
+                    { stage: '3–4-sinf', desc: 'Word, Paint, Scratch, mini-o\'yinlar', tool: 'Code.org' },
+                    { stage: '5–6-sinf', desc: 'TILDA, robototexnika, Python asoslari', tool: 'Python' },
+                    { stage: '7–8-sinf', desc: 'Web-dasturlash, AI vositalari, Telegram botlar', tool: 'JavaScript' },
+                    { stage: '9–11-sinf', desc: 'Full-stack ilovalar, AI media, GitHub, startap loyihalar', tool: 'Full-Stack' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4 px-1 py-1.5 rounded-2xl group/item">
+                      <span className="font-bold text-[#041c80] text-[10px] md:text-xs uppercase tracking-widest min-w-[70px] flex-shrink-0 mt-0.5">{item.stage}</span>
+                      <div>
+                        <span className="text-on-surface-muted text-xs md:text-sm leading-relaxed block mb-0.5">{item.desc}</span>
+                        <span className="inline-block px-1.5 py-0.5 bg-[#041c80]/10 text-[#041c80] rounded font-bold text-[10px]">{item.tool}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-                <div className="p-5 bg-[#041c80]/5 rounded-2xl mt-2">
-                  <p className="text-xs font-bold text-[#041c80] uppercase tracking-widest mb-2">Ustozlar jamoasi</p>
+                  ))}
+                </div>
+                <div className="p-5 bg-[#041c80]/5 rounded-2xl border border-[#041c80]/10 mt-auto flex-shrink-0">
+                  <p className="text-[10px] font-bold text-[#041c80] uppercase tracking-widest mb-3">Ustozlar jamoasi</p>
                   {itTeachers.map((t, i) => (
-                    <p key={i} className="text-xs text-on-surface-muted py-1 border-b border-slate-100 last:border-0">{t.name} — {t.subject}</p>
+                    <p key={i} className="text-xs text-on-surface-muted font-medium py-1.5 border-b border-[#041c80]/5 last:border-0">{t.name} — {t.subject}</p>
                   ))}
                 </div>
               </div>
