@@ -5,11 +5,15 @@ import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
 import sharp from 'sharp';
+import compression from 'compression';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const IS_PROD = process.env.NODE_ENV === 'production';
 
-app.use(express.json());
+// Gzip compression — critical for production
+app.use(compression());
+app.use(express.json({ limit: '10mb' }));
 
 // Setup Multer with memory storage so sharp can intercept before writing to disk
 const uploadMemory = multer({ storage: multer.memoryStorage() });
@@ -279,8 +283,9 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  const port = Number(PORT);
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on http://localhost:${port}`);
   });
 }
 

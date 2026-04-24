@@ -6,6 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
+import SEO from '../components/SEO';
 
 interface Article {
   id: number;
@@ -65,6 +66,12 @@ export default function Home() {
   ];
 
   return (
+    <>
+      <SEO
+        url="/"
+        title="Bosh Sahifa"
+        description="DATA Xalqaro Maktabi — Urganch shahridagi zamonaviy xalqaro maktab. Sifatli ta'lim, ingliz tili, sport va ijodiy rivojlanish. 2026–2027 o'quv yiliga qabul davom etmoqda."
+      />
     <div className="bg-transparent font-body text-on-surface">
 
       {/* ─── HERO ─── */}
@@ -482,5 +489,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

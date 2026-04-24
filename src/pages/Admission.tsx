@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
+import SEO from '../components/SEO';
 
 export default function Admission() {
   const { t } = useLanguage();
@@ -45,6 +46,8 @@ export default function Admission() {
   };
 
   return (
+    <>
+    <SEO url="/qabul" title="Qabul" description="DATA Xalqaro Maktabiga qabul jarayoni: hujjatlar, narxlar, chegirmalar va 5 ta qoida haqida batafsil ma'lumot. 2026-2027 o'quv yiliga hozirnoq ariza bering." />
     <div className="bg-surface font-body text-on-surface">
 
       {/* Hero */}
@@ -452,5 +455,6 @@ export default function Admission() {
         </div>
       </section>
     </div>
+    </>
   );
 }

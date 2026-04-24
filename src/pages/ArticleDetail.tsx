@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Calendar, ArrowLeft, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 interface Article {
   id: number;
@@ -51,6 +52,13 @@ export default function ArticleDetail() {
   const readTimeMin = Math.max(1, Math.ceil(article.content.split(' ').length / 200));
 
   return (
+    <>
+    <SEO
+      title={article.title}
+      description={article.excerpt.slice(0, 160)}
+      url={`/news/${article.id}`}
+      image={article.image_url || undefined}
+    />
     <div className="bg-white min-h-screen font-body pb-24">
       <div className="max-w-[800px] mx-auto px-6 pt-32">
         {/* Top Nav / Back */}
@@ -134,5 +142,6 @@ export default function ArticleDetail() {
         </div>
       </div>
     </div>
+    </>
   );
 }

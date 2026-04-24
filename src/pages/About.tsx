@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
+import SEO from '../components/SEO';
 
 export default function About() {
   const { t } = useLanguage();
@@ -48,6 +49,9 @@ export default function About() {
   ];
 
   return (
+    <>
+    <SEO url="/maktab-haqida" title="Maktab Haqida" description="DATA Xalqaro Maktabi haqida batafsil ma'lumot: tarix, infratuzilma, tibbiy xizmat, ovqatlanish va transport. Urganch shahridagi eng sifatli xalqaro maktab." />
+
     <div className="bg-surface font-body text-on-surface">
 
       {/* Hero */}
@@ -528,5 +532,6 @@ export default function About() {
         </div>
       </section>
     </div>
+    </>
   );
 }

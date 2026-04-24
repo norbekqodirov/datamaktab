@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
+import SEO from '../components/SEO';
 
 export default function Education() {
   const { t } = useLanguage();
@@ -59,6 +60,8 @@ export default function Education() {
   ];
 
   return (
+    <>
+    <SEO url="/talim" title="Ta'lim" description="DATA Xalqaro Maktabida 11 yillik o'quv reja, Montessori yo'nalishi, olimpiadalar, ingliz tili, IT ta'lim va sertifikatlash tizimi bilan tanishing." />
     <div className="bg-surface font-body text-on-surface">
 
       {/* Hero */}
@@ -538,5 +541,6 @@ export default function Education() {
         </div>
       </section>
     </div>
+    </>
   );
 }
