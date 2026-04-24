@@ -51,7 +51,7 @@ export default function About() {
     <div className="bg-surface font-body text-on-surface">
 
       {/* Hero */}
-      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
+      <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
           <EditableImage src={get('about_hero_bg', '/maktab.jpg')} alt={a.hero_title} onSave={v => saveKey('about_hero_bg', v)}
             className="w-full h-full" imgClassName="w-full h-full object-cover grayscale-[10%]" />
@@ -73,7 +73,7 @@ export default function About() {
       </section>
 
       {/* History + Logo Meaning */}
-      <section className="py-24 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -122,7 +122,7 @@ export default function About() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-24">
+      <section className="py-12 md:py-16">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid md:grid-cols-2 gap-8">
             {[
@@ -154,7 +154,7 @@ export default function About() {
       </section>
 
       {/* Director's Letter */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-12 md:py-16 bg-white overflow-hidden">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -208,7 +208,7 @@ export default function About() {
       </section>
 
       {/* CIS + Cambridge + CyberPark + Legal */}
-      <section className="py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Rasmiy Status va A'zoliklar</span>
@@ -236,7 +236,7 @@ export default function About() {
       </section>
 
       {/* Infrastructure */}
-      <section className="py-24">
+      <section className="py-12 md:py-16">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{a.infra_title}</h2>
@@ -269,7 +269,7 @@ export default function About() {
       </section>
 
       {/* Health Team */}
-      <section className="py-24 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Bolalar Sog'lig'i</span>
@@ -319,7 +319,7 @@ export default function About() {
       </section>
 
       {/* Food + Transport */}
-      <section className="py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
@@ -381,7 +381,7 @@ export default function About() {
       </section>
 
       {/* Parent Communication + Survey */}
-      <section className="py-24 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{a.comms_title}</h2>
@@ -422,7 +422,7 @@ export default function About() {
       </section>
 
       {/* Yashnar + Inclusive */}
-      <section className="py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
@@ -468,7 +468,7 @@ export default function About() {
       </section>
 
       {/* Logo Description */}
-      <section className="py-24 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="glass-card rounded-[3rem] p-10 md:p-16 border border-primary/10 shadow-xl flex flex-col md:flex-row items-center gap-12 bg-gradient-to-r from-blue-50 to-white">
             <div className="w-48 md:w-64 flex-shrink-0">
@@ -488,7 +488,7 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">Rahbariyat va Ustozlar</h2>

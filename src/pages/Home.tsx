@@ -137,7 +137,7 @@ export default function Home() {
       </section>
 
       {/* ─── FEATURES ─── */}
-      <section className="py-28 bg-surface">
+      <section className="py-16 md:py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-20">
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
@@ -160,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* ─── FOUNDER'S LETTER ─── */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-12 md:py-16 bg-white overflow-hidden">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* Left image */}
@@ -211,7 +211,7 @@ export default function Home() {
       </section>
 
       {/* ─── PRESIDENT QUOTE ─── */}
-      <section className="py-16 md:py-24 relative overflow-hidden bg-surface">
+      <section className="py-16 md:py-12 md:py-16 relative overflow-hidden bg-surface">
         <div className="max-w-[1280px] mx-auto px-6 md:px-16">
           <div className="bg-white rounded-[2.5rem] p-6 md:p-10 lg:p-12 relative border border-primary/5 shadow-2xl shadow-primary/5 overflow-hidden">
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10">
@@ -252,7 +252,7 @@ export default function Home() {
       </section>
 
       {/* ─── 4 PILLARS / NIMA UCHUN DATA ─── */}
-      <section className="py-28 bg-white">
+      <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-20">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Nima uchun DATA?</span>
@@ -303,7 +303,7 @@ export default function Home() {
       </section>
 
       {/* ─── TECH HIGHLIGHTS ─── */}
-      <section className="py-28 bg-surface">
+      <section className="py-16 md:py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-20">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Zamonaviy Texnologiyalar</span>
@@ -357,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* ─── OLYMPIAD RESULTS ─── */}
-      <section className="py-28 relative overflow-hidden">
+      <section className="py-16 md:py-12 md:py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <img src="/maktab.jpg" className="w-full h-full object-cover scale-110" alt="" />
@@ -404,7 +404,7 @@ export default function Home() {
       </section>
 
       {/* ─── VIP VISITORS ─── */}
-      <section className="py-24 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -445,7 +445,7 @@ export default function Home() {
 
       {/* ─── BLOG PREVIEW ─── */}
       {articles.length > 0 && (
-        <section className="py-28 bg-surface">
+        <section className="py-16 md:py-12 md:py-16 bg-surface">
           <div className="max-w-[1440px] mx-auto px-6 md:px-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div>
@@ -495,7 +495,7 @@ export default function Home() {
       {/* ─── CTA ─── */}
       <section className="py-32">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-24 md:py-32 px-6 md:px-16 text-center shadow-2xl">
+          <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-12 md:py-16 md:py-32 px-6 md:px-16 text-center shadow-2xl">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10" />
               <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.jpg" alt="" />

@@ -28,7 +28,7 @@ export default function News() {
   return (
     <div className="bg-surface min-h-screen font-body text-on-surface pb-20">
       {/* Hero */}
-      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
+      <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-16 right-20 w-72 h-72 bg-secondary/20 rounded-full blur-3xl" />
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-14">
@@ -41,14 +41,14 @@ export default function News() {
       </section>
 
       {/* Articles Grid */}
-      <section className="py-20">
+      <section className="py-12 md:py-16">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           {loading ? (
-            <div className="flex justify-center py-24">
+            <div className="flex justify-center py-12 md:py-16">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#062bad]" />
             </div>
           ) : articles.length === 0 ? (
-            <div className="text-center py-24 text-on-surface-muted font-semibold text-lg">{t.news.empty}</div>
+            <div className="text-center py-12 md:py-16 text-on-surface-muted font-semibold text-lg">{t.news.empty}</div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {articles.map((article, idx) => (

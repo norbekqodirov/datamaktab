@@ -62,7 +62,7 @@ export default function Education() {
     <div className="bg-surface font-body text-on-surface">
 
       {/* Hero */}
-      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
+      <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
           <EditableImage src={get('edu_hero_bg', '/maktab.jpg')} alt={e.hero_title} onSave={v => saveKey('edu_hero_bg', v)}
             className="w-full h-full" imgClassName="w-full h-full object-cover" />
@@ -83,7 +83,7 @@ export default function Education() {
       </section>
 
       {/* 11-Year Roadmap Visual */}
-      <section className="py-28 bg-white">
+      <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">1-sinfdan 11-sinfgacha</span>
@@ -125,7 +125,7 @@ export default function Education() {
       </section>
 
       {/* Lesson Distribution */}
-      <section className="py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -174,7 +174,7 @@ export default function Education() {
       </section>
 
       {/* Subject Roadmaps — Math, English, IT */}
-      <section className="py-28 bg-white">
+      <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Fan Yo'l Xaritalari</span>
@@ -290,7 +290,7 @@ export default function Education() {
       </section>
 
       {/* Certifications */}
-      <section className="py-24 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-white">{e.certs_title}</h2>
@@ -338,7 +338,7 @@ export default function Education() {
       </section>
 
       {/* Olympiads Table */}
-      <section className="py-28 bg-white">
+      <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
@@ -392,7 +392,7 @@ export default function Education() {
       </section>
 
       {/* Clubs */}
-      <section className="py-28 bg-surface">
+      <section className="py-16 md:py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Qo'shimcha rivojlanish</span>
@@ -423,7 +423,7 @@ export default function Education() {
       </section>
 
       {/* Montessori */}
-      <section className="py-28 bg-white">
+      <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative h-[520px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
@@ -472,7 +472,7 @@ export default function Education() {
       </section>
 
       {/* Tutor + Coin System */}
-      <section className="py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Tutor */}

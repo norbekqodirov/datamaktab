@@ -52,7 +52,7 @@ export default function Contact() {
   return (
     <div className="bg-surface font-body text-on-surface">
       {/* Hero */}
-      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
+      <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-12 right-16 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-14">
@@ -64,7 +64,7 @@ export default function Contact() {
       </section>
 
       {/* Info Cards + Form */}
-      <section className="py-20">
+      <section className="py-12 md:py-16">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Info cards */}
