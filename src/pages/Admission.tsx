@@ -221,13 +221,13 @@ export default function Admission() {
                   </div>
                 </div>
                 <div className="p-7 flex-1">
-                  <EditableText value={getArr('adm_steps', i, 0, step.title)} onSave={v => saveArr('adm_steps', i, 0, a.steps.map(s => [s.title, s.desc]), v)}
+                  <EditableText value={getArr('adm_steps', i, 0, step.t)} onSave={v => saveArr('adm_steps', i, 0, a.steps.map(s => [s.t, s.d]), v)}
                     as="h3" className="font-headline font-extrabold text-xl text-primary mb-3">
-                    {getArr('adm_steps', i, 0, step.title)}
+                    {getArr('adm_steps', i, 0, step.t)}
                   </EditableText>
-                  <EditableText value={getArr('adm_steps', i, 1, step.desc)} onSave={v => saveArr('adm_steps', i, 1, a.steps.map(s => [s.title, s.desc]), v)}
+                  <EditableText value={getArr('adm_steps', i, 1, step.d)} onSave={v => saveArr('adm_steps', i, 1, a.steps.map(s => [s.t, s.d]), v)}
                     as="p" multiline className="text-on-surface-muted text-sm leading-relaxed">
-                    {getArr('adm_steps', i, 1, step.desc)}
+                    {getArr('adm_steps', i, 1, step.d)}
                   </EditableText>
                 </div>
               </motion.div>
