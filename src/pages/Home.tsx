@@ -68,24 +68,18 @@ export default function Home() {
     <div className="bg-transparent font-body text-on-surface">
 
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[100svh] overflow-hidden flex flex-col justify-end bg-[#040f31]">
-        {/* Constrain background to 1440px so it zooms proportionally with content */}
-        <div className="absolute inset-0 z-0 flex justify-center w-full">
-          <div className="relative w-full max-w-[1440px] h-full">
-            <EditableImage
-              src={get('hero_bg', '/maktab.jpg')}
-              alt="DATA Maktabi"
-              onSave={v => saveKey('hero_bg', v)}
-              className="w-full h-full"
-              imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-            
-            {/* Seamless edge blending to the global section background color #040f31 */}
-            <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#040f31] to-transparent z-10" />
-            <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#040f31] to-transparent z-10" />
-          </div>
+      <section className="relative min-h-[100svh] overflow-hidden flex flex-col justify-end">
+        {/* Full width background to prevent bounded box appearance on ultra-wide screens */}
+        <div className="absolute inset-0 z-0">
+          <EditableImage
+            src={get('hero_bg', '/maktab.jpg')}
+            alt="DATA Maktabi"
+            onSave={v => saveKey('hero_bg', v)}
+            className="w-full h-full"
+            imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         </div>
 
 
