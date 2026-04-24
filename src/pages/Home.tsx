@@ -453,9 +453,9 @@ export default function Home() {
       )}
 
       {/* ─── CTA ─── */}
-      <section className="py-32">
+      <section className="py-16 md:py-24">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-12 md:py-16 md:py-32 px-6 md:px-16 text-center shadow-2xl">
+          <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-16 md:py-24 px-6 md:px-16 text-center shadow-2xl">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10" />
               <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.jpg" alt="" />
@@ -463,9 +463,9 @@ export default function Home() {
             <div className="relative z-10">
               <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-white tracking-[-0.03em] leading-tight mb-6">{t.cta.title}</h2>
-                <p className="text-white/80 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">{t.cta.desc}</p>
+                <p className="text-white/80 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">{t.cta.desc}</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button onClick={openEnrollModal} className="btn-secondary px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">
+                  <button onClick={openEnrollModal} className="bg-white text-primary hover:bg-slate-50 px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl transition-all">
                     {t.cta.primary}
                   </button>
                   <Link to="/maktab-haqida" className="bg-white/10 border border-white/30 backdrop-blur-lg text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all flex items-center gap-2 justify-center">

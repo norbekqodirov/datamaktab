@@ -395,9 +395,9 @@ export default function Admission() {
       </section>
 
       {/* CTA */}
-      <section className="py-32">
+      <section className="py-16 md:py-24">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-12 md:py-16 md:py-32 px-6 md:px-16 text-center shadow-2xl">
+          <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary py-16 md:py-24 px-6 md:px-16 text-center shadow-2xl">
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-primary/40 mix-blend-multiply z-10" />
               <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.jpg" alt="" />
@@ -409,11 +409,11 @@ export default function Admission() {
                   {get('adm_cta_title', a.cta_title)}
                 </EditableText>
                 <EditableText value={get('adm_cta_desc', a.cta_desc)} onSave={v => saveKey('adm_cta_desc', v)} as="p" multiline
-                  className="text-white/80 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">
+                  className="text-white/80 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
                   {get('adm_cta_desc', a.cta_desc)}
                 </EditableText>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button onClick={openEnrollModal} className="btn-secondary px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">
+                  <button onClick={openEnrollModal} className="bg-white text-primary hover:bg-slate-50 transition-colors px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">
                     {a.cta_primary}
                   </button>
                   <a href="tel:+998556020055" className="bg-white/10 border border-white/30 backdrop-blur-lg text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all flex items-center gap-2 justify-center">

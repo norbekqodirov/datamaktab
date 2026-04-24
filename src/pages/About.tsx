@@ -520,8 +520,8 @@ export default function About() {
               </motion.div>
             ))}
           </div>
-          <div className="text-center">
-            <Link to="/maktab-haqida/jamoa" className="btn-secondary px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:scale-105 transition-transform">
+          <div className="text-center mt-12">
+            <Link to="/maktab-haqida/jamoa" className="bg-primary text-white hover:bg-[#041c80] px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:scale-105 transition-all shadow-lg">
               Barcha jamoa a'zolarini ko'rish <ArrowRight size={16} />
             </Link>
           </div>
