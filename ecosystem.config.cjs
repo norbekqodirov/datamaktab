@@ -9,7 +9,7 @@ module.exports = {
       interpreter: 'tsx',
       env: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        PORT: 8080,
       },
       watch: false,
       max_memory_restart: '500M',
