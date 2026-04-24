@@ -539,8 +539,12 @@ function ArticleForm() {
         </div>
         <div>
           <label className="block text-xs font-bold text-slate-400 uppercase mb-1.5">To'liq matn</label>
-          <div className="bg-white rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-[#062bad] focus-within:border-[#062bad] overflow-hidden">
-            <ReactQuill theme="snow" value={content} onChange={setContent} className="custom-quill" />
+          <div className="relative bg-white rounded-xl border border-slate-200 overflow-hidden">
+            {/* Using extracted default export to bypass Vite ESM crash */}
+            {(() => {
+              const Editor = (ReactQuill as any).default || ReactQuill;
+              return <Editor theme="snow" value={content} onChange={setContent} className="custom-quill" />;
+            })()}
           </div>
         </div>
         <div className="flex justify-end pt-2">
