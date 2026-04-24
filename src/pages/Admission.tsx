@@ -48,7 +48,7 @@ export default function Admission() {
     <div className="bg-surface font-body text-on-surface">
 
       {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden flex items-end">
+      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
           <EditableImage src={get('adm_hero_bg', '/maktab.jpg')} alt={a.hero_title} onSave={v => saveKey('adm_hero_bg', v)}
             className="w-full h-full" imgClassName="w-full h-full object-cover" />
@@ -58,7 +58,7 @@ export default function Admission() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Xalqaro Maktabi</span>
             <EditableText value={get('adm_hero_title', a.hero_title)} onSave={v => saveKey('adm_hero_title', v)} as="h1"
-              className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter">
+              className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter">
               {get('adm_hero_title', a.hero_title)}
             </EditableText>
             <EditableText value={get('adm_hero_desc', a.hero_desc)} onSave={v => saveKey('adm_hero_desc', v)} as="p" multiline className="mt-4 text-white/80 text-lg max-w-2xl">

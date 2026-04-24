@@ -87,7 +87,7 @@ export default function Home() {
               <span className="inline-block px-4 py-1.5 mb-5 text-[10px] tracking-[0.2em] font-extrabold text-white uppercase bg-white/10 backdrop-blur-md rounded-full border border-white/20">
                 {t.hero.badge}
               </span>
-              <h1 className="font-headline text-5xl md:text-6xl lg:text-[5.5rem] font-extrabold text-white tracking-[-0.03em] leading-[1.05] mb-6">
+              <h1 className="font-headline text-[2.75rem] md:text-6xl lg:text-[5.5rem] font-extrabold text-white tracking-[-0.03em] leading-[1.05] mb-6">
                 <EditableText value={get('hero_title1', t.hero.title1)} onSave={v => saveKey('hero_title1', v)} className="inline">{get('hero_title1', t.hero.title1)}</EditableText>
                 {' '}<span className="text-secondary-light">
                   <EditableText value={get('hero_title2', t.hero.title2)} onSave={v => saveKey('hero_title2', v)} className="inline">{get('hero_title2', t.hero.title2)}</EditableText>

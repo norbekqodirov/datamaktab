@@ -28,13 +28,13 @@ export default function News() {
   return (
     <div className="bg-surface min-h-screen font-body text-on-surface pb-20">
       {/* Hero */}
-      <section className="relative h-[45vh] min-h-[360px] overflow-hidden flex items-end">
+      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-16 right-20 w-72 h-72 bg-secondary/20 rounded-full blur-3xl" />
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-14">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
-            <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter">{t.news.title}</h1>
+            <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter">{t.news.title}</h1>
             <p className="mt-3 text-white/80 text-lg max-w-xl">{t.news.desc}</p>
           </motion.div>
         </div>

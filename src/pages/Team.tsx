@@ -43,7 +43,7 @@ export default function Team() {
               <span className="inline-block px-4 py-1 mb-6 text-[10px] tracking-[0.3em] font-bold text-white uppercase bg-secondary/20 backdrop-blur-md rounded-full">
                 Ustozlar va Rahbariyat
               </span>
-              <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter leading-tight mb-6">
+              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter leading-tight mb-6">
                 Bizning Jamoa
               </h1>
               <p className="text-white/80 text-lg md:text-xl font-body leading-relaxed">

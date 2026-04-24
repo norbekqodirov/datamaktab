@@ -52,13 +52,13 @@ export default function Contact() {
   return (
     <div className="bg-surface font-body text-on-surface">
       {/* Hero */}
-      <section className="relative h-[45vh] min-h-[320px] overflow-hidden flex items-end">
+      <section className="relative h-auto pt-40 pb-16 md:pt-52 md:pb-20 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#041c80] to-secondary" />
         <div className="absolute top-12 right-16 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-14">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-block text-[11px] font-extrabold tracking-[0.25em] text-secondary uppercase mb-4">DATA Maktabi</span>
-            <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-white tracking-tighter">{c.title}</h1>
+            <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter">{c.title}</h1>
           </motion.div>
         </div>
       </section>
