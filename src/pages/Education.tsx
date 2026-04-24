@@ -340,18 +340,20 @@ export default function Education() {
       {/* Olympiads Table */}
       <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Xalqaro Olimpiadalar</span>
-              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6">Chempionlar <span className="text-[#03caff]">maktabi</span></h2>
-              <p className="text-on-surface-muted leading-relaxed text-lg mb-10">2026–2027 o'quv yilida 8 ta ustuvor olimpiada.</p>
-              <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-sm">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+            <div className="flex flex-col justify-between py-2">
+              <div className="mb-6">
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Xalqaro Olimpiadalar</span>
+                <h2 className="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-4 leading-tight">Chempionlar <span className="text-[#03caff]">maktabi</span></h2>
+                <p className="text-on-surface-muted leading-relaxed text-base">2026–2027 o'quv yilida 8 ta ustuvor olimpiada.</p>
+              </div>
+              <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-sm mt-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-gradient-to-r from-primary to-[#041c80] text-white">
                     <tr>
-                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest">Olimpiada</th>
-                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest">Yo'nalish</th>
-                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest">Qamrov</th>
+                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest leading-relaxed">Olimpiada</th>
+                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest leading-relaxed">Yo'nalish</th>
+                      <th className="text-left p-4 font-bold text-xs uppercase tracking-widest leading-relaxed">Qamrov</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -359,29 +361,29 @@ export default function Education() {
                       <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
                         <td className="p-4 font-bold text-primary">{comp.name}</td>
                         <td className="p-4 text-on-surface-muted">{comp.subject}</td>
-                        <td className="p-4"><span className="px-3 py-1 bg-[#03caff]/10 text-[#062bad] rounded-full text-xs font-bold">{comp.scope}</span></td>
+                        <td className="p-4"><span className="px-3 py-1 bg-[#03caff]/10 text-[#062bad] rounded-full text-[10px] font-bold uppercase tracking-wide whitespace-nowrap">{comp.scope}</span></td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             </div>
-            <div className="space-y-6">
-              <div className="relative h-[300px] rounded-[2.5rem] overflow-hidden shadow-2xl group bg-slate-100">
+            <div className="flex flex-col gap-6 h-full">
+              <div className="relative flex-1 rounded-[2.5rem] overflow-hidden shadow-2xl group bg-slate-100 min-h-[300px]">
                 <EditableImage src={get('edu_olymp_img', '/images/olympiad.jpg')} alt="Olimpiadalar" onSave={v => saveKey('edu_olymp_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent pointer-events-none" />
-                <div className="absolute bottom-6 left-7">
-                  <p className="text-white font-bold text-sm uppercase tracking-widest mb-1">2025–2026 natijalar</p>
-                  <p className="text-white font-headline font-extrabold text-2xl">15+ musobaqa — o'rinlar</p>
+                <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
+                  <p className="text-white font-bold text-xs uppercase tracking-widest mb-1">2025–2026 natijalar</p>
+                  <p className="text-white font-headline font-extrabold text-2xl md:text-3xl">15+ musobaqa — o'rinlar</p>
                 </div>
               </div>
               {/* BOND badge */}
-              <div className="p-7 bg-gradient-to-r from-[#062bad] to-[#03caff] rounded-3xl text-white">
-                <h3 className="font-headline font-extrabold text-2xl mb-3">BOND Olimpiadasi Loyihasi</h3>
-                <p className="text-white/80 text-sm leading-relaxed mb-4">DATA'ning o'z olimpiadasi — O'zbekiston bo'ylab 1–11-sinf o'quvchilari uchun.</p>
+              <div className="p-6 md:p-8 bg-gradient-to-r from-[#062bad] to-[#03caff] rounded-3xl text-white flex-shrink-0 shadow-xl shadow-[#062bad]/20">
+                <h3 className="font-headline font-extrabold text-2xl mb-2">BOND Olimpiadasi Loyihasi</h3>
+                <p className="text-white/80 text-sm leading-relaxed mb-6">DATA'ning o'z olimpiadasi — O'zbekiston bo'ylab 1–11-sinf o'quvchilari uchun.</p>
                 <a href="https://bondolympiad.uz" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white text-[#062bad] px-5 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform">
+                  className="inline-flex items-center justify-center gap-2 bg-white text-[#062bad] px-6 py-3 rounded-full font-bold text-sm shadow-md hover:shadow-xl hover:scale-105 transition-all">
                   bondolympiad.uz
                   <span className="material-symbols-outlined text-base">arrow_forward</span>
                 </a>
@@ -425,45 +427,47 @@ export default function Education() {
       {/* Montessori */}
       <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[520px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+            <div className="relative h-full min-h-[460px] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
               <EditableImage src={get('edu_montessori_img', '/images/montessori.jpg')} alt="Montessori" onSave={v => saveKey('edu_montessori_img', v)}
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent pointer-events-none" />
               <div className="absolute top-6 right-6 bg-[#03caff] text-white px-5 py-3 rounded-2xl shadow-lg">
                 <p className="font-headline font-extrabold text-xl">2027–2028</p>
-                <p className="text-xs uppercase tracking-widest opacity-80">boshlang'ich sinflar</p>
+                <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1 font-bold">boshlang'ich sinflar</p>
               </div>
             </div>
-            <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{e.montessori_title}</span>
-              <EditableText value={get('edu_mont_h', e.montessori_heading)} onSave={v => saveKey('edu_mont_h', v)} as="h2"
-                className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                {get('edu_mont_h', e.montessori_heading)}
-              </EditableText>
-              <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
-              <EditableText value={get('edu_mont_desc', e.montessori_desc)} onSave={v => saveKey('edu_mont_desc', v)} as="p" multiline
-                className="text-on-surface-muted leading-relaxed text-lg mb-10">
-                {get('edu_mont_desc', e.montessori_desc)}
-              </EditableText>
-              <div className="space-y-4 mb-8">
+            <div className="flex flex-col justify-between py-2">
+              <div className="mb-6">
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{e.montessori_title}</span>
+                <EditableText value={get('edu_mont_h', e.montessori_heading)} onSave={v => saveKey('edu_mont_h', v)} as="h2"
+                  className="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-4 leading-tight">
+                  {get('edu_mont_h', e.montessori_heading)}
+                </EditableText>
+                <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-6" />
+                <EditableText value={get('edu_mont_desc', e.montessori_desc)} onSave={v => saveKey('edu_mont_desc', v)} as="p" multiline
+                  className="text-on-surface-muted leading-relaxed text-base">
+                  {get('edu_mont_desc', e.montessori_desc)}
+                </EditableText>
+              </div>
+              <div className="mt-auto space-y-4 mb-6">
                 {[
                   { icon: 'self_improvement', title: 'Mustaqillik', desc: 'Bola o\'zi tanlaydi, o\'zi bajaradi, o\'zi xulosa qiladi' },
                   { icon: 'person_celebrate', title: 'Individual rivojlanish', desc: 'Har bir o\'quvchi o\'z tezligida o\'sadi' },
                   { icon: 'science', title: 'Amaliy o\'rganish', desc: 'Bilim tajriba va harakat orqali shakllanadi' },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 p-5 bg-surface rounded-2xl">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white flex-shrink-0">
+                  <div key={i} className="flex items-start gap-4 p-4 bg-surface rounded-2xl border border-slate-100 hover:shadow-md transition-all">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white flex-shrink-0 shadow-inner shadow-white/20">
                       <span className="material-symbols-outlined text-xl">{item.icon}</span>
                     </div>
                     <div>
-                      <strong className="text-primary block mb-1">{item.title}</strong>
-                      <span className="text-on-surface-muted text-sm">{item.desc}</span>
+                      <strong className="text-primary block mb-0.5 text-sm">{item.title}</strong>
+                      <span className="text-on-surface-muted text-xs">{item.desc}</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="p-5 bg-[#062bad]/5 rounded-2xl border border-primary/10">
+              <div className="p-5 bg-surface rounded-2xl border border-primary/5 mt-auto">
                 <p className="text-[#062bad] font-bold italic text-sm">"Biz bolalarni tizimga moslashtirmaymiz — biz tizimni bolaga moslashtiramiz."</p>
               </div>
             </div>

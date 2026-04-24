@@ -161,24 +161,26 @@ export default function Admission() {
       {/* Required Documents */}
       <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[480px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+            <div className="relative h-full min-h-[460px] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
               <EditableImage src={get('adm_docs_img', '/images/documents.jpg')} alt="Hujjatlar" onSave={v => saveKey('adm_docs_img', v)}
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent pointer-events-none" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-5">
-                  <p className="text-white font-headline font-extrabold text-xl">Hujjatlar to'plami</p>
-                  <p className="text-white/80 text-sm mt-1">Barcha hujjatlar bir joyda va to'liq bo'lishi shart</p>
+              <div className="absolute bottom-6 left-6 md:bottom-8 md:right-8">
+                <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl p-4 md:p-5">
+                  <p className="text-white font-headline font-extrabold text-lg md:text-xl">Hujjatlar to'plami</p>
+                  <p className="text-white/80 text-[10px] md:text-xs mt-1">Barcha hujjatlar bir joyda va to'liq bo'lishi shart</p>
                 </div>
               </div>
             </div>
-            <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Kerakli hujjatlar</span>
-              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-8">
-                Qabul uchun <span className="text-[#03caff]">zarur hujjatlar</span>
-              </h2>
-              <div className="space-y-3">
+            <div className="flex flex-col justify-between py-2">
+              <div className="mb-6">
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-4">Kerakli hujjatlar</span>
+                <h2 className="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-4 leading-tight">
+                  Qabul uchun <span className="text-[#03caff]">zarur hujjatlar</span>
+                </h2>
+              </div>
+              <div className="space-y-3 mt-auto">
                 {[
                   { icon: 'badge', doc: "O'quvchining tug'ilganlik guvohnomasi (nusxa)" },
                   { icon: 'photo_camera', doc: "3×4 formatdagi 6 dona fotosurat" },
@@ -187,11 +189,11 @@ export default function Admission() {
                   { icon: 'assignment', doc: "Oldingi ta'lim muassasasidan baholar tablitsasi (TABEL)" },
                 ].map((item, i) => (
                   <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}
-                    className="flex items-center gap-4 p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white flex-shrink-0">
+                    className="flex items-center gap-4 p-4 md:p-4 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white flex-shrink-0 shadow-inner shadow-white/20">
                       <span className="material-symbols-outlined text-xl">{item.icon}</span>
                     </div>
-                    <p className="font-semibold text-primary text-sm">{item.doc}</p>
+                    <p className="font-semibold text-primary text-xs md:text-sm">{item.doc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -237,22 +239,24 @@ export default function Admission() {
       {/* Pricing + Finance */}
       <section className="py-12 md:py-16 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="text-white">
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#03caff] border border-[#03caff]/30 rounded-full uppercase mb-6">2026–2027 o'quv yili</span>
-              <h2 className="font-headline text-4xl md:text-5xl font-extrabold mb-6">{a.pricing_title}</h2>
-              <div className="space-y-4 mb-10">
-                <div className="p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl">
-                  <EditableText value={get('adm_price_label', a.pricing_label)} onSave={v => saveKey('adm_price_label', v)} as="p" className="text-white/70 text-sm font-bold uppercase tracking-widest mb-2">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
+            <div className="text-white flex flex-col justify-center py-2 h-full">
+              <div className="mb-6">
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#03caff] border border-[#03caff]/30 rounded-full uppercase mb-6">2026–2027 o'quv yili</span>
+                <h2 className="font-headline text-3xl md:text-5xl font-extrabold mb-4">{a.pricing_title}</h2>
+              </div>
+              <div className="space-y-4 mb-8">
+                <div className="p-6 md:p-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl shadow-xl">
+                  <EditableText value={get('adm_price_label', a.pricing_label)} onSave={v => saveKey('adm_price_label', v)} as="p" className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">
                     {get('adm_price_label', a.pricing_label)}
                   </EditableText>
-                  <EditableText value={get('adm_price_val', a.pricing_value)} onSave={v => saveKey('adm_price_val', v)} as="p" className="text-4xl font-headline font-extrabold text-white">
+                  <EditableText value={get('adm_price_val', a.pricing_value)} onSave={v => saveKey('adm_price_val', v)} as="p" className="text-3xl md:text-5xl font-headline font-extrabold text-white">
                     {get('adm_price_val', a.pricing_value)}
                   </EditableText>
                 </div>
-                <div className="p-6 bg-[#03caff]/20 border border-[#03caff]/30 rounded-3xl">
-                  <p className="text-white/70 text-sm font-bold uppercase tracking-widest mb-2">Oldindan to'lovda 10% chegirma</p>
-                  <p className="text-4xl font-headline font-extrabold text-[#03caff]">45 000 000 so'm</p>
+                <div className="p-6 md:p-8 bg-[#03caff]/20 border border-[#03caff]/30 rounded-3xl shadow-lg">
+                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">Oldindan to'lovda 10% chegirma</p>
+                  <p className="text-3xl md:text-5xl font-headline font-extrabold text-[#03caff]">45 000 000 so'm</p>
                 </div>
               </div>
               <div className="p-5 bg-white/10 rounded-2xl">
@@ -260,16 +264,16 @@ export default function Admission() {
                   <strong className="text-white">Alohida to'lov talab qilinadigan xizmatlar:</strong> maktab formasi, ta'lim lagerlari, olimpiadalar, qo'shimcha ustoz, sport formasi, yotoqxona, sinf tadbirlari.
                 </p>
               </div>
-              <div className="mt-8">
-                <a href="tel:+998556020055" className="inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-transform">
+              <div className="mt-8 pt-4 border-t border-white/10">
+                <a href="tel:+998556020055" className="inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-transform w-max">
                   <span className="material-symbols-outlined">phone</span>
                   +998 55 602 00 55
                 </a>
               </div>
             </div>
-            <div className="bg-white rounded-3xl p-8 shadow-2xl">
-              <h3 className="font-headline font-extrabold text-primary text-2xl mb-6">{a.finance_title}</h3>
-              <div className="space-y-5">
+            <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-2xl h-full flex flex-col justify-center">
+              <h3 className="font-headline font-extrabold text-primary text-2xl md:text-3xl mb-8">{a.finance_title}</h3>
+              <div className="space-y-6">
                 {financeFB.map((item, i) => (
                   <div key={i}>
                     <div className="flex justify-between mb-2">
@@ -297,9 +301,9 @@ export default function Admission() {
       {/* Free supplies + Dress Code */}
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             {/* Free supplies */}
-            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
+            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group">
               <div className="aspect-video relative bg-slate-100 group">
                 <EditableImage src={get('adm_supplies_img', '/images/supplies.jpg')} alt="Bepul o'quv qurollari" onSave={v => saveKey('adm_supplies_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -308,15 +312,15 @@ export default function Admission() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Bepul O'quv Qurollari</span>
                 </div>
               </div>
-              <div className="p-8">
-                <p className="text-on-surface-muted leading-relaxed mb-6">DATA xalqaro maktabida barcha zarur o'quv qurollari va materiallari o'quvchilarga bepul taqdim etiladi. Ota-onalarning qo'shimcha xarajatini kamaytiramiz.</p>
-                <div className="p-5 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl border border-primary/10">
-                  <p className="text-[#062bad] font-bold text-sm">"Har bir o'quvchining zamonaviy, qulay va bepul o'quv jihozlari bilan ta'lim olishi — bizning sifatlilik mezonimiz."</p>
+              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
+                <p className="text-on-surface-muted leading-relaxed mb-6 text-base">DATA xalqaro maktabida barcha zarur o'quv qurollari va materiallari o'quvchilarga bepul taqdim etiladi. Ota-onalarning qo'shimcha xarajatini kamaytiramiz.</p>
+                <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100 flex-shrink-0">
+                  <p className="text-[#062bad] font-bold text-sm leading-relaxed">"Har bir o'quvchining zamonaviy, qulay va bepul o'quv jihozlari bilan ta'lim olishi — bizning sifatlilik mezonimiz."</p>
                 </div>
               </div>
             </div>
             {/* Dress code */}
-            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
+            <div className="bg-surface rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col h-full bg-slate-50 relative group/card">
               <div className="aspect-video relative bg-slate-100 group">
                 <EditableImage src={get('adm_uniform_img', '/images/uniform.jpg')} alt="Maktab formasi" onSave={v => saveKey('adm_uniform_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -325,18 +329,18 @@ export default function Admission() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Maktab Formasi va Dress-Kod</span>
                 </div>
               </div>
-              <div className="p-8">
-                <p className="text-on-surface-muted leading-relaxed mb-6">Forma — nafaqat tashqi ko'rinish, balki tartib, intizom va maktabga mansublik hissini shakllantiradi.</p>
-                <div className="space-y-3">
+              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
+                <p className="text-on-surface-muted leading-relaxed mb-8 text-base">Forma — nafaqat tashqi ko'rinish, balki tartib, intizom va maktabga mansublik hissini shakllantiradi.</p>
+                <div className="space-y-3 mt-auto">
                   {[
                     "O'quv kuni davomida, kelish va ketish vaqtida majburiy",
                     "Ekskursiya va rasmiy tadbirlarda majburiy",
                     "Ekstremal soch ranglari qat'iyan taqiqlanadi",
                     "Formasiz ekskursiyada ishtirok etib bo'lmaydi",
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-2xl">
-                      <span className="material-symbols-outlined text-[#062bad] flex-shrink-0">checkroom</span>
-                      <span className="text-sm font-semibold text-primary">{item}</span>
+                    <div key={i} className="flex items-start gap-4 p-4 md:p-5 bg-white rounded-2xl shadow-sm border border-slate-100 group/item hover:-translate-y-1 transition-transform">
+                      <span className="material-symbols-outlined text-[#062bad] flex-shrink-0 bg-[#03caff]/10 w-8 h-8 rounded-full flex items-center justify-center text-sm">checkroom</span>
+                      <p className="text-primary font-bold text-sm leading-snug">{item}</p>
                     </div>
                   ))}
                 </div>
