@@ -105,18 +105,20 @@ export default function About() {
                 <p className="text-[#062bad] font-bold italic mt-2">"Bilimga to'ldiramiz!" — shiorimizdagi mazmun ham aynan shu.</p>
               </div>
             </div>
-            <div className="relative h-full min-h-[460px] w-full">
-              <div className="absolute top-0 left-0 w-[72%] h-[75%] rounded-[2.5rem] overflow-hidden shadow-2xl z-10 group bg-slate-100">
+            <div className="grid grid-cols-2 gap-4 md:gap-6 h-full min-h-[460px] w-full">
+              <div className="col-span-1 h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-xl relative group bg-slate-100">
                 <EditableImage src={get('about_hist_img1', '/images/about-1.jpg')} alt="DATA tarixi" onSave={v => saveKey('about_hist_img1', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <div className="absolute bottom-0 right-0 w-[60%] h-[60%] rounded-[2.5rem] overflow-hidden shadow-2xl z-20 border-4 border-white group bg-slate-100">
-                <EditableImage src={get('about_hist_img2', '/images/about-2.jpg')} alt="DATA tarixi" onSave={v => saveKey('about_hist_img2', v)}
-                  className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="absolute top-1/2 -translate-y-1/2 right-4 z-30 bg-[#03caff] text-white rounded-3xl p-5 shadow-2xl shadow-[#03caff]/30">
-                <p className="font-headline font-extrabold text-3xl md:text-4xl">16K+</p>
-                <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1 font-bold">Yetishtirilgan yosh</p>
+              <div className="col-span-1 grid grid-rows-2 gap-4 md:gap-6 h-full">
+                <div className="h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-xl relative group bg-slate-100">
+                  <EditableImage src={get('about_hist_img2', '/images/about-2.jpg')} alt="DATA tarixi" onSave={v => saveKey('about_hist_img2', v)}
+                    className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <div className="h-full rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center items-center text-center bg-gradient-to-br from-[#03caff] to-[#062bad] text-white p-6 shadow-xl shadow-[#03caff]/30 transition-transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#03caff]/40">
+                  <p className="font-headline font-extrabold text-4xl lg:text-5xl mb-2 drop-shadow-md">16K+</p>
+                  <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 font-bold max-w-[120px] mx-auto leading-relaxed">Yetishtirilgan Yosh</p>
+                </div>
               </div>
             </div>
           </div>
