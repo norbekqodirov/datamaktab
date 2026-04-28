@@ -45,7 +45,7 @@ export default function Contact() {
 
   const infoCards = [
     { icon: <Phone size={20} />, label: c.phone, val: '+998 55 602 00 55', href: 'tel:+998556020055', color: 'from-primary to-[#041c80]' },
-    { icon: <MapPin size={20} />, label: c.address, val: "Xorazm vil., Urganch tum., Oyoqbog' MFY, Xiva shox ko'cha", href: 'https://yandex.com/maps/', color: 'from-[#03caff] to-primary' },
+    { icon: <MapPin size={20} />, label: c.address, val: "Xorazm vil., Urganch tum., Oyoqbog' MFY, Xiva shox ko'cha", href: 'https://yandex.uz/maps/-/CPSM76-k', color: 'from-[#03caff] to-primary' },
     { icon: <Mail size={20} />, label: 'Email', val: 'info@datamaktab.uz', href: 'mailto:info@datamaktab.uz', color: 'from-[#041c80] to-secondary' },
     { icon: <Clock size={20} />, label: c.hours, val: c.hours_val, href: null, color: 'from-secondary to-primary' },
   ];
@@ -191,7 +191,7 @@ export default function Contact() {
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-100 h-[400px]">
             <iframe
-              src="https://yandex.com/map-widget/v1/?um=constructor%3A&ll=60.633558%2C41.553197&z=16&l=map"
+              src="https://yandex.uz/map-widget/v1/?ll=60.594479%2C41.533079&z=17&pt=60.594479,41.533079,pm2rdl&l=map"
               width="100%"
               height="100%"
               frameBorder="0"
