@@ -77,6 +77,7 @@ app.post('/api/upload', uploadMemory.single('file'), async (req, res) => {
     
     const beforeSize = req.file.buffer.length;
     await sharp(req.file.buffer)
+      .rotate()   // auto-rotate based on EXIF orientation
       .webp({ quality: 85, effort: 4 })
       .toFile(outPath);
       
@@ -253,6 +254,34 @@ app.put('/api/settings', (req, res) => {
   });
   insertMany(settings);
   res.json({ success: true });
+});
+
+// --- Sitemap ---
+app.get('/sitemap.xml', (req, res) => {
+  const base = 'https://datamaktab.uz';
+  const staticPages = [
+    { loc: '/', priority: '1.0', changefreq: 'weekly' },
+    { loc: '/maktab-haqida', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/maktab-haqida/jamoa', priority: '0.7', changefreq: 'monthly' },
+    { loc: '/talim', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/qabul', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/blog', priority: '0.9', changefreq: 'weekly' },
+    { loc: '/aloqa', priority: '0.6', changefreq: 'monthly' },
+  ];
+  const articles = db.prepare('SELECT id, created_at FROM articles ORDER BY created_at DESC').all() as { id: number; created_at: string }[];
+  const articleEntries = articles.map(a => ({
+    loc: `/blog/${a.id}`,
+    priority: '0.7',
+    changefreq: 'monthly',
+    lastmod: a.created_at ? a.created_at.slice(0, 10) : '',
+  }));
+  const allPages = [...staticPages, ...articleEntries];
+  const urls = allPages.map(p => {
+    const lastmod = (p as any).lastmod ? `<lastmod>${(p as any).lastmod}</lastmod>` : '';
+    return `  <url><loc>${base}${p.loc}</loc>${lastmod}<changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>`;
+  }).join('\n');
+  res.setHeader('Content-Type', 'application/xml');
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`);
 });
 
 // Simple Auth for Admin

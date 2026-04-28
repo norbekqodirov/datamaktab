@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useId } from 'react';
 import { useEditMode } from '../context/EditModeContext';
-import { Camera, Upload, Move, ZoomIn, X } from 'lucide-react';
-import ConfirmDialog from './ConfirmDialog';
+import { Camera, Upload, Move, ZoomIn, X, RotateCcw } from 'lucide-react';
 
 interface ImageStyle {
   scale: number;
@@ -47,21 +46,40 @@ export default function EditableImage({
   className = '',
   imgClassName = '',
 }: EditableImageProps) {
-  const { isEditMode } = useEditMode();
+  const { isEditMode, registerPendingSave, unregisterPendingSave } = useEditMode();
+  const instanceId = useId();
   const [uploading, setUploading] = useState(false);
   const [showPanel, setShowPanel] = useState(false);
-  const [pendingSave, setPendingSave] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { url, style: initialStyle } = decodeSrc(src);
-  const [imgUrl, setImgUrl] = useState(url);
+  const { url: initialUrl, style: initialStyle } = decodeSrc(src);
+  const [imgUrl, setImgUrl] = useState(initialUrl);
   const [style, setStyle] = useState<ImageStyle>(initialStyle);
+
+  // Track if there are local unsaved changes
+  const [hasPending, setHasPending] = useState(false);
 
   useEffect(() => {
     const { url: u, style: s } = decodeSrc(src);
     setImgUrl(u);
     setStyle(s);
+    setHasPending(false);
   }, [src]);
+
+  // Unregister on unmount so pending saves don't leak
+  useEffect(() => {
+    return () => {
+      unregisterPendingSave(instanceId);
+    };
+  }, [instanceId, unregisterPendingSave]);
+
+  const queueSave = (url: string, s: ImageStyle) => {
+    const encoded = encodeSrc(url, s);
+    registerPendingSave(instanceId, async () => {
+      await onSave(encoded);
+    });
+    setHasPending(true);
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -75,7 +93,7 @@ export default function EditableImage({
       const newStyle: ImageStyle = { scale: 1, posX: 50, posY: 50 };
       setImgUrl(data.url);
       setStyle(newStyle);
-      setPendingSave(encodeSrc(data.url, newStyle)); // queue for confirm
+      queueSave(data.url, newStyle);
     } catch {
       alert('Yuklashda xatolik');
     } finally {
@@ -87,22 +105,21 @@ export default function EditableImage({
   const updateStyle = (patch: Partial<ImageStyle>) => {
     const newStyle = { ...style, ...patch };
     setStyle(newStyle);
-    setPendingSave(encodeSrc(imgUrl, newStyle)); // queue for confirm
+    queueSave(imgUrl, newStyle);
   };
 
-  const handleConfirmSave = async () => {
-    if (pendingSave !== null) {
-      await onSave(pendingSave);
-      setPendingSave(null);
-    }
-  };
-
-  const handleCancelSave = () => {
-    // Revert local state back to the original from DB
+  const handleRevert = () => {
     const { url: u, style: s } = decodeSrc(src);
     setImgUrl(u);
     setStyle(s);
-    setPendingSave(null);
+    setHasPending(false);
+    unregisterPendingSave(instanceId);
+  };
+
+  const handleReset = () => {
+    const resetStyle: ImageStyle = { scale: 1, posX: 50, posY: 50 };
+    setStyle(resetStyle);
+    queueSave(imgUrl, resetStyle);
   };
 
   const imgStyle: React.CSSProperties = {
@@ -113,15 +130,20 @@ export default function EditableImage({
 
   if (!isEditMode) {
     return (
-      <div className={className}>
+      <div className={`${className} overflow-hidden`}>
         <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} />
       </div>
     );
   }
 
   return (
-    <div className={`${className} relative group`}>
+    <div className={`${className} relative group overflow-hidden`}>
       <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} />
+
+      {/* Pending indicator dot */}
+      {hasPending && (
+        <span className="absolute top-2 left-2 z-20 w-2.5 h-2.5 rounded-full bg-orange-400 border-2 border-white shadow" title="Saqlanmagan o'zgarish bor" />
+      )}
 
       {/* Upload overlay on hover */}
       <div
@@ -201,9 +223,19 @@ export default function EditableImage({
             >
               <Camera size={11} /> Rasm almashtirish
             </button>
+            {hasPending && (
+              <button
+                type="button"
+                onClick={handleRevert}
+                title="O'zgarishlarni bekor qilish"
+                className="text-[10px] font-bold bg-red-500/70 hover:bg-red-500/90 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+              >
+                <RotateCcw size={11} /> Bekor
+              </button>
+            )}
             <button
               type="button"
-              onClick={() => { const r = { scale: 1, posX: 50, posY: 50 }; setStyle(r); onSave(encodeSrc(imgUrl, r)); }}
+              onClick={handleReset}
               className="text-[10px] font-bold bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg transition-colors"
             >
               Reset
@@ -213,18 +245,6 @@ export default function EditableImage({
       )}
 
       <input ref={inputRef} type="file" accept="image/*" hidden onChange={handleUpload} />
-
-      {/* Save confirmation */}
-      <ConfirmDialog
-        isOpen={pendingSave !== null}
-        title="O'zgarishlarni saqlaysizmi?"
-        message="Rasm yoki pozitsiya o'zgartirildi. Saqlashni tasdiqlaysizmi?"
-        confirmLabel="Ha, saqlash"
-        cancelLabel="Bekor qilish"
-        variant="save"
-        onConfirm={handleConfirmSave}
-        onCancel={handleCancelSave}
-      />
     </div>
   );
 }

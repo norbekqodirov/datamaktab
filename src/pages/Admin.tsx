@@ -117,6 +117,7 @@ function SaveBar({ onSave, saving, saved }: { onSave: () => void; saving: boolea
 // Admin Root
 // ────────────────────────────────────────────────
 export default function Admin() {
+  const { hasPendingChanges, saveAll, isSavingAll, pendingCount } = useEditMode();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -259,6 +260,16 @@ export default function Admin() {
             ))}
           </div>
           <div className="ml-auto flex items-center gap-2">
+            {hasPendingChanges && (
+              <button
+                onClick={saveAll}
+                disabled={isSavingAll}
+                className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#062bad] hover:bg-[#051fa0] disabled:opacity-60 text-white rounded-xl font-bold text-xs transition-all shadow-md shadow-blue-900/20 animate-pulse"
+              >
+                <Save size={14} />
+                {isSavingAll ? 'Saqlanmoqda...' : `Saqlash (${pendingCount} ta)`}
+              </button>
+            )}
             <Link to="/" target="_blank" className="text-xs font-semibold text-slate-500 hover:text-[#062bad] transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-100">
               Saytni ko'rish →
             </Link>
