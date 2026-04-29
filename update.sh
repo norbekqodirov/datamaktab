@@ -23,11 +23,15 @@ git checkout main
 git pull origin main
 
 # Reinstall packages if package.json changed
-echo "[2/3] npm paketlar tekshiruvi..."
+echo "[2/4] npm paketlar tekshiruvi..."
 npm install --production=false
 
+# Build frontend
+echo "[3/4] Frontend (React/Vite) loyihani qurish (build)..."
+npm run build
+
 # Reload without restart (zero-downtime)
-echo "[3/3] PM2 qayta yuklash..."
+echo "[4/4] PM2 qayta yuklash..."
 pm2 reload datamaktab --update-env
 
 echo ""
