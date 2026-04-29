@@ -442,9 +442,9 @@ export default function About() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">"YASHNAR" NNT</span>
                 </div>
               </div>
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">"Bir bola, bir oila, bir jamiyat" shiori ostida DATA daromadining bir qismi ijtimoiy loyihalarga yo'naltiriladi.</p>
-                <div className="space-y-3">
+                <div className="space-y-3 mt-auto">
                   {["Ijtimoiy himoyaga muhtoj bolalarni qo'llab-quvvatlash", "Inklyuziv ta'lim loyihalarini rivojlantirish", "Ta'limga kirish imkoniyatini kengaytirish"].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 p-4 bg-surface rounded-2xl">
                       <span className="material-symbols-outlined text-[#03caff] flex-shrink-0">favorite</span>
@@ -464,9 +464,9 @@ export default function About() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Inklyuziv Korreksion Sinf</span>
                 </div>
               </div>
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">2025-yildan boshlab O'zbekistondagi 700 dan ortiq xususiy maktablar orasida ilk bo'lib inklyuziv korreksion sinf tashkil etildi. "Teng maydon" loyihasi.</p>
-                <div className="p-5 bg-white rounded-2xl border border-primary/5">
+                <div className="p-5 bg-white rounded-2xl border border-primary/5 mt-auto">
                   <p className="text-primary font-bold text-sm">Hamkorlik: Ijtimoiy Himoya Milliy Agentligi, UNICEF</p>
                 </div>
               </div>
