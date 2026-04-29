@@ -330,8 +330,8 @@ export default function About() {
       <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-12">
-            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
+              <div className="aspect-video relative bg-slate-100 group flex-shrink-0">
                 <EditableImage src={get('food_img', '/images/food.jpg')} alt="Ovqatlanish" onSave={v => saveKey('food_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
@@ -339,24 +339,24 @@ export default function About() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Kuniga 3 Mahal Issiq Ovqat</span>
                 </div>
               </div>
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">Menyu dietolog nazoratida tuziladi. Nonushta, tushlik va poldnik — hammasini maktab ta'minlaydi.</p>
-                <div className="space-y-3">
+                <div className="space-y-2 mt-auto">
                   {[
                     { label: 'Nonushta', desc: "Sutli bo'tqa, tvorog, choy — 08:00–09:00" },
                     { label: 'Tushlik', desc: "Sho'rva, go'shtli taom, salat, meva — 12:00–13:00" },
                     { label: 'Poldnik', desc: 'Pirog, pechenye, kompot' },
                   ].map((meal, i) => (
-                    <div key={i} className="flex items-start gap-3 p-4 bg-surface rounded-2xl">
-                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0">restaurant</span>
-                      <div><strong className="text-primary text-sm">{meal.label}</strong><span className="text-on-surface-muted text-xs ml-2">{meal.desc}</span></div>
+                    <div key={i} className="flex items-start gap-3 py-2.5 px-4 bg-surface rounded-xl">
+                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-[18px]">restaurant</span>
+                      <div><strong className="text-primary text-[13px]">{meal.label}</strong><span className="text-on-surface-muted text-[11px] ml-2 block sm:inline">{meal.desc}</span></div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
+              <div className="aspect-video relative bg-slate-100 group flex-shrink-0">
                 <EditableImage src={get('transport_img', '/images/transport.jpg')} alt="Transport" onSave={v => saveKey('transport_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
@@ -364,20 +364,20 @@ export default function About() {
                   <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">GPS Nazoratli Avtobuslar</span>
                 </div>
               </div>
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">4 ta SAZ NP 26 model avtobus faoliyat yuritadi. Ota-onalar farzandining harakatini real vaqtda kuzatib boradi.</p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 mt-auto">
                   {[
                     { icon: 'directions_bus', val: '4 ta', label: 'Avtobus' },
                     { icon: 'person', val: '40', label: "Sig'im (nafar)" },
                     { icon: 'location_on', val: 'GPS', label: 'Real vaqt kuzatuv' },
                     { icon: 'calendar_month', val: '5 kun', label: 'Haftalik xizmat' },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 bg-surface rounded-2xl">
-                      <span className="material-symbols-outlined text-primary">{item.icon}</span>
+                    <div key={i} className="flex items-center gap-3 py-2 px-3 bg-surface rounded-xl">
+                      <span className="material-symbols-outlined text-primary text-[20px]">{item.icon}</span>
                       <div>
-                        <p className="font-extrabold text-primary font-headline">{item.val}</p>
-                        <p className="text-xs text-on-surface-muted">{item.label}</p>
+                        <p className="font-extrabold text-primary font-headline text-[15px]">{item.val}</p>
+                        <p className="text-[11px] text-on-surface-muted leading-tight">{item.label}</p>
                       </div>
                     </div>
                   ))}
