@@ -1,36 +1,33 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { useGlobalState } from '../context/GlobalStateContext';
+import { useEditMode } from '../context/EditModeContext';
 
-/** Fetches /api/settings and returns a getter + saver for keyed string values. */
 export function useSiteSettings() {
-  const [settings, setSettings] = useState<Record<string, string>>({});
-  const [loaded, setLoaded] = useState(false);
+  const { siteData, updateSetting, getLatestSiteData, loading } = useGlobalState();
+  const editModeCtx = useEditMode();
 
-  useEffect(() => {
-    fetch('/api/settings')
-      .then(r => r.json())
-      .then(data => {
-        if (data.maktab_global) {
-          try { setSettings(JSON.parse(data.maktab_global)); } catch {}
-        }
-        setLoaded(true);
-      })
-      .catch(() => setLoaded(true));
-  }, []);
+  const isEditMode = editModeCtx?.isEditMode;
+  const registerPendingSave = editModeCtx?.registerPendingSave;
 
-  const saveKey = useCallback(async (key: string, value: string) => {
-    setSettings(prev => {
-      const next = { ...prev, [key]: value };
-      fetch('/api/settings', {
+  const saveKey = useCallback((key: string, value: string) => {
+    // 1. Instantly update UI across all components
+    updateSetting(key, value);
+    
+    if (!isEditMode || !registerPendingSave) return;
+
+    // 2. Defer actual server save to the unified Save All button
+    registerPendingSave('global_settings_save', async () => {
+      const latestData = getLatestSiteData();
+      await fetch('/api/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ maktab_global: JSON.stringify(next) }),
-      }).catch(console.error);
-      return next;
+        body: JSON.stringify({ maktab_global: JSON.stringify(latestData) }),
+      });
     });
-  }, []);
+  }, [updateSetting, isEditMode, registerPendingSave, getLatestSiteData]);
 
   const get = (key: string, fallback: string): string =>
-    (settings as Record<string, string>)[key] ?? fallback;
+    siteData?.[key] ?? fallback;
 
-  return { get, saveKey, loaded };
+  return { get, saveKey, loaded: !loading };
 }

@@ -6,6 +6,7 @@ interface ImageStyle {
   scale: number;
   posX: number;
   posY: number;
+  rotation?: number;
 }
 
 interface EditableImageProps {
@@ -17,17 +18,17 @@ interface EditableImageProps {
 }
 
 function encodeSrc(url: string, style: ImageStyle) {
-  return `${url}||scale=${style.scale},x=${style.posX},y=${style.posY}`;
+  return `${url}||scale=${style.scale},x=${style.posX},y=${style.posY},r=${style.rotation || 0}`;
 }
 
 function decodeSrc(raw: string): { url: string; style: ImageStyle } {
-  const defaultStyle: ImageStyle = { scale: 1, posX: 50, posY: 50 };
+  const defaultStyle: ImageStyle = { scale: 1, posX: 50, posY: 50, rotation: 0 };
   if (!raw) return { url: raw, style: defaultStyle };
   const idx = raw.indexOf('||scale=');
   if (idx === -1) return { url: raw, style: defaultStyle };
   const url = raw.slice(0, idx);
   const params = raw.slice(idx + 2);
-  const match = params.match(/scale=([\d.]+),x=([\d.]+),y=([\d.]+)/);
+  const match = params.match(/scale=([\d.]+),x=([\d.]+),y=([\d.]+)(?:,r=([-]?\d+))?/);
   if (!match) return { url, style: defaultStyle };
   return {
     url,
@@ -35,6 +36,7 @@ function decodeSrc(raw: string): { url: string; style: ImageStyle } {
       scale: parseFloat(match[1]),
       posX: parseFloat(match[2]),
       posY: parseFloat(match[3]),
+      rotation: match[4] ? parseInt(match[4], 10) : 0,
     }
   };
 }
@@ -90,7 +92,7 @@ export default function EditableImage({
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: form });
       const data = await res.json();
-      const newStyle: ImageStyle = { scale: 1, posX: 50, posY: 50 };
+      const newStyle: ImageStyle = { scale: 1, posX: 50, posY: 50, rotation: 0 };
       setImgUrl(data.url);
       setStyle(newStyle);
       queueSave(data.url, newStyle);
@@ -117,14 +119,14 @@ export default function EditableImage({
   };
 
   const handleReset = () => {
-    const resetStyle: ImageStyle = { scale: 1, posX: 50, posY: 50 };
+    const resetStyle: ImageStyle = { scale: 1, posX: 50, posY: 50, rotation: 0 };
     setStyle(resetStyle);
     queueSave(imgUrl, resetStyle);
   };
 
   const imgStyle: React.CSSProperties = {
     objectPosition: `${style.posX}% ${style.posY}%`,
-    transform: `scale(${style.scale})`,
+    transform: `scale(${style.scale}) rotate(${style.rotation || 0}deg)`,
     transformOrigin: `${style.posX}% ${style.posY}%`,
   };
 
@@ -137,7 +139,7 @@ export default function EditableImage({
   }
 
   return (
-    <div className={`${className} relative group overflow-hidden`}>
+    <div className={`${className} relative group overflow-hidden`} style={{ isolate: 'isolate', clipPath: 'inset(0)' }}>
       <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} />
 
       {/* Pending indicator dot */}
@@ -218,19 +220,27 @@ export default function EditableImage({
           <div className="flex gap-2 pt-1">
             <button
               type="button"
+              onClick={() => updateStyle({ rotation: ((style.rotation || 0) + 90) % 360 })}
+              className="text-[10px] font-bold bg-[#062bad] hover:bg-[#051fa0] text-white px-3 py-1.5 rounded-lg flex items-center justify-center transition-colors"
+              title="Aylantirish (Rotate)"
+            >
+              <RotateCcw size={11} className="scale-[-1]" /> 90°
+            </button>
+            <button
+              type="button"
               onClick={() => inputRef.current?.click()}
               className="flex-1 text-[10px] font-bold bg-[#03caff] hover:bg-[#00b8e6] text-slate-900 px-2 py-1.5 rounded-lg flex items-center justify-center gap-1 transition-colors"
             >
-              <Camera size={11} /> Rasm almashtirish
+              <Camera size={11} /> 
             </button>
             {hasPending && (
               <button
                 type="button"
                 onClick={handleRevert}
-                title="O'zgarishlarni bekor qilish"
-                className="text-[10px] font-bold bg-red-500/70 hover:bg-red-500/90 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+                title="Bekor qilish"
+                className="text-[10px] font-bold bg-red-500/70 hover:bg-red-500/90 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center justify-center"
               >
-                <RotateCcw size={11} /> Bekor
+                <X size={11} />
               </button>
             )}
             <button

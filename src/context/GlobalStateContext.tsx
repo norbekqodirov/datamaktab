@@ -13,7 +13,18 @@ export const useGlobalState = () => {
 
 export const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
   const [siteData, setSiteData] = useState(fallbackData);
+  const siteDataRef = React.useRef(siteData);
   const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    siteDataRef.current = siteData;
+  }, [siteData]);
+
+  const updateSetting = React.useCallback((key: string, value: string) => {
+    setSiteData(prev => ({ ...prev, [key]: value }));
+  }, []);
+
+  const getLatestSiteData = React.useCallback(() => siteDataRef.current, []);
 
   const fetchSettings = () => {
     fetch('/api/settings')
@@ -73,7 +84,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
   }
 
   return (
-    <GlobalStateContext.Provider value={{ siteData, setSiteData, saveGlobalData, loading, refetch: fetchSettings }}>
+    <GlobalStateContext.Provider value={{ siteData, setSiteData, saveGlobalData, loading, refetch: fetchSettings, updateSetting, getLatestSiteData }}>
       {children}
     </GlobalStateContext.Provider>
   );

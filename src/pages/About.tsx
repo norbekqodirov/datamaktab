@@ -433,8 +433,8 @@ export default function About() {
       <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-12">
-            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 flex flex-col h-full">
+              <div className="aspect-video relative bg-slate-100 group flex-shrink-0">
                 <EditableImage src={get('yashnar_img', '/images/yashnar.jpg')} alt="Yashnar NNT" onSave={v => saveKey('yashnar_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
@@ -454,8 +454,8 @@ export default function About() {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-[#062bad]/5 to-[#03caff]/5 rounded-[2.5rem] overflow-hidden shadow-lg border border-primary/10">
-              <div className="aspect-video relative bg-slate-100 group">
+            <div className="bg-gradient-to-br from-[#062bad]/5 to-[#03caff]/5 rounded-[2.5rem] overflow-hidden shadow-lg border border-primary/10 flex flex-col h-full">
+              <div className="aspect-video relative bg-slate-100 group flex-shrink-0">
                 <EditableImage src={get('inclusive_img', '/images/inclusive.jpg')} alt="Inklyuziv Sinf" onSave={v => saveKey('inclusive_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#062bad]/70 to-transparent pointer-events-none" />

@@ -46,14 +46,15 @@ export default function EditableText({
 
   if (editing) {
     return (
-      <span className="inline-flex flex-col gap-1 relative group">
+      <span className="inline-flex flex-col gap-1 relative group w-full">
         {multiline ? (
           <textarea
             ref={inputRef as React.RefObject<HTMLTextAreaElement>}
             value={draft}
             onChange={e => setDraft(e.target.value)}
+            onBlur={handleSave}
             rows={3}
-            className={`${className} bg-white/90 border-2 border-[#03caff] rounded-lg outline-none resize-none px-2 py-1 text-[#062bad] shadow-xl min-w-[200px]`}
+            className={`${className} bg-white/95 border-2 border-dashed border-[#03caff] rounded-lg outline-none resize-none px-2 py-1 text-[#062bad] shadow-xl min-w-[200px] w-full`}
           />
         ) : (
           <input
@@ -61,23 +62,11 @@ export default function EditableText({
             type="text"
             value={draft}
             onChange={e => setDraft(e.target.value)}
-            className={`${className} bg-white/90 border-2 border-[#03caff] rounded-lg outline-none px-2 py-1 text-[#062bad] shadow-xl min-w-[200px]`}
+            onBlur={handleSave}
+            onKeyDown={e => { if (e.key === 'Enter') handleSave(); }}
+            className={`${className} bg-white/95 border-2 border-dashed border-[#03caff] rounded-lg outline-none px-2 py-1 text-[#062bad] shadow-xl min-w-[200px] w-full`}
           />
         )}
-        <span className="flex gap-1 mt-1">
-          <button
-            onClick={handleSave}
-            className="px-3 py-1 bg-[#03caff] text-white rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-[#02b5e6] shadow"
-          >
-            <Check size={12} /> Saqlash
-          </button>
-          <button
-            onClick={handleCancel}
-            className="px-3 py-1 bg-white/80 border text-slate-600 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-slate-50 shadow"
-          >
-            <X size={12} /> Bekor
-          </button>
-        </span>
       </span>
     );
   }

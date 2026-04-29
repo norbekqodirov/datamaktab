@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(js|ts|mjs|cjs\\)$\")",
+      "Bash(npm run:*)",
+      "Bash(git commit:*)",
+      "Bash(python3 -c \"import paramiko; print\\(''paramiko ok''\\)\")",
+      "Bash(python -c \"import paramiko; print\\(''paramiko ok''\\)\")",
+      "Bash(python3 -:*)",
+      "Bash(py -3 -c \"import paramiko; print\\(''ok''\\)\")",
+      "Bash(py -3 -m pip install paramiko)",
+      "Bash(py -3 -m pip install paramiko -q)",
+      "Bash(py -3:*)",
+      "WebFetch(domain:datamaktab.uz)",
+      "WebFetch(domain:yandex.uz)"
+    ]
+  }
+}
