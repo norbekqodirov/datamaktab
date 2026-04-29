@@ -444,11 +444,11 @@ export default function About() {
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">"Bir bola, bir oila, bir jamiyat" shiori ostida DATA daromadining bir qismi ijtimoiy loyihalarga yo'naltiriladi.</p>
-                <div className="space-y-3 mt-auto">
+                <div className="space-y-2 mt-auto">
                   {["Ijtimoiy himoyaga muhtoj bolalarni qo'llab-quvvatlash", "Inklyuziv ta'lim loyihalarini rivojlantirish", "Ta'limga kirish imkoniyatini kengaytirish"].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 bg-surface rounded-2xl">
-                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0">favorite</span>
-                      <span className="text-sm font-semibold text-primary">{item}</span>
+                    <div key={i} className="flex items-center gap-3 py-2 px-3 bg-surface rounded-xl">
+                      <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-[20px]">favorite</span>
+                      <span className="text-[13px] font-semibold text-primary leading-tight">{item}</span>
                     </div>
                   ))}
                 </div>
