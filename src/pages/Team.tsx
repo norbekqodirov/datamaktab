@@ -1,9 +1,13 @@
 import { motion } from 'motion/react';
 import { Users, UserCheck, GraduationCap, Award, Globe } from 'lucide-react';
+import { useSiteSettings } from '../hooks/useSiteSettings';
+import EditableText from '../components/EditableText';
 import SEO from '../components/SEO';
 
 export default function Team() {
-  const management = [
+  const { get, saveKey } = useSiteSettings();
+
+  const defaultManagement = [
     { name: "Nilufar Kalandarova", role: "O'quv va akademik ishlar bo'yicha direktorning birinchi o'rinbosari" },
     { name: "Quvondiq Hakimov", role: "Yoshlar va ma'naviy-ma'rifiy ishlar bo'yicha o'rinbosar" },
     { name: "Zafarbek Ro'zmetov", role: "HR direktor" },
@@ -12,7 +16,12 @@ export default function Team() {
     { name: "Asal Qalandarova", role: "Qabul bo'limi rahbari" }
   ];
 
-  const englishTeachers = [
+  const management = defaultManagement.map((person, i) => ({
+    name: get(`team_management_${i}_name`, person.name),
+    role: get(`team_management_${i}_role`, person.role),
+  }));
+
+  const defaultEnglishTeachers = [
     { name: "Durbiboyev Malik", score: "IELTS 8.0" },
     { name: "Nodira Abdullayeva", score: "IELTS 8.0" },
     { name: "Hikmatjon Raxmonov", score: "IELTS 7.5" },
@@ -20,6 +29,11 @@ export default function Team() {
     { name: "Rohila Solayeva", score: "IELTS 7.5" },
     { name: "Sanjar Madraximov", score: "IELTS 8.5, CELTA" }
   ];
+
+  const englishTeachers = defaultEnglishTeachers.map((t, i) => ({
+    name: get(`team_english_${i}_name`, t.name),
+    score: get(`team_english_${i}_score`, t.score),
+  }));
 
   return (
     <div className="bg-surface font-body text-on-surface pb-20">
@@ -69,8 +83,12 @@ export default function Team() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {management.map((person, idx) => (
               <div key={idx} className="bg-surface-muted p-8 rounded-2xl border border-slate-100 hover:border-secondary/30 hover:shadow-md transition-all">
-                <h3 className="font-headline font-extrabold text-primary text-xl mb-2">{person.name}</h3>
-                <p className="text-on-surface-muted leading-relaxed">{person.role}</p>
+                <h3 className="font-headline font-extrabold text-primary text-xl mb-2">
+                  <EditableText value={person.name} onSave={v => saveKey(`team_management_${idx}_name`, v)} />
+                </h3>
+                <p className="text-on-surface-muted leading-relaxed">
+                  <EditableText value={person.role} onSave={v => saveKey(`team_management_${idx}_role`, v)} multiline />
+                </p>
               </div>
             ))}
           </div>
@@ -87,8 +105,12 @@ export default function Team() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {englishTeachers.map((teacher, idx) => (
               <div key={idx} className="bg-primary/5 p-8 rounded-2xl border border-primary/10 flex flex-col justify-between items-start gap-4 hover:bg-primary/10 transition-colors">
-                <h3 className="font-headline font-extrabold text-primary text-xl">{teacher.name}</h3>
-                <span className="editorial-gradient text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">{teacher.score}</span>
+                <h3 className="font-headline font-extrabold text-primary text-xl">
+                  <EditableText value={teacher.name} onSave={v => saveKey(`team_english_${idx}_name`, v)} />
+                </h3>
+                <span className="editorial-gradient text-white text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                  <EditableText value={teacher.score} onSave={v => saveKey(`team_english_${idx}_score`, v)} />
+                </span>
               </div>
             ))}
           </div>
