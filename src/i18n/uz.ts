@@ -530,7 +530,7 @@ export const uz = {
     tech_extras: [
       { icon: 'video_camera_front', label: 'Interaktiv Video Studiya', desc: 'Xorazmdagi yagona interaktiv yozib olish studiyasi' },
       { icon: 'menu_book', label: '4603 ta Kitob — 7 tilda', desc: 'O\'zbek, rus, ingliz, koreys, xitoy, nemis va brayl alfabetida' },
-      { icon: 'ventilation', label: 'Ilmiy Havo Tizimi', desc: 'Har sinfga alohida supply va exhaust havo tizimi, chiller bilan isitish va sovutish' },
+      { icon: 'air', label: 'Ilmiy Havo Tizimi', desc: 'Har sinfga alohida supply va exhaust havo tizimi, chiller bilan isitish va sovutish' },
     ],
     olympiad_badge: '2025–2026 o\'quv yili',
     olympiad_title: 'Chempionlar',
