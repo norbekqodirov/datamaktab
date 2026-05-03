@@ -92,7 +92,7 @@ export default function Contact() {
 
               {/* Social Links */}
               <div className="glass-card rounded-2xl p-6 border border-primary/5">
-                <p className="text-xs font-extrabold uppercase tracking-widest text-on-surface-muted mb-4">Ijtimoiy tarmoqlar</p>
+                <p className="text-xs font-extrabold uppercase tracking-widest text-on-surface-muted mb-4">{c.social_label}</p>
                 <div className="flex gap-3">
                   {[
                     { icon: 'instagram', label: 'Instagram', href: 'https://instagram.com/data_maktabi' },
@@ -117,9 +117,9 @@ export default function Contact() {
                     <Send size={28} className="text-green-600" />
                   </div>
                   <h3 className="font-headline font-extrabold text-2xl text-primary mb-2">{c.form_success}</h3>
-                  <p className="text-on-surface-muted">Tez orada siz bilan bog'lanamiz.</p>
+                  <p className="text-on-surface-muted">{c.contact_soon}</p>
                   <button onClick={() => setSent(false)} className="mt-8 px-6 py-2.5 bg-primary text-white rounded-full font-bold text-sm hover:bg-primary/90 transition-colors">
-                    Yangi xabar
+                    {c.new_message}
                   </button>
                 </div>
               ) : (
@@ -128,7 +128,7 @@ export default function Contact() {
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
                       <MessageSquare size={18} className="text-white" />
                     </div>
-                    <h2 className="font-headline font-extrabold text-2xl text-primary">Xabar yuborish</h2>
+                    <h2 className="font-headline font-extrabold text-2xl text-primary">{c.send_title}</h2>
                   </div>
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {[
@@ -152,7 +152,7 @@ export default function Contact() {
                       <textarea
                         required
                         rows={5}
-                        placeholder="Xabaringizni yozing..."
+                        placeholder={c.message_placeholder}
                         value={form.message}
                         onChange={e => setForm({ ...form, message: e.target.value })}
                         className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#062bad]/30 focus:border-[#062bad] outline-none resize-none transition-all bg-white"
@@ -164,7 +164,7 @@ export default function Contact() {
                       className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold uppercase tracking-widest text-sm hover:shadow-xl hover:shadow-primary/20 transition-all flex items-center justify-center gap-2"
                     >
                       <Send size={16} />
-                      {sending ? 'Yuklanmoqda...' : c.form_submit}
+                      {sending ? c.sending : c.form_submit}
                     </button>
                   </form>
                 </>

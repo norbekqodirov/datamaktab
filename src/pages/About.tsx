@@ -145,7 +145,7 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Direktor So'zi</span>
+              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{a.director_badge}</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
                 <EditableText value={get('director_title', "Adolat, tartib va ochiqlik — boshqaruvimizning asosi")} onSave={v => saveKey('director_title', v)}>
                   {get('director_title', "Adolat, tartib va ochiqlik — boshqaruvimizning asosi")}
@@ -197,16 +197,11 @@ export default function About() {
       <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Rasmiy Status va A'zoliklar</span>
-            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">Tan olingan maktab</h2>
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">{a.status_badge}</span>
+            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{a.status_title}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: 'public', badge: 'Nomzod', title: 'CIS — Xalqaro Maktablar Kengashi', desc: '122 mamlakatdagi 1530 dan ortiq maktab va universitetni birlashtiruvchi notijorat tashkilot. DATA nomzod maqomida.', color: '#03caff' },
-              { icon: 'school', badge: 'Jarayonda', title: 'Cambridge Maktabi Statusiga', desc: "Cambridge Assessment International Education tashkilotiga arizada turibmiz. 2 bosqich muvaffaqiyatli o'tildi.", color: '#041c80' },
-              { icon: 'hub', badge: 'Xorazmda birinchi', title: 'CyberPark Rezidenti', desc: "INHA University va Turin Polytechnic bilan bir safda turuvchi texnologik ta'lim muassasasi sifatida akkreditatsiyalangan.", color: '#062bad' },
-              { icon: 'verified_user', badge: '№393364', title: "Ta'lim Litsenziyasi", desc: "2024-yil 12-sentabr, O'zbekiston Respublikasi MMTV tomonidan berilgan rasmiy litsenziya.", color: '#03caff' },
-            ].map((item, i) => (
+            {a.status_cards.map((item, i) => (
               <div key={i} className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all flex flex-col">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 text-white shadow-lg" style={{ background: `linear-gradient(135deg, ${item.color}, #041c80)` }}>
                   <span className="material-symbols-outlined text-2xl">{item.icon}</span>
@@ -383,12 +378,7 @@ export default function About() {
             ))}
           </div>
           <div className="mt-12 grid sm:grid-cols-4 gap-6">
-            {[
-              { val: '95%', label: "DATA'ni tavsiya qiladi" },
-              { val: '70%', label: 'Maktabni 9–10 ball bilan baholagan' },
-              { val: '87%', label: "Ijobiy o'zgarish sezgan" },
-              { val: '84%', label: "Muammolar o'z vaqtida hal bo'lgan" },
-            ].map((s, i) => (
+            {a.survey_stats.map((s, i) => (
               <div key={i} className="text-center p-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl border border-primary/10">
                 <p className="font-headline font-extrabold text-4xl text-primary mb-2">{s.val}</p>
                 <p className="text-on-surface-muted text-sm font-semibold">{s.label}</p>
@@ -414,7 +404,7 @@ export default function About() {
               <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">{a.yashnar_desc}</p>
                 <div className="space-y-2 mt-auto">
-                  {["Ijtimoiy himoyaga muhtoj bolalarni qo'llab-quvvatlash", "Inklyuziv ta'lim loyihalarini rivojlantirish", "Ta'limga kirish imkoniyatini kengaytirish"].map((item, i) => (
+                  {a.yashnar_items.map((item, i) => (
                     <div key={i} className="flex items-center gap-3 py-2 px-3 bg-surface rounded-xl">
                       <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-[20px]">favorite</span>
                       <span className="text-[13px] font-semibold text-primary leading-tight">{item}</span>
@@ -436,7 +426,7 @@ export default function About() {
               <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">{a.inclusive_subtitle}</p>
                 <div className="p-5 bg-white rounded-2xl border border-primary/5 mt-auto">
-                  <p className="text-primary font-bold text-sm">Hamkorlik: Ijtimoiy Himoya Milliy Agentligi, UNICEF</p>
+                  <p className="text-primary font-bold text-sm">{a.partner_prefix} Ijtimoiy Himoya Milliy Agentligi, UNICEF</p>
                 </div>
               </div>
             </div>
@@ -494,7 +484,7 @@ export default function About() {
           </div>
           <div className="text-center mt-12">
             <Link to="/maktab-haqida/jamoa" className="bg-primary text-white hover:bg-[#041c80] px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest inline-flex items-center gap-2 hover:scale-105 transition-all shadow-lg">
-              Barcha jamoa a'zolarini ko'rish <ArrowRight size={16} />
+              {a.see_all_team} <ArrowRight size={16} />
             </Link>
           </div>
         </div>
