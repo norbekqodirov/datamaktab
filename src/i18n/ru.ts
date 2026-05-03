@@ -134,6 +134,22 @@ export const ru: Translations = {
       { num: '04', title: 'Система Durbin', desc: 'Платформа для просмотра оценок и сообщений в реальном времени.' },
     ],
   },
+
+  team: {
+    hero_title: 'Bizning Jamoa',
+    hero_desc: "DATA Xalqaro Maktabining eng katta kuchi — uning fidoyi va professional jamoasi.",
+    management_title: "Menejment Jamoasi",
+    teachers_title: "Ingliz Tili Ustozlari",
+    teachers_desc: "Maktabimiz faxri.",
+    selection_title: "Ustoz Tanlash Jarayoni",
+    selection_subtitle: "Ustozlarimiz qanday tanlanadi?",
+    selection_steps: [
+      { label: "HR O'rganishi" },
+      { label: "Sinov Muddati" },
+      { label: "Suhbat" },
+      { label: "Sinov Darsi" },
+    ]
+  },
   education: {
     hero_title: 'Образовательная программа',
     hero_desc: 'Дорожная карта 11-летнего образования, основанная на международных стандартах и развивающая потенциал каждого ученика.',

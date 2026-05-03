@@ -134,6 +134,22 @@ export const en: Translations = {
       { num: '04', title: 'Durbin System', desc: 'Real-time platform for viewing grades and messages.' },
     ],
   },
+
+  team: {
+    hero_title: 'Bizning Jamoa',
+    hero_desc: "DATA Xalqaro Maktabining eng katta kuchi — uning fidoyi va professional jamoasi.",
+    management_title: "Menejment Jamoasi",
+    teachers_title: "Ingliz Tili Ustozlari",
+    teachers_desc: "Maktabimiz faxri.",
+    selection_title: "Ustoz Tanlash Jarayoni",
+    selection_subtitle: "Ustozlarimiz qanday tanlanadi?",
+    selection_steps: [
+      { label: "HR O'rganishi" },
+      { label: "Sinov Muddati" },
+      { label: "Suhbat" },
+      { label: "Sinov Darsi" },
+    ]
+  },
   education: {
     hero_title: 'Educational Programme',
     hero_desc: 'An 11-year learning roadmap based on international standards, developing the potential of every student.',

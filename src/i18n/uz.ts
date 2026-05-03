@@ -132,6 +132,22 @@ export const uz = {
       { num: '04', title: 'Durbin Tizimi', desc: "Real vaqtda baholar va xabarlarni kuzatish platformasi." },
     ],
   },
+
+  team: {
+    hero_title: 'Bizning Jamoa',
+    hero_desc: "DATA Xalqaro Maktabining eng katta kuchi — uning fidoyi va professional jamoasi.",
+    management_title: "Menejment Jamoasi",
+    teachers_title: "Ingliz Tili Ustozlari",
+    teachers_desc: "Maktabimiz faxri.",
+    selection_title: "Ustoz Tanlash Jarayoni",
+    selection_subtitle: "Ustozlarimiz qanday tanlanadi?",
+    selection_steps: [
+      { label: "HR O'rganishi" },
+      { label: "Sinov Muddati" },
+      { label: "Suhbat" },
+      { label: "Sinov Darsi" },
+    ]
+  },
   education: {
     hero_title: "Ta'lim Dasturi",
     hero_desc: "Xalqaro standartlarga asoslangan, har bir o'quvchining salohiyatini rivojlantiruvchi 11 yillik ta'lim yo'l xaritasi.",
