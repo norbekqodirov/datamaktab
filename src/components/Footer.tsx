@@ -101,7 +101,7 @@ export default function Footer() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold tracking-widest uppercase text-white/50">
           <p>&copy; {new Date().getFullYear()} DATA Xalqaro Maktabi. {t.footer.rights}</p>
-          <Link to="/maktabpanel" className="hover:text-white/80 transition-colors">Admin</Link>
+
         </div>
       </div>
     </footer>
