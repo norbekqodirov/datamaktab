@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useGlobalState } from '../context/GlobalStateContext';
 import { useEditMode } from '../context/EditModeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 // Keys that refer to images (shared across all languages)
 const IMAGE_KEY_PATTERNS = ['_img', '_bg', '_image', 'hero_student'];
@@ -12,6 +13,7 @@ function isImageKey(key: string): boolean {
 export function useSiteSettings() {
   const { siteData, updateSetting, getLatestSiteData, loading } = useGlobalState();
   const editModeCtx = useEditMode();
+  const { lang: siteLang } = useLanguage();
 
   const isEditMode = editModeCtx?.isEditMode;
   const registerPendingSave = editModeCtx?.registerPendingSave;
@@ -20,12 +22,12 @@ export function useSiteSettings() {
   /** Returns a language-suffixed key for text, or the raw key for images */
   function resolveKey(key: string, lang?: string): string {
     if (isImageKey(key)) return key;
-    return `${key}_${lang ?? adminEditLang}`;
+    return `${key}_${lang ?? siteLang}`;
   }
 
   /**
    * get(key, fallback): look up the language-specific value first,
-   * then the legacy (no-lang) value, then the fallback.
+   * then the legacy (no-lang) value (only for Uzbek), then the fallback.
    */
   const get = (key: string, fallback: string): string => {
     if (isImageKey(key)) {
@@ -34,8 +36,10 @@ export function useSiteSettings() {
     const langKey = resolveKey(key);
     // 1. Try language-specific key
     if (siteData?.[langKey] !== undefined) return siteData[langKey];
-    // 2. Fall back to the old key without language suffix (legacy data)
-    if (siteData?.[key] !== undefined) return siteData[key];
+    
+    // 2. Fall back to the old key without language suffix (legacy data) - only if viewing in Uzbek
+    if (siteLang === 'uz' && siteData?.[key] !== undefined) return siteData[key];
+    
     // 3. Fall back to i18n string
     return fallback;
   };
