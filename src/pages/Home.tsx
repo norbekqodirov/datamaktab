@@ -65,8 +65,8 @@ export default function Home() {
             className="w-full h-full"
             imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80 pointer-events-none" />
         </div>
 
 
@@ -214,7 +214,7 @@ export default function Home() {
                 <div className="aspect-[4/3] relative bg-slate-100 overflow-hidden">
                   <EditableImage src={get(`pillar_img_${i}`, p.img)} alt={p.title} onSave={v => saveKey(`pillar_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent pointer-events-none" />
                   <div className="absolute bottom-4 left-4 w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
                     <span className="material-symbols-outlined text-white text-xl">{p.icon}</span>
                   </div>
@@ -259,7 +259,7 @@ export default function Home() {
                 <div className="aspect-[4/3] relative bg-slate-100">
                   <EditableImage src={get(`tech_img_${i}`, item.img)} alt={item.label} onSave={v => saveKey(`tech_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                   <div className="absolute top-4 left-4 bg-[#03caff] text-white rounded-2xl px-4 py-2 shadow-lg shadow-[#03caff]/30">
                     <p className="font-headline font-extrabold text-2xl leading-none">{item.val}</p>
                   </div>
