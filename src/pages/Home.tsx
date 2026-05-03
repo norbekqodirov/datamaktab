@@ -173,17 +173,17 @@ export default function Home() {
             <div>
               <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{h.founder_badge}</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                <EditableText value={get('founder_title', 'Ta\'lim — kelajak uchun eng muhim investitsiya')} onSave={v => saveKey('founder_title', v)}>
-                  {get('founder_title', 'Ta\'lim — kelajak uchun eng muhim investitsiya')}
+                <EditableText value={get('founder_title', h.founder_title)} onSave={v => saveKey('founder_title', v)}>
+                  {get('founder_title', h.founder_title)}
                 </EditableText>
               </h2>
               <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
               <div className="space-y-4 text-on-surface-muted leading-relaxed">
-                <EditableText value={get('founder_p1', '"DATA xalqaro maktabi"ni tashkil etishdan asosiy maqsadimiz — faqat bilim berish emas, balki fikrlaydigan, mas\'uliyatni his qiladigan va ongli ravishda o\'z yo\'lini tanlay oladigan avlodni tarbiyalash.')} onSave={v => saveKey('founder_p1', v)} as="p" multiline>
-                  {get('founder_p1', '"DATA xalqaro maktabi"ni tashkil etishdan asosiy maqsadimiz — faqat bilim berish emas, balki fikrlaydigan, mas\'uliyatni his qiladigan va ongli ravishda o\'z yo\'lini tanlay oladigan avlodni tarbiyalash.')}
+                <EditableText value={get('founder_p1', h.founder_p1)} onSave={v => saveKey('founder_p1', v)} as="p" multiline>
+                  {get('founder_p1', h.founder_p1)}
                 </EditableText>
-                <EditableText value={get('founder_p2', 'Biz bu yerda faqat dars bermaymiz: bolalarga savol berishni, izlanishni va o\'z ustida ishlashni o\'rgatamiz. Haqiqiy natija esa ota-ona, muhit va farzandning o\'z ustida ishlashi uyg\'unligida shakllanadi.')} onSave={v => saveKey('founder_p2', v)} as="p" multiline>
-                  {get('founder_p2', 'Biz bu yerda faqat dars bermaymiz: bolalarga savol berishni, izlanishni va o\'z ustida ishlashni o\'rgatamiz. Haqiqiy natija esa ota-ona, muhit va farzandning o\'z ustida ishlashi uyg\'unligida shakllanadi.')}
+                <EditableText value={get('founder_p2', h.founder_p2)} onSave={v => saveKey('founder_p2', v)} as="p" multiline>
+                  {get('founder_p2', h.founder_p2)}
                 </EditableText>
               </div>
               <div className="mt-10 p-6 bg-surface rounded-3xl border border-primary/5">

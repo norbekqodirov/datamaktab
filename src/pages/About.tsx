@@ -147,20 +147,20 @@ export default function About() {
             <div>
               <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{a.director_badge}</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                <EditableText value={get('director_title', "Adolat, tartib va ochiqlik — boshqaruvimizning asosi")} onSave={v => saveKey('director_title', v)}>
-                  {get('director_title', "Adolat, tartib va ochiqlik — boshqaruvimizning asosi")}
+                <EditableText value={get('director_title', a.director_title)} onSave={v => saveKey('director_title', v)}>
+                  {get('director_title', a.director_title)}
                 </EditableText>
               </h2>
               <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
-              <EditableText value={get('director_text', "Direktor sifatida kafolatlayman — boshqaruvning barcha darajalarida adolat, tartib va ochiqlik tamoyillari ustuvor. Har bir o'quvchi bilan ishlashda individual yondashuv qo'llaniladi.")}
+              <EditableText value={get('director_text', a.director_text)}
                 onSave={v => saveKey('director_text', v)} as="p" multiline className="text-on-surface-muted leading-relaxed text-lg mb-8">
-                {get('director_text', "Direktor sifatida kafolatlayman — boshqaruvning barcha darajalarida adolat, tartib va ochiqlik tamoyillari ustuvor. Har bir o'quvchi bilan ishlashda individual yondashuv qo'llaniladi.")}
+                {get('director_text', a.director_text)}
               </EditableText>
               <div className="p-6 bg-surface rounded-3xl border border-primary/5">
                 <p className="text-[#062bad] font-bold italic text-sm leading-relaxed">
-                  "Agar farzandingizning ta'limi tizimli nazorat qilinadigan, xavfsiz va rivojlantiruvchi muhitda bo'lishini istasangiz, DATA jamoasi siz bilan hamkorlikka tayyor."
+                  {a.director_quote}
                 </p>
-                <p className="mt-3 text-xs font-extrabold uppercase tracking-widest text-on-surface-muted">— Dilfuza Babajanova, Direktor</p>
+                <p className="mt-3 text-xs font-extrabold uppercase tracking-widest text-on-surface-muted">— Dilfuza Babajanova, {a.director_role_label}</p>
               </div>
             </div>
             <div className="relative h-[500px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
@@ -168,7 +168,7 @@ export default function About() {
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-10 left-10 right-10 z-10">
-                <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">Maktab Direktori</p>
+                <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-1">{a.director_role_label}</p>
                 <h3 className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Dilfuza Babajanova</h3>
               </div>
             </div>

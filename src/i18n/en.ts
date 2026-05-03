@@ -126,6 +126,11 @@ export const en: Translations = {
     inclusive_subtitle: "The only Corrective class in Khorezm for children with disabilities! Special attention is paid to speech and developmental defects with the help of a speech therapist, speech pathologist, and psychologists.",
     ecosystem_title: 'School Ecosystem',
     ecosystem_desc: 'We do not only teach lessons — we build a system that ensures the holistic development of every student.',
+    director_badge: 'A Message from the Director',
+    director_title: 'Fairness, order and transparency — the foundation of our governance',
+    director_text: 'As Director, I guarantee that fairness, order and transparency are upheld at every level of management. An individual approach is applied when working with each student.',
+    director_quote: 'If you want your child to learn in a systematically supervised, safe and developmental environment, the DATA team is ready to collaborate with you.',
+    director_role_label: 'School Director',
     comms_title: 'Parent Communication System',
     comms_steps: [
       { num: '01', title: 'Tutor', desc: "Each student's personal mentor — lesson and communication coordinator." },
@@ -144,7 +149,6 @@ export const en: Translations = {
       'Developing inclusive education projects',
       'Expanding access to education',
     ],
-    director_badge: "Director's Word",
     status_badge: "Official Status & Memberships",
     status_title: "A Recognised School",
     status_cards: [
@@ -492,6 +496,9 @@ export const en: Translations = {
   },
   home: {
     founder_badge: "Founder's Message",
+    founder_title: 'Education — the most important investment for the future',
+    founder_p1: 'Our main goal in founding "DATA International School" is not only to impart knowledge, but to raise a generation that thinks critically, feels responsible, and can consciously choose their own path.',
+    founder_p2: 'We do not only teach here: we teach children to ask questions, to explore, and to work on themselves. True results are formed through the harmony of parents, the environment, and the child\'s own self-development.',
     founder_name: 'Shahzod Sabirov',
     founder_award: 'Recipient of the "Mard O\'g\'lon" state award',
     founder_label: 'Our Founder',

@@ -143,6 +143,10 @@ export const uz = {
       "Ta'limga kirish imkoniyatini kengaytirish",
     ],
     director_badge: "Direktor So'zi",
+    director_title: "Adolat, tartib va ochiqlik — boshqaruvimizning asosi",
+    director_text: "Direktor sifatida kafolatlayman — boshqaruvning barcha darajalarida adolat, tartib va ochiqlik tamoyillari ustuvor. Har bir o'quvchi bilan ishlashda individual yondashuv qo'llaniladi.",
+    director_quote: "Agar farzandingizning ta'limi tizimli nazorat qilinadigan, xavfsiz va rivojlantiruvchi muhitda bo'lishini istasangiz, DATA jamoasi siz bilan hamkorlikka tayyor.",
+    director_role_label: "Maktab Direktori",
     status_badge: "Rasmiy Status va A'zoliklar",
     status_title: "Tan olingan maktab",
     status_cards: [
@@ -490,6 +494,9 @@ export const uz = {
   },
   home: {
     founder_badge: 'Asoschimiz So\'zi',
+    founder_title: "Ta'lim — kelajak uchun eng muhim investitsiya",
+    founder_p1: '"DATA xalqaro maktabi"ni tashkil etishdan asosiy maqsadimiz — faqat bilim berish emas, balki fikrlaydigan, mas\'uliyatni his qiladigan va ongli ravishda o\'z yo\'lini tanlay oladigan avlodni tarbiyalash.',
+    founder_p2: 'Biz bu yerda faqat dars bermaymiz: bolalarga savol berishni, izlanishni va o\'z ustida ishlashni o\'rgatamiz. Haqiqiy natija esa ota-ona, muhit va farzandning o\'z ustida ishlashi uyg\'unligida shakllanadi.',
     founder_name: 'Shahzod Sabirov',
     founder_award: '"Mard o\'g\'lon" davlat mukofoti sohibi',
     founder_label: 'Asoschimiz',
