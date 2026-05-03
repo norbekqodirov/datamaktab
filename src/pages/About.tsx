@@ -11,15 +11,9 @@ export default function About() {
   const { t } = useLanguage();
   const { get, saveKey } = useSiteSettings();
   const a = t.about;
+  const tm = t.team;
 
-  const infraFallback = [
-    { title: 'Yangi Bino (KADORR Group)', desc: "5 qavatli 4000 m² maydon, 20 zamonaviy sinfxona, aqlli ventilyatsiya.", icon: 'apartment' },
-    { title: 'Zamonaviy Texnologiyalar', desc: "24 ta iMac, 60 ta Notebook, 20 ta VR ko'zoynak va har sinfda AI yordamchisi.", icon: 'computer' },
-    { title: 'Ovqatlanish', desc: "Kuniga 3 mahal issiq, sog'lom va to'yimli ovqat. Dietolog nazoratidagi maxsus menyu.", icon: 'restaurant' },
-    { title: "Sog'liqni Saqlash", desc: "Doimiy shifokor, psixolog va logoped nazorati. O'quvchilar hayoti 20 mlngacha sug'urtalanadi.", icon: 'health_and_safety' },
-    { title: 'Xavfsizlik', desc: "Milliy gvardiya tomonidan qo'riqlanadi, har bir hududda kamera va favqulodda SOS tizimi.", icon: 'security' },
-    { title: 'Transport', desc: "Maktabda 4 ta avtobus. Ota-onalar GPS orqali real vaqtda kuzatishadi.", icon: 'directions_bus' },
-  ];
+  const infraFallback = a.infra_items.map(item => ({ ...item, icon: item.title.includes('Bino') || item.title.includes('Новое') || item.title.includes('New') ? 'apartment' : item.title.includes('Texnologiya') || item.title.includes('Modern') || item.title.includes('Современные') ? 'computer' : item.title.includes('Ovqat') || item.title.includes('Питание') || item.title.includes('Catering') ? 'restaurant' : item.title.includes('Sog\'liq') || item.title.includes('Health') || item.title.includes('Здравоохранение') ? 'health_and_safety' : item.title.includes('Xavfsiz') || item.title.includes('Secur') || item.title.includes('Безопасность') ? 'security' : 'directions_bus' }));
 
   const getArr = (key: string, arrIdx: number, valIdx: number, fb: string) => {
     try {
@@ -42,11 +36,7 @@ export default function About() {
     }
   };
 
-  const healthTeam = [
-    { name: 'Zulfiya Abdullayeva', role: 'Maktab shifokori', desc: "Kunlik sog'liq nazorati, birlamchi tibbiy yordam, profilaktik ko'riklar va gigiyena nazorati.", icon: 'stethoscope' },
-    { name: 'Lyudmila Atadjanova', role: 'Maktab psixologi', desc: "O'quvchi motivatsiyasi, adaptatsiya, sinfdoshlar munosabati va individual psixologik yordam.", icon: 'psychology' },
-    { name: 'Rahiya Omirzakova', role: 'Maktab logopedi', desc: "Nutq nuqsonlarini aniqlash va tuzatish, o'qish/yozish qiyinchiliklari, til o'rganishda qo'llab-quvvatlash.", icon: 'record_voice_over' },
-  ];
+  const healthTeam = a.health_team.map(item => ({ ...item, icon: item.role.includes('shifokor') || item.role.includes('Doctor') || item.role.includes('врач') ? 'stethoscope' : item.role.includes('psixolog') || item.role.includes('Psychologist') || item.role.includes('психолог') ? 'psychology' : 'record_voice_over' }));
 
   return (
     <>
@@ -82,31 +72,21 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
             <div className="flex flex-col justify-between py-2">
               <div className="mb-8">
-                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Bizning Tarix</span>
-                <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
-                  DATA ta'lim ekotizimi — <span className="text-[#03caff]">2019 yildan</span>
-                </h2>
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{a.history_badge}</span>
+                <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: a.history_title.replace('—', '<span class="text-[#03caff]">—').replace('2019', '2019</span>') }}></h2>
                 <div className="w-16 h-1.5 bg-[#03caff] rounded-full mb-8" />
-                <p className="text-on-surface-muted leading-relaxed text-lg mb-6">
-                  DATA ta'lim markazi 2019-yilda Xorazm viloyatining Urganch shahrida tashkil etilgan. IT texnologiyalari va xorijiy tillar yo'nalishlariga ixtisoslashgan bo'lib, <strong className="text-primary">16 000 nafara yaqin yoshlarning</strong> kasb-hunar egallashiga hissa qo'shib kelmoqda.
-                </p>
-                <p className="text-on-surface-muted leading-relaxed text-lg mb-10">
-                  2024-yilda ilk maktabni Urganch tumanida ishga tushirib, kurslardan boshlanib maktabgacha o'sgan yaxlit ta'lim ekotizimiga ega bo'ldik.
-                </p>
+                <p className="text-on-surface-muted leading-relaxed text-lg mb-6" dangerouslySetInnerHTML={{ __html: a.history_p1.replace('16 000', '<strong class="text-primary">16 000').replace('yoshlarning', 'yoshlarning</strong>') }}></p>
+                <p className="text-on-surface-muted leading-relaxed text-lg mb-10">{a.history_p2}</p>
               </div>
               <div className="p-6 bg-surface rounded-3xl border border-primary/5 space-y-4 mt-auto">
-                <h3 className="font-headline font-extrabold text-primary text-xl">Logotipimiz ortidagi g'oya</h3>
-                {[
-                  { d: 'Birinchi "D"', desc: "Ichki bo'shliq bilan — o'quvchining boshlang'ich bilim darajasi." },
-                  { d: 'Ikkinchi "D"', desc: "Qisman to'lgan — bilim, motivatsiya va ilhom bilan to'ldirilayotgan bosqich." },
-                  { d: 'Uchinchi "D"', desc: "To'liq to'lgan — shaxsiy rivoj va intellektual yuksalishning yakuniy natijasi." },
-                ].map((item, i) => (
+                <h3 className="font-headline font-extrabold text-primary text-xl">{a.logo_title}</h3>
+                {a.logo_items.map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <span className="font-headline font-extrabold text-2xl text-[#03caff] w-8 flex-shrink-0">{i + 1}</span>
                     <div><strong className="text-primary">{item.d}</strong> — <span className="text-on-surface-muted max-w-4xl">{item.desc}</span></div>
                   </div>
                 ))}
-                <p className="text-[#062bad] font-bold italic mt-2">"Bilimga to'ldiramiz!" — shiorimizdagi mazmun ham aynan shu.</p>
+                <p className="text-[#062bad] font-bold italic mt-2">{a.logo_quote}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 md:gap-6 h-full min-h-[460px] w-full">
@@ -121,7 +101,7 @@ export default function About() {
                 </div>
                 <div className="h-full rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center items-center text-center bg-gradient-to-br from-[#03caff] to-[#062bad] text-white p-6 shadow-xl shadow-[#03caff]/30 transition-transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#03caff]/40">
                   <p className="font-headline font-extrabold text-4xl lg:text-5xl mb-2 drop-shadow-md">16K+</p>
-                  <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 font-bold max-w-[120px] mx-auto leading-relaxed">Yetishtirilgan Yosh</p>
+                  <p className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 font-bold max-w-[120px] mx-auto leading-relaxed">{a.stats_graduated}</p>
                 </div>
               </div>
             </div>
@@ -137,8 +117,7 @@ export default function About() {
               { key: 'miss', titleKey: 'about_miss_img', fallbackImg: '/images/mission.jpg', textKey: 'about_mission', text: a.mission, title: a.mission_title, icon: 'flag', gradFrom: 'from-primary/80' },
               { key: 'vis', titleKey: 'about_vis_img', fallbackImg: '/images/vision.jpg', textKey: 'about_vision', text: a.vision, title: a.vision_title, icon: 'visibility', gradFrom: 'from-[#041c80]/80' },
             ].map((card, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
-                className="rounded-[2.5rem] overflow-hidden border border-primary/10 shadow-xl flex flex-col bg-white">
+              <div key={i} className="rounded-[2.5rem] overflow-hidden border border-primary/10 shadow-xl flex flex-col bg-white">
                 <div className="h-56 md:h-72 relative w-full bg-slate-100 group">
                   <EditableImage src={get(card.titleKey, card.fallbackImg)} alt={card.title} onSave={v => saveKey(card.titleKey, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -155,7 +134,7 @@ export default function About() {
                     {get(card.textKey, card.text)}
                   </EditableText>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -165,7 +144,7 @@ export default function About() {
       <section className="py-12 md:py-16 bg-white overflow-hidden">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <div>
               <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Direktor So'zi</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
                 <EditableText value={get('director_title', "Adolat, tartib va ochiqlik — boshqaruvimizning asosi")} onSave={v => saveKey('director_title', v)}>
@@ -183,7 +162,7 @@ export default function About() {
                 </p>
                 <p className="mt-3 text-xs font-extrabold uppercase tracking-widest text-on-surface-muted">— Dilfuza Babajanova, Direktor</p>
               </div>
-            </motion.div>
+            </div>
             <div className="relative h-[500px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
               <EditableImage src={get('director_img', '/images/director.jpg')} alt="Dilfuza Babajanova" onSave={v => saveKey('director_img', v)}
                 className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -203,13 +182,12 @@ export default function About() {
           <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-white mb-12 text-center">{a.achievements_title}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {a.achievements.map((ach, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="flex items-start gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10">
+              <div key={i} className="flex items-start gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10">
                 <span className="material-symbols-outlined text-[#03caff] mt-0.5 flex-shrink-0">verified</span>
                 <EditableText value={get(`about_ach_${i}`, ach)} onSave={v => saveKey(`about_ach_${i}`, v)} as="p" multiline className="text-white text-sm font-semibold leading-relaxed">
                   {get(`about_ach_${i}`, ach)}
                 </EditableText>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -229,15 +207,14 @@ export default function About() {
               { icon: 'hub', badge: 'Xorazmda birinchi', title: 'CyberPark Rezidenti', desc: "INHA University va Turin Polytechnic bilan bir safda turuvchi texnologik ta'lim muassasasi sifatida akkreditatsiyalangan.", color: '#062bad' },
               { icon: 'verified_user', badge: '№393364', title: "Ta'lim Litsenziyasi", desc: "2024-yil 12-sentabr, O'zbekiston Respublikasi MMTV tomonidan berilgan rasmiy litsenziya.", color: '#03caff' },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all flex flex-col">
+              <div key={i} className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all flex flex-col">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 text-white shadow-lg" style={{ background: `linear-gradient(135deg, ${item.color}, #041c80)` }}>
                   <span className="material-symbols-outlined text-2xl">{item.icon}</span>
                 </div>
                 <span className="inline-block px-3 py-1 text-[9px] font-extrabold tracking-widest uppercase rounded-full mb-4" style={{ backgroundColor: item.color + '20', color: item.color }}>{item.badge}</span>
                 <h3 className="font-headline font-extrabold text-primary text-lg mb-3 leading-snug">{item.title}</h3>
                 <p className="text-on-surface-muted text-sm leading-relaxed flex-1">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -251,8 +228,7 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {infraFallback.map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                className="glass-card rounded-[2rem] overflow-hidden border border-primary/5 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 bg-white flex flex-col">
+              <div key={i} className="glass-card rounded-[2rem] overflow-hidden border border-primary/5 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 bg-white flex flex-col">
                 <div className="aspect-[4/3] w-full relative bg-slate-100 group">
                   <EditableImage src={get(`about_infra_img_${i}`, `/images/infra-${i+1}.jpg`)} alt={item.title} onSave={v => saveKey(`about_infra_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -270,7 +246,7 @@ export default function About() {
                     {getArr('about_infra', i, 1, item.desc)}
                   </EditableText>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -286,8 +262,7 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {healthTeam.map((person, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all">
+              <div key={i} className="bg-surface rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all">
                 <div className="aspect-[4/3] relative bg-slate-100 group">
                   <EditableImage src={get(`health_img_${i}`, `/images/health-${i+1}.jpg`)} alt={person.name} onSave={v => saveKey(`health_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -300,7 +275,7 @@ export default function About() {
                   <span className="inline-block px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-[#062bad] bg-[#03caff]/10 rounded-full mb-4">{person.role}</span>
                   <p className="text-on-surface-muted text-sm leading-relaxed">{person.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
@@ -336,20 +311,16 @@ export default function About() {
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-7">
-                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Kuniga 3 Mahal Issiq Ovqat</span>
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">{a.food_title}</span>
                 </div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <p className="text-on-surface-muted leading-relaxed mb-6">Menyu dietolog nazoratida tuziladi. Nonushta, tushlik va poldnik — hammasini maktab ta'minlaydi.</p>
+                <p className="text-on-surface-muted leading-relaxed mb-6">{a.food_desc}</p>
                 <div className="space-y-2 mt-auto">
-                  {[
-                    { label: 'Nonushta', desc: "Sutli bo'tqa, tvorog, choy — 08:00–09:00" },
-                    { label: 'Tushlik', desc: "Sho'rva, go'shtli taom, salat, meva — 12:00–13:00" },
-                    { label: 'Poldnik', desc: 'Pirog, pechenye, kompot' },
-                  ].map((meal, i) => (
+                  {a.food_meals.map((meal, i) => (
                     <div key={i} className="flex items-start gap-3 py-2.5 px-4 bg-surface rounded-xl">
                       <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-[18px]">restaurant</span>
-                      <div><strong className="text-primary text-[13px]">{meal.label}</strong><span className="text-on-surface-muted text-[11px] ml-2 block sm:inline">{meal.desc}</span></div>
+                      <div><strong className="text-primary text-[13px]">{meal.time}</strong><span className="text-on-surface-muted text-[11px] ml-2 block sm:inline">{meal.menu}</span></div>
                     </div>
                   ))}
                 </div>
@@ -361,16 +332,16 @@ export default function About() {
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-7">
-                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">GPS Nazoratli Avtobuslar</span>
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">{a.transport_title}</span>
                 </div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <p className="text-on-surface-muted leading-relaxed mb-6">4 ta SAZ NP 26 model avtobus faoliyat yuritadi. Ota-onalar farzandining harakatini real vaqtda kuzatib boradi.</p>
+                <p className="text-on-surface-muted leading-relaxed mb-6">{a.transport_desc}</p>
                 <div className="grid grid-cols-2 gap-3 mt-auto">
                   {[
-                    { icon: 'directions_bus', val: '4 ta', label: 'Avtobus' },
+                    { icon: 'directions_bus', val: a.transport_stats[0].val, label: a.transport_stats[0].label },
                     { icon: 'person', val: '40', label: "Sig'im (nafar)" },
-                    { icon: 'location_on', val: 'GPS', label: 'Real vaqt kuzatuv' },
+                    { icon: 'location_on', val: 'GPS', label: a.transport_stats[1].label },
                     { icon: 'calendar_month', val: '5 kun', label: 'Haftalik xizmat' },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 py-2 px-3 bg-surface rounded-xl">
@@ -396,8 +367,7 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {a.comms_steps.map((step, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="relative bg-surface rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all h-full flex flex-col">
+              <div key={i} className="relative bg-surface rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all h-full flex flex-col">
                 <div className="absolute top-8 right-8 text-6xl font-headline font-black text-slate-50 leading-none pointer-events-none">
                   {(i + 1).toString().padStart(2, '0')}
                 </div>
@@ -409,7 +379,7 @@ export default function About() {
                     {get(`about_comms_${i}_d`, step.desc)}
                   </EditableText>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           <div className="mt-12 grid sm:grid-cols-4 gap-6">
@@ -419,11 +389,10 @@ export default function About() {
               { val: '87%', label: "Ijobiy o'zgarish sezgan" },
               { val: '84%', label: "Muammolar o'z vaqtida hal bo'lgan" },
             ].map((s, i) => (
-              <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="text-center p-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl border border-primary/10">
+              <div key={i} className="text-center p-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl border border-primary/10">
                 <p className="font-headline font-extrabold text-4xl text-primary mb-2">{s.val}</p>
                 <p className="text-on-surface-muted text-sm font-semibold">{s.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -439,11 +408,11 @@ export default function About() {
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-7">
-                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">"YASHNAR" NNT</span>
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">{a.yashnar_title}</span>
                 </div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <p className="text-on-surface-muted leading-relaxed mb-6">"Bir bola, bir oila, bir jamiyat" shiori ostida DATA daromadining bir qismi ijtimoiy loyihalarga yo'naltiriladi.</p>
+                <p className="text-on-surface-muted leading-relaxed mb-6">{a.yashnar_desc}</p>
                 <div className="space-y-2 mt-auto">
                   {["Ijtimoiy himoyaga muhtoj bolalarni qo'llab-quvvatlash", "Inklyuziv ta'lim loyihalarini rivojlantirish", "Ta'limga kirish imkoniyatini kengaytirish"].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 py-2 px-3 bg-surface rounded-xl">
@@ -459,13 +428,13 @@ export default function About() {
                 <EditableImage src={get('inclusive_img', '/images/inclusive.jpg')} alt="Inklyuziv Sinf" onSave={v => saveKey('inclusive_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#062bad]/70 to-transparent pointer-events-none" />
-                <div className="absolute top-4 right-4 bg-[#03caff] text-white text-[9px] font-extrabold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">O'zbekistonda 1-chi</div>
+                <div className="absolute top-4 right-4 bg-[#03caff] text-white text-[9px] font-extrabold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">{a.achievements[4]}</div>
                 <div className="absolute bottom-6 left-7">
-                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">Inklyuziv Korreksion Sinf</span>
+                  <span className="text-white font-headline font-extrabold text-2xl drop-shadow-lg">{a.inclusive_title}</span>
                 </div>
               </div>
               <div className="p-8 flex flex-col flex-1">
-                <p className="text-on-surface-muted leading-relaxed mb-6">2025-yildan boshlab O'zbekistondagi 700 dan ortiq xususiy maktablar orasida ilk bo'lib inklyuziv korreksion sinf tashkil etildi. "Teng maydon" loyihasi.</p>
+                <p className="text-on-surface-muted leading-relaxed mb-6">{a.inclusive_subtitle}</p>
                 <div className="p-5 bg-white rounded-2xl border border-primary/5 mt-auto">
                   <p className="text-primary font-bold text-sm">Hamkorlik: Ijtimoiy Himoya Milliy Agentligi, UNICEF</p>
                 </div>
@@ -499,8 +468,8 @@ export default function About() {
       <section className="py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">Rahbariyat va Ustozlar</h2>
-            <p className="mt-4 text-on-surface-muted max-w-2xl mx-auto">Tajribali mutaxassislar va o'z ishining ustalaridan ta'lim oling.</p>
+            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary">{tm.hero_title}</h2>
+            <p className="mt-4 text-on-surface-muted max-w-2xl mx-auto">{tm.hero_desc}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {[
@@ -508,8 +477,7 @@ export default function About() {
               { n: 'Quvondiq Hakimov', r: "Yoshlar va ma'naviy-ma'rifiy ishlar bo'yicha o'rinbosar" },
               { n: "Zafarbek Ro'zmetov", r: 'HR direktor' },
             ].map((person, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all text-center">
+              <div key={i} className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all text-center">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 mx-auto bg-slate-100 shadow-lg border-4 border-white relative group">
                   <EditableImage src={get(`about_team_img_${i}`, `/images/team-${i+1}.jpg`)} alt={person.n} onSave={v => saveKey(`about_team_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -521,7 +489,7 @@ export default function About() {
                 <EditableText value={get(`about_team_r_${i}`, person.r)} onSave={v => saveKey(`about_team_r_${i}`, v)} as="p" multiline className="text-sm font-semibold text-[#062bad] leading-relaxed uppercase tracking-widest">
                   {get(`about_team_r_${i}`, person.r)}
                 </EditableText>
-              </motion.div>
+              </div>
             ))}
           </div>
           <div className="text-center mt-12">

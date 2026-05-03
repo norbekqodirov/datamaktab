@@ -11,6 +11,7 @@ import Home from './Home';
 import About from './About';
 import Education from './Education';
 import Admission from './Admission';
+import Team from './Team';
 import ConfirmDialog from '../components/ConfirmDialog';
 
 // ────────────────────────────────────────────────
@@ -205,6 +206,7 @@ export default function Admin() {
     { path: '/maktabpanel/content/about', icon: <School size={18} />, label: 'Maktab haqida' },
     { path: '/maktabpanel/content/education', icon: <BookOpen size={18} />, label: "Ta'lim" },
     { path: '/maktabpanel/content/admission', icon: <ClipboardList size={18} />, label: 'Qabul' },
+    { path: '/maktabpanel/content/team', icon: <Users size={18} />, label: 'Jamoa' },
     { path: '/maktabpanel/articles', icon: <FileText size={18} />, label: 'Yangiliklar' },
     { path: '/maktabpanel/settings', icon: <SettingsIcon size={18} />, label: 'Sozlamalar' },
   ];
@@ -283,6 +285,7 @@ export default function Admin() {
             <Route path="/content/about" element={<AdminPagePreview page="about" />} />
             <Route path="/content/education" element={<AdminPagePreview page="education" />} />
             <Route path="/content/admission" element={<AdminPagePreview page="admission" />} />
+            <Route path="/content/team" element={<AdminPagePreview page="team" />} />
 
             <Route path="/articles" element={<ArticleList />} />
             <Route path="/article/new" element={<ArticleForm />} />
@@ -314,6 +317,7 @@ function Dashboard() {
     { label: 'Maktab haqida', icon: <School size={18} />, link: '/maktabpanel/content/about' },
     { label: "Ta'lim tizimi", icon: <BookOpen size={18} />, link: '/maktabpanel/content/education' },
     { label: 'Qabul & Narxlar', icon: <ClipboardList size={18} />, link: '/maktabpanel/content/admission' },
+    { label: 'Jamoa', icon: <Users size={18} />, link: '/maktabpanel/content/team' },
   ];
 
   return (
@@ -353,7 +357,7 @@ function Dashboard() {
 // ────────────────────────────────────────────────
 // WYSIWYG Live Page Preview Editor
 // ────────────────────────────────────────────────
-function AdminPagePreview({ page }: { page: 'home' | 'about' | 'education' | 'admission' }) {
+function AdminPagePreview({ page }: { page: 'home' | 'about' | 'education' | 'admission' | 'team' }) {
   const { setIsEditMode } = useEditMode();
 
   useEffect(() => {
@@ -380,6 +384,7 @@ function AdminPagePreview({ page }: { page: 'home' | 'about' | 'education' | 'ad
           {page === 'about' && <About />}
           {page === 'education' && <Education />}
           {page === 'admission' && <Admission />}
+          {page === 'team' && <Team />}
         </div>
       </div>
     </div>

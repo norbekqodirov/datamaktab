@@ -1,11 +1,14 @@
 import { motion } from 'motion/react';
 import { Users, UserCheck, GraduationCap, Award, Globe } from 'lucide-react';
 import { useSiteSettings } from '../hooks/useSiteSettings';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from '../components/EditableText';
 import SEO from '../components/SEO';
 
 export default function Team() {
   const { get, saveKey } = useSiteSettings();
+  const { t } = useLanguage();
+  const tm = t.team;
 
   const defaultManagement = [
     { name: "Nilufar Kalandarova", role: "O'quv va akademik ishlar bo'yicha direktorning birinchi o'rinbosari" },
@@ -56,15 +59,9 @@ export default function Team() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-4 py-1 mb-6 text-[10px] tracking-[0.3em] font-bold text-white uppercase bg-secondary/20 backdrop-blur-md rounded-full">
-                Ustozlar va Rahbariyat
-              </span>
-              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter leading-tight mb-6">
-                Bizning Jamoa
-              </h1>
-              <p className="text-white/80 text-lg md:text-xl font-body leading-relaxed">
-                O'z ishining ustalari, tajribali va fidoyi ustozlar jamoasi.
-              </p>
+              <span className="inline-block px-4 py-1 mb-6 text-[10px] tracking-[0.3em] font-bold text-white uppercase bg-secondary/20 backdrop-blur-md rounded-full">{tm.management_title}</span>
+              <h1 className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter leading-tight mb-6">{tm.hero_title}</h1>
+              <p className="text-white/80 text-lg md:text-xl font-body leading-relaxed">{tm.hero_desc}</p>
             </motion.div>
           </div>
         </div>
@@ -78,7 +75,7 @@ export default function Team() {
             <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center text-primary">
               <Users size={32} />
             </div>
-            <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-primary">Menejment Jamoasi</h2>
+            <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-primary">{tm.management_title}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {management.map((person, idx) => (
@@ -100,7 +97,7 @@ export default function Team() {
             <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center text-primary">
               <Globe size={32} />
             </div>
-            <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-primary">Ingliz Tili Ustozlari</h2>
+            <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-primary">{tm.teachers_title}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {englishTeachers.map((teacher, idx) => (
@@ -125,28 +122,24 @@ export default function Team() {
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-secondary">
               <UserCheck size={32} />
             </div>
-            <h2 className="font-headline text-3xl md:text-4xl font-extrabold">Ustoz Tanlash Jarayoni</h2>
+            <h2 className="font-headline text-3xl md:text-4xl font-extrabold">{tm.selection_title}</h2>
           </div>
           <div className="grid md:grid-cols-4 gap-8 relative z-10">
             <div className="relative">
               <div className="font-headline text-7xl font-extrabold text-white/10 absolute -top-8 -left-4">1</div>
-              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">HR O'rganishi</h3>
-              <p className="text-white/80 leading-relaxed relative z-10">Nomzodning ma'lumoti, toifasi, sertifikatlari va ish tajribasini o'rganish.</p>
+              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">{tm.selection_steps[0].label}</h3><p className="text-white/80 leading-relaxed relative z-10"></p>
             </div>
             <div className="relative">
               <div className="font-headline text-7xl font-extrabold text-white/10 absolute -top-8 -left-4">2</div>
-              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">Suhbat</h3>
-              <p className="text-white/80 leading-relaxed relative z-10">Maktab direktori va akademik bo'lim rahbarlari bilan kasbiy yondashuvni baholash.</p>
+              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">{tm.selection_steps[2].label}</h3><p className="text-white/80 leading-relaxed relative z-10"></p>
             </div>
             <div className="relative">
               <div className="font-headline text-7xl font-extrabold text-white/10 absolute -top-8 -left-4">3</div>
-              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">Sinov Darsi</h3>
-              <p className="text-white/80 leading-relaxed relative z-10">Nomzod bitta dars o'tib, pedagogik mahoratini amalda ko'rsatadi.</p>
+              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">{tm.selection_steps[3].label}</h3><p className="text-white/80 leading-relaxed relative z-10"></p>
             </div>
             <div className="relative">
               <div className="font-headline text-7xl font-extrabold text-white/10 absolute -top-8 -left-4">4</div>
-              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">Sinov Muddati</h3>
-              <p className="text-white/80 leading-relaxed relative z-10">Bir oylik sinov: dars sifati, muloqot, intizom va jamoaga moslashuv baholanadi.</p>
+              <h3 className="font-headline font-extrabold text-secondary text-xl mb-4 relative z-10">{tm.selection_steps[1].label}</h3><p className="text-white/80 leading-relaxed relative z-10"></p>
             </div>
           </div>
         </div>

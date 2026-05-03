@@ -60,7 +60,7 @@ export const EditModeProvider = ({ children }: { children: React.ReactNode }) =>
     if (pendingSavesRef.current.size === 0) return;
     setIsSavingAll(true);
     try {
-      const fns = Array.from(pendingSavesRef.current.values());
+      const fns = Array.from(pendingSavesRef.current.values()) as Array<() => Promise<void>>;
       await Promise.all(fns.map(fn => fn()));
       pendingSavesRef.current.clear();
       setPendingCount(0);

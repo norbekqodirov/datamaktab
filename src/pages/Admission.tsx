@@ -195,13 +195,12 @@ export default function Admission() {
                   { icon: 'medical_information', doc: "086-formadagi tibbiy ma'lumotnoma" },
                   { icon: 'assignment', doc: "Oldingi ta'lim muassasasidan baholar tablitsasi (TABEL)" },
                 ].map((item, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07 }} viewport={{ once: true }}
-                    className="flex items-center gap-4 p-4 md:p-4 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
+                  <div key={i} className="flex items-center gap-4 p-4 md:p-4 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white flex-shrink-0 shadow-inner shadow-white/20">
                       <span className="material-symbols-outlined text-xl">{item.icon}</span>
                     </div>
                     <p className="font-semibold text-primary text-xs md:text-sm">{item.doc}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -217,8 +216,7 @@ export default function Admission() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {a.steps.map((step, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                className="flex flex-col rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 bg-surface hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
+              <div key={i} className="flex flex-col rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 bg-surface hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
                 <div className="aspect-[4/3] relative bg-slate-100">
                   <EditableImage src={get(`adm_step_img_${i}`, `/images/step-${i+1}.jpg`)} alt={step.title} onSave={v => saveKey(`adm_step_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -237,7 +235,7 @@ export default function Admission() {
                     {getArr('adm_steps', i, 1, step.d)}
                   </EditableText>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -294,8 +292,7 @@ export default function Admission() {
                       <span className="font-bold text-[#03caff]">{item.pct}%</span>
                     </div>
                     <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
-                      <motion.div initial={{ width: 0 }} whileInView={{ width: `${item.pct}%` }} transition={{ duration: 1, ease: 'easeOut', delay: i * 0.1 }} viewport={{ once: true }}
-                        className="h-full bg-gradient-to-r from-primary to-[#03caff] rounded-full" />
+                      <div className="h-full bg-gradient-to-r from-primary to-[#03caff] rounded-full" style={{ width: `${item.pct}%` }} />
                     </div>
                   </div>
                 ))}
@@ -394,8 +391,7 @@ export default function Admission() {
                   { icon: 'front_hand', title: "Odob-axloq qoidalari", desc: "Jismoniy, so'z yoki elektron ko'rinishdagi tajovuz, kamsitishga nol bag'rikenglik siyosati." },
                   { icon: 'card_giftcard', title: "Sovg'alar berish taqiqlanadi", desc: "O'qituvchilar va xodimlarga sovg'a yoki pul olish qat'iyan man etiladi. Shaffoflik tamoyili." },
                 ].map((item, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                    className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-[#03caff]/30 hover:bg-slate-50 transition-colors">
+                  <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-[#03caff]/30 hover:bg-slate-50 transition-colors">
                     <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
                       <span className="material-symbols-outlined text-red-500 text-xl">{item.icon}</span>
                     </div>
@@ -403,7 +399,7 @@ export default function Admission() {
                       <h4 className="font-bold text-primary text-sm mb-0.5">{item.title}</h4>
                       <p className="text-on-surface-muted text-xs leading-relaxed">{item.desc}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -431,7 +427,7 @@ export default function Admission() {
               <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.webp" alt="" />
             </div>
             <div className="relative z-10">
-              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div>
                 <EditableText value={get('adm_cta_title', a.cta_title)} onSave={v => saveKey('adm_cta_title', v)} as="h2"
                   className="font-headline text-4xl md:text-6xl font-extrabold text-white tracking-[-0.03em] leading-tight mb-6">
                   {get('adm_cta_title', a.cta_title)}
@@ -449,7 +445,7 @@ export default function Admission() {
                     +998 55 602 00 55
                   </a>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>

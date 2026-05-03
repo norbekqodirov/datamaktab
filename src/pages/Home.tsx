@@ -157,14 +157,14 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {t.features.items.map((item, idx) => (
-              <motion.div key={idx} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.08 }} viewport={{ once: true }}
+              <div key={idx}
                 className="glass-card rounded-3xl p-8 group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-primary/5">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/20">
                   <span className="material-symbols-outlined text-white text-2xl">{item.icon}</span>
                 </div>
                 <h3 className="font-headline font-extrabold text-xl text-primary mb-3">{item.title}</h3>
                 <p className="text-on-surface-muted text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -175,7 +175,7 @@ export default function Home() {
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* Left image */}
-            <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
+            <div className="relative">
               <div className="relative h-[500px] md:h-[620px] rounded-[3rem] overflow-hidden shadow-2xl group bg-slate-100">
                 <EditableImage src={get('founder_img', '/images/founder.jpg')} alt="Shahzod Sabirov" onSave={v => saveKey('founder_img', v)}
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -187,10 +187,10 @@ export default function Home() {
                 </div>
               </div>
 
-            </motion.div>
+            </div>
 
             {/* Right content */}
-            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <div>
               <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Asoschimiz So'zi</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
                 <EditableText value={get('founder_title', 'Ta\'lim — kelajak uchun eng muhim investitsiya')} onSave={v => saveKey('founder_title', v)}>
@@ -212,7 +212,7 @@ export default function Home() {
                 </p>
                 <p className="mt-3 text-xs font-extrabold uppercase tracking-widest text-on-surface-muted">— Shahzod Sabirov, Asoschi</p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -231,7 +231,7 @@ export default function Home() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pillars.map((p, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
+              <div key={i}
                 className="flex flex-col rounded-[2rem] overflow-hidden shadow-lg hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 bg-white border border-slate-100 group">
                 <div className="aspect-[4/3] relative bg-slate-100 overflow-hidden">
                   <EditableImage src={get(`pillar_img_${i}`, p.img)} alt={p.title} onSave={v => saveKey(`pillar_img_${i}`, v)}
@@ -245,7 +245,7 @@ export default function Home() {
                   <h3 className="font-headline font-extrabold text-lg text-primary mb-3">{p.title}</h3>
                   <p className="text-on-surface-muted text-sm leading-relaxed">{p.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -261,10 +261,10 @@ export default function Home() {
               { val: '95%', label: 'Tavsiya qiladi' },
               { val: '15+', label: 'Xalqaro olimpiada' },
             ].map((s, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }} className="space-y-2">
+              <div key={i} className="space-y-2">
                 <p className="text-4xl md:text-5xl font-headline font-extrabold">{s.val}</p>
                 <p className="text-white/60 text-xs font-bold uppercase tracking-widest">{s.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -281,7 +281,7 @@ export default function Home() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techItems.map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, scale: 0.93 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
+              <div key={i}
                 className="relative rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group border border-slate-100">
                 <div className="aspect-[4/3] relative bg-slate-100">
                   <EditableImage src={get(`tech_img_${i}`, item.img)} alt={item.label} onSave={v => saveKey(`tech_img_${i}`, v)}
@@ -298,7 +298,7 @@ export default function Home() {
                   </div>
                   <p className="text-on-surface-muted text-sm">{item.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -309,7 +309,7 @@ export default function Home() {
               { icon: 'menu_book', label: '4603 ta Kitob — 7 tilda', desc: 'O\'zbek, rus, ingliz, koreys, xitoy, nemis va brayl alfabetida' },
               { icon: 'ventilation', label: 'Ilmiy Havo Tizimi', desc: 'Har sinfga alohida supply va exhaust havo tizimi, chiller bilan isitish va sovutish' },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}
+              <div key={i}
                 className="flex items-start gap-5 p-7 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-all">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
                   <span className="material-symbols-outlined text-white text-2xl">{item.icon}</span>
@@ -318,7 +318,7 @@ export default function Home() {
                   <h3 className="font-headline font-extrabold text-primary text-lg mb-2">{item.label}</h3>
                   <p className="text-on-surface-muted text-sm">{item.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -341,7 +341,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
             {olympiadResults.map((r, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
+              <div key={i}
                 className="bg-white/10 backdrop-blur-md border border-white/15 rounded-3xl p-7 flex items-start gap-5 hover:bg-white/20 transition-all">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 bg-white/10 border border-white/20">
                   <span className="material-symbols-outlined text-2xl" style={{ color: r.color }}>{r.icon}</span>
@@ -350,7 +350,7 @@ export default function Home() {
                   <p className="font-headline font-extrabold text-white text-lg leading-snug mb-2">{r.event}</p>
                   <p className="text-[#03caff] font-bold text-sm">{r.result}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -385,7 +385,7 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
                 {vipVisitors.map((v, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}
+                  <div key={i}
                     className="flex items-center gap-3 p-3.5 bg-surface rounded-2xl border border-slate-100 hover:shadow-md transition-all">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 text-white font-headline font-extrabold text-sm shadow-inner shadow-white/20">
                       {v.name.charAt(0)}
@@ -394,7 +394,7 @@ export default function Home() {
                       <p className="font-extrabold text-primary text-xs truncate">{v.name}</p>
                       <p className="text-on-surface-muted text-[10px] mt-0.5 leading-tight line-clamp-2">{v.role}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -432,7 +432,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {articles.map((article, idx) => (
-                <motion.article key={article.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} viewport={{ once: true }}
+                <article key={article.id}
                   className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group flex flex-col">
                   <Link to={`/blog/${article.id}`} className="block h-56 bg-slate-100 overflow-hidden relative">
                     {article.image_url ? (
@@ -456,7 +456,7 @@ export default function Home() {
                       O'qish <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
-                </motion.article>
+                </article>
               ))}
             </div>
           </div>
@@ -472,7 +472,7 @@ export default function Home() {
               <img className="w-full h-full object-cover scale-110 opacity-[0.15] mix-blend-overlay" src="/maktab.webp" alt="" />
             </div>
             <div className="relative z-10">
-              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div>
                 <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-white tracking-[-0.03em] leading-tight mb-6">{t.cta.title}</h2>
                 <p className="text-white/80 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">{t.cta.desc}</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -483,7 +483,7 @@ export default function Home() {
                     {t.cta.secondary} <ArrowRight size={16} />
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>

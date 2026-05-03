@@ -97,8 +97,7 @@ export default function Education() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {roadmap.map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                className="flex flex-col rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 bg-white hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
+              <div key={i} className="flex flex-col rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 bg-white hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
                 <div className="aspect-[16/9] relative bg-slate-100">
                   <EditableImage src={get(`edu_road_img_${i}`, `/images/grade-${i+1}.jpg`)} alt={item.sinf} onSave={v => saveKey(`edu_road_img_${i}`, v)}
                     className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -112,7 +111,7 @@ export default function Education() {
                   <h3 className="font-headline font-extrabold text-primary text-lg mb-3 leading-snug">{item.title}</h3>
                   <p className="text-on-surface-muted text-sm leading-relaxed">{item.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           {/* Methodologies */}
@@ -152,8 +151,7 @@ export default function Education() {
                       <span className="font-bold text-sm" style={{ color: item.color }}>{item.pct}%</span>
                     </div>
                     <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
-                      <motion.div initial={{ width: 0 }} whileInView={{ width: `${item.pct}%` }} transition={{ duration: 1, ease: 'easeOut' }} viewport={{ once: true }}
-                        className="h-full rounded-full" style={{ backgroundColor: item.color }} />
+                      <div className="h-full rounded-full" style={{ width: `${item.pct}%`,  backgroundColor: item.color  }} />
                     </div>
                   </div>
                 ))}
@@ -306,8 +304,7 @@ export default function Education() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
             {certs.map((cert, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 text-white hover:bg-white/20 transition-all">
+              <div key={i} className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 text-white hover:bg-white/20 transition-all">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-[#03caff]/20 flex items-center justify-center flex-shrink-0">
                     <span className="material-symbols-outlined text-[#03caff] text-xl">verified</span>
@@ -318,7 +315,7 @@ export default function Education() {
                     <span className="px-3 py-1 bg-[#03caff]/20 border border-[#03caff]/30 rounded-full text-[#03caff] text-xs font-bold">{cert.target}</span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           {/* SAT Center + IELTS Center */}
@@ -411,14 +408,13 @@ export default function Education() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {clubs.map((club, i) => (
-              <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}
-                className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all text-center group cursor-default">
+              <div key={i} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all text-center group cursor-default">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4 text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">{club.icon}</span>
                 </div>
                 <h3 className="font-headline font-extrabold text-primary text-base mb-1">{club.name}</h3>
                 <span className="text-[10px] uppercase tracking-widest font-bold text-on-surface-muted">{club.type}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
           <div className="mt-12 p-7 bg-white rounded-3xl border border-slate-100 shadow-sm">

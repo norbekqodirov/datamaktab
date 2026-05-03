@@ -72,14 +72,7 @@ export default function Contact() {
             {/* Left: Info cards */}
             <div className="space-y-5">
               {infoCards.map((card, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="glass-card rounded-2xl p-6 border border-primary/5 flex items-start gap-5 hover:shadow-lg transition-all group"
-                >
+                <div key={i} className="glass-card rounded-2xl p-6 border border-primary/5 flex items-start gap-5 hover:shadow-lg transition-all group">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${card.color} shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform text-white`}>
                     {card.icon}
                   </div>
@@ -94,7 +87,7 @@ export default function Contact() {
                       <p className="font-semibold text-primary leading-snug">{card.val}</p>
                     )}
                   </div>
-                </motion.div>
+                </div>
               ))}
 
               {/* Social Links */}
@@ -117,12 +110,7 @@ export default function Contact() {
             </div>
 
             {/* Right: Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="glass-card rounded-3xl p-8 md:p-10 border border-primary/10 shadow-xl"
-            >
+            <div className="glass-card rounded-3xl p-8 md:p-10 border border-primary/10 shadow-xl">
               {sent ? (
                 <div className="text-center py-16">
                   <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
@@ -181,7 +169,7 @@ export default function Contact() {
                   </form>
                 </>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

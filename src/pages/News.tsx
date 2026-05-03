@@ -54,14 +54,7 @@ export default function News() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {articles.map((article, idx) => (
-                <motion.article
-                  key={article.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.08 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group flex flex-col"
-                >
+                <article key={article.id} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group flex flex-col">
                   <Link to={`/blog/${article.id}`} className="block h-52 bg-slate-100 overflow-hidden relative">
                     {article.image_url ? (
                       <img
@@ -94,7 +87,7 @@ export default function News() {
                       <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
-                </motion.article>
+                </article>
               ))}
             </div>
           )}
