@@ -113,9 +113,9 @@ export const en: Translations = {
       { val: '4 units', label: "School bus (Isuzu)" },
       { val: '100%', label: "GPS and security assurance" },
     ],
-    yashnar_badge: "Our Brands",
-    yashnar_title: "Yashnar — Kindergarten",
-    yashnar_desc: "An integral part of the DATA educational ecosystem, the 'Yashnar' innovative kindergarten guarantees your child's continuous education from their first steps to their school days.",
+    yashnar_badge: "Social Project",
+    yashnar_title: '"YASHNAR" — ONE CHILD, ONE FAMILY, ONE SOCIETY',
+    yashnar_desc: "The 'YASHNAR' Non-Governmental Non-Profit Organization was established on the initiative of the DATA International School. The organization aims to solve social problems through education. A certain part of the school's income is directed to the projects of this organization. Meaning, by educating your child in our school, you contribute not only to their future but also to the future of society. Let every child flourish and live.",
     yashnar_features: [
       "In-depth English and Russian",
       "Mental arithmetic and logic",
@@ -148,7 +148,10 @@ export const en: Translations = {
       'Supporting children in need of social protection',
       'Developing inclusive education projects',
       'Expanding access to education',
+      'Forming a conscious and responsible generation in society',
     ],
+    yashnar_quote_title: "What do we believe in?",
+    yashnar_quote: "Every child deserves the right to receive quality education, the opportunity to develop, and support. The 'Yashnar' NGO operates to expand precisely these opportunities.",
     status_badge: "Official Status & Memberships",
     status_title: "A Recognised School",
     status_cards: [

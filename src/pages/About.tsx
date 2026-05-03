@@ -403,13 +403,17 @@ export default function About() {
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <p className="text-on-surface-muted leading-relaxed mb-6">{a.yashnar_desc}</p>
-                <div className="space-y-2 mt-auto">
+                <div className="space-y-2 mt-auto mb-6">
                   {a.yashnar_items.map((item, i) => (
                     <div key={i} className="flex items-center gap-3 py-2 px-3 bg-surface rounded-xl">
                       <span className="material-symbols-outlined text-[#03caff] flex-shrink-0 text-[20px]">favorite</span>
                       <span className="text-[13px] font-semibold text-primary leading-tight">{item}</span>
                     </div>
                   ))}
+                </div>
+                <div className="p-5 bg-gradient-to-r from-primary/5 to-transparent rounded-2xl border-l-4 border-[#03caff] mt-auto">
+                    <p className="text-primary font-bold text-sm mb-1">{a.yashnar_quote_title}</p>
+                    <p className="text-on-surface-muted text-[13px] leading-relaxed">{a.yashnar_quote}</p>
                 </div>
               </div>
             </div>
