@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 
+export type AdminEditLang = 'uz' | 'en' | 'ru';
+
 interface EditModeContextType {
   isEditMode: boolean;
   setIsEditMode: (v: boolean) => void;
@@ -10,6 +12,8 @@ interface EditModeContextType {
   pendingCount: number;
   saveAll: () => Promise<void>;
   isSavingAll: boolean;
+  adminEditLang: AdminEditLang;
+  setAdminEditLang: (lang: AdminEditLang) => void;
 }
 
 const EditModeContext = createContext<EditModeContextType>({
@@ -22,6 +26,8 @@ const EditModeContext = createContext<EditModeContextType>({
   pendingCount: 0,
   saveAll: async () => {},
   isSavingAll: false,
+  adminEditLang: 'uz',
+  setAdminEditLang: () => {},
 });
 
 export const useEditMode = () => useContext(EditModeContext);
@@ -30,6 +36,7 @@ export const EditModeProvider = ({ children }: { children: React.ReactNode }) =>
   const [isEditMode, setIsEditMode] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
   const [isSavingAll, setIsSavingAll] = useState(false);
+  const [adminEditLang, setAdminEditLang] = useState<AdminEditLang>('uz');
   const pendingSavesRef = useRef(new Map<string, () => Promise<void>>());
 
   const toggleEditMode = () => {
@@ -77,6 +84,8 @@ export const EditModeProvider = ({ children }: { children: React.ReactNode }) =>
       pendingCount,
       saveAll,
       isSavingAll,
+      adminEditLang,
+      setAdminEditLang,
     }}>
       {children}
     </EditModeContext.Provider>

@@ -7,6 +7,7 @@ import {
   ChevronRight, Bell, Menu, X, Pencil
 } from 'lucide-react';
 import { useEditMode } from '../context/EditModeContext';
+import { useLanguage } from '../context/LanguageContext';
 import Home from './Home';
 import About from './About';
 import Education from './Education';
@@ -358,25 +359,63 @@ function Dashboard() {
 // WYSIWYG Live Page Preview Editor
 // ────────────────────────────────────────────────
 function AdminPagePreview({ page }: { page: 'home' | 'about' | 'education' | 'admission' | 'team' }) {
-  const { setIsEditMode } = useEditMode();
+  const { setIsEditMode, adminEditLang, setAdminEditLang } = useEditMode();
+  const { setLang } = useLanguage();
 
   useEffect(() => {
     setIsEditMode(true);
     return () => setIsEditMode(false);
   }, [setIsEditMode]);
 
+  const handleLangChange = (lang: 'uz' | 'en' | 'ru') => {
+    setAdminEditLang(lang);
+    setLang(lang); // also render the page in that language
+  };
+
+  const langOptions: { code: 'uz' | 'en' | 'ru'; label: string; flag: string }[] = [
+    { code: 'uz', label: "O'zbek", flag: '🇺🇿' },
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+  ];
+
   return (
     <div className="bg-slate-200 min-h-screen relative overflow-hidden flex flex-col">
-      <div className="sticky top-0 z-50 bg-[#03caff] text-white text-center py-2 px-4 shadow-md flex items-center justify-center gap-3">
-        <Pencil size={18} className="animate-pulse" />
-        <span className="font-extrabold text-sm uppercase tracking-widest">
-          JONLI TAHRIRLASH REJIMI
-        </span>
-        <span className="text-white/80 text-xs ml-4 border-l border-white/20 pl-4">
-          Matn yoki rasm ustiga bosing va o'zgartiring! Saqlangan ma'lumotlar to'g'ridan-to'g'ri bazaga yoziladi.
-        </span>
+      {/* ─── EDIT BAR ─── */}
+      <div className="sticky top-0 z-50 bg-[#03caff] text-white shadow-md">
+        <div className="flex items-center justify-between px-4 py-2 gap-3">
+          {/* Left: mode label */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <Pencil size={16} className="animate-pulse" />
+            <span className="font-extrabold text-sm uppercase tracking-widest whitespace-nowrap">
+              TAHRIRLASH REJIMI
+            </span>
+          </div>
+
+          {/* Center: language tabs */}
+          <div className="flex items-center gap-1 bg-white/20 rounded-full px-1 py-1">
+            {langOptions.map(opt => (
+              <button
+                key={opt.code}
+                onClick={() => handleLangChange(opt.code)}
+                className={`flex items-center gap-1.5 px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest transition-all ${
+                  adminEditLang === opt.code
+                    ? 'bg-white text-[#062bad] shadow-md'
+                    : 'text-white hover:bg-white/20'
+                }`}
+              >
+                <span>{opt.flag}</span>
+                <span>{opt.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Right: hint */}
+          <span className="text-white/80 text-xs border-l border-white/20 pl-4 hidden md:block">
+            Matn ustiga bosib tahrirlang. Rasmlar barcha tillarda umumiy.
+          </span>
+        </div>
       </div>
-      
+
       <div className="flex-1 overflow-y-auto pb-20">
         {/* Simulate a desktop window */}
         <div className="max-w-[1440px] mx-auto bg-white min-h-[1080px] shadow-2xl relative transition-all">
