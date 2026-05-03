@@ -33,37 +33,17 @@ export default function Home() {
     window.dispatchEvent(new Event('open-enroll-modal'));
   };
 
-  const techItems = [
-    { icon: 'computer', val: '24 ta', label: 'iMac Kompyuter', img: '/images/imac.jpg', desc: 'Apple Distinguished School maqomiga nomzod' },
-    { icon: 'laptop', val: '60 ta', label: 'Notebook', img: '/images/notebook.jpg', desc: 'Har bir o\'quvchiga individual qurilma' },
-    { icon: 'view_in_ar', val: '20 ta', label: 'VR Ko\'zoynak', img: '/images/vr.jpg', desc: 'Interaktiv virtual ta\'lim muhiti' },
-    { icon: 'smart_toy', val: '20 ta', label: 'AI Yordamchi', img: '/images/alisa.jpg', desc: 'Har bir sinfda "Алиса" sun\'iy intellekt' },
-  ];
-
-  const pillars = [
-    { icon: 'school', title: 'Sifatli Ta\'lim', img: '/images/pillar-edu.jpg', desc: 'Ustozlar qat\'iy nizomlar asosida tanlanadi. Dars sifati doimiy nazorat ostida, o\'quv materiallari eng zamonaviy andozalarda.' },
-    { icon: 'home', title: 'Shart-Sharoit', img: '/images/pillar-cond.jpg', desc: 'Kuniga 3 mahal ovqat, transport, to\'garaklar, ta\'limiy sayohatlar, kutubxona, sport zali va yotoqxona.' },
-    { icon: 'health_and_safety', title: 'Sog\'liq va Xavfsizlik', img: '/images/pillar-health.jpg', desc: 'Doimiy shifokor, psixolog va logoped. Har bir o\'quvchi 20 mlngacha sug\'urtalangan. Milliy gvardiya nazorati.' },
-    { icon: 'forum', title: 'Tizimli Muloqot', img: '/images/pillar-comm.jpg', desc: 'To\'rt bosqichli muloqot tizimi: Durbin.uz ilova, sinf rahbari, ota-onalar majlisi va administrator darajasi.' },
-  ];
-
-  const olympiadResults = [
-    { event: 'Copernicus (AQSH)', result: '10 ta bronza medal', icon: 'emoji_events', color: '#CD7F32' },
-    { event: 'Amakids (Gruziya)', result: '8 ta 1-o\'rin, 7 ta 2-o\'rin, 8 ta 3-o\'rin', icon: 'military_tech', color: '#FFD700' },
-    { event: 'SEAMO', result: '2 ta bronza medal', icon: 'workspace_premium', color: '#CD7F32' },
-    { event: '"Daho Bolalar" Buxoro', result: '1 ta Super chempion, 5 ta oliy o\'rin', icon: 'stars', color: '#FFD700' },
-    { event: '"Daho Bolalar" Samarqand', result: '1 ta Chempion, 10 ta oliy o\'rin', icon: 'trophy', color: '#FFD700' },
-    { event: 'Coding Olimpiadasi', result: '4 ta oltin, 1 ta kumush medal', icon: 'code', color: '#FFD700' },
-  ];
-
-  const vipVisitors = [
-    { name: 'Abdulla Aripov', role: 'O\'zbekiston Respublikasi Bosh vaziri' },
-    { name: 'Sherzod Xotamovich', role: 'Raqamli texnologiyalar vaziri' },
-    { name: 'Ruslanbek Davletov', role: 'Prezident maslahatchisi' },
-    { name: 'Mansurbek Olloyorov', role: 'Prezident maslahatchisi' },
-    { name: 'Sardor Umrzoqov', role: 'Prezident maslahatchisi' },
-    { name: 'Botir Erkinovich', role: 'Kambag\'allikni qisqartirish vaziri' },
-  ];
+  const h = t.home;
+  const techItems = h.tech_items.map((item, i) => ({
+    ...item,
+    img: ['/images/imac.jpg', '/images/notebook.jpg', '/images/vr.jpg', '/images/alisa.jpg'][i],
+  }));
+  const pillars = h.pillars.map((p, i) => ({
+    ...p,
+    img: ['/images/pillar-edu.jpg', '/images/pillar-cond.jpg', '/images/pillar-health.jpg', '/images/pillar-comm.jpg'][i],
+  }));
+  const olympiadResults = h.olympiad_results;
+  const vipVisitors = h.vip_visitors;
 
   return (
     <>
@@ -181,9 +161,9 @@ export default function Home() {
                   className="w-full h-full absolute inset-0" imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-10 left-10 right-10 z-10">
-                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">Asoschimiz</p>
-                  <h3 className="text-white font-headline font-extrabold text-3xl drop-shadow-lg">Shahzod Sabirov</h3>
-                  <p className="text-[#03caff] text-sm font-semibold mt-1">"Mard o'g'lon" davlat mukofoti sohibi</p>
+                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">{h.founder_label}</p>
+                  <h3 className="text-white font-headline font-extrabold text-3xl drop-shadow-lg">{h.founder_name}</h3>
+                  <p className="text-[#03caff] text-sm font-semibold mt-1">{h.founder_award}</p>
                 </div>
               </div>
 
@@ -191,7 +171,7 @@ export default function Home() {
 
             {/* Right content */}
             <div>
-              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">Asoschimiz So'zi</span>
+              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-6">{h.founder_badge}</span>
               <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
                 <EditableText value={get('founder_title', 'Ta\'lim — kelajak uchun eng muhim investitsiya')} onSave={v => saveKey('founder_title', v)}>
                   {get('founder_title', 'Ta\'lim — kelajak uchun eng muhim investitsiya')}
@@ -207,10 +187,8 @@ export default function Home() {
                 </EditableText>
               </div>
               <div className="mt-10 p-6 bg-surface rounded-3xl border border-primary/5">
-                <p className="text-[#062bad] font-bold text-sm italic leading-relaxed">
-                  "Bizning maqsadimiz — bilimli, mas'uliyatli va jamiyatga foyda keltira oladigan avlodni tarbiyalashdir."
-                </p>
-                <p className="mt-3 text-xs font-extrabold uppercase tracking-widest text-on-surface-muted">— Shahzod Sabirov, Asoschi</p>
+                <p className="text-[#062bad] font-bold text-sm italic leading-relaxed">{h.founder_quote}</p>
+                <p className="mt-3 text-xs font-extrabold uppercase tracking-widest text-on-surface-muted">{h.founder_quote_author}</p>
               </div>
             </div>
           </div>
@@ -223,11 +201,11 @@ export default function Home() {
       <section className="py-16 md:py-12 md:py-16 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-20">
-            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Nima uchun DATA?</span>
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">{h.pillars_badge}</span>
             <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-primary tracking-tighter leading-tight">
-              Xotirjamlikning <span className="text-[#03caff]">4 ta ustuni</span>
+              {h.pillars_title} <span className="text-[#03caff]">{h.pillars_title_accent}</span>
             </h2>
-            <p className="mt-5 text-on-surface-muted max-w-2xl mx-auto text-lg">Ota-onalar bizni aynan xotirjam bo'lish uchun tanlashadi.</p>
+            <p className="mt-5 text-on-surface-muted max-w-2xl mx-auto text-lg">{h.pillars_subtitle}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pillars.map((p, i) => (
@@ -255,12 +233,7 @@ export default function Home() {
       <section className="py-16 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-            {[
-              { val: '2019', label: 'Asos solingan yil' },
-              { val: '16 000+', label: 'Yetishtirilgan yoshlar' },
-              { val: '95%', label: 'Tavsiya qiladi' },
-              { val: '15+', label: 'Xalqaro olimpiada' },
-            ].map((s, i) => (
+            {h.stats.map((s, i) => (
               <div key={i} className="space-y-2">
                 <p className="text-4xl md:text-5xl font-headline font-extrabold">{s.val}</p>
                 <p className="text-white/60 text-xs font-bold uppercase tracking-widest">{s.label}</p>
@@ -274,9 +247,9 @@ export default function Home() {
       <section className="py-16 md:py-12 md:py-16 bg-surface">
         <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           <div className="text-center mb-20">
-            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Zamonaviy Texnologiyalar</span>
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">{h.tech_badge}</span>
             <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">
-              Kelajak <span className="text-[#03caff]">bugun boshlanadi</span>
+              {h.tech_title} <span className="text-[#03caff]">{h.tech_title_accent}</span>
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -304,11 +277,7 @@ export default function Home() {
 
           {/* Extra tech badges row */}
           <div className="mt-12 grid sm:grid-cols-3 gap-6">
-            {[
-              { icon: 'video_camera_front', label: 'Interaktiv Video Studiya', desc: 'Xorazmdagi yagona interaktiv yozib olish studiyasi' },
-              { icon: 'menu_book', label: '4603 ta Kitob — 7 tilda', desc: 'O\'zbek, rus, ingliz, koreys, xitoy, nemis va brayl alfabetida' },
-              { icon: 'ventilation', label: 'Ilmiy Havo Tizimi', desc: 'Har sinfga alohida supply va exhaust havo tizimi, chiller bilan isitish va sovutish' },
-            ].map((item, i) => (
+            {h.tech_extras.map((item, i) => (
               <div key={i}
                 className="flex items-start gap-5 p-7 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-all">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
@@ -332,11 +301,11 @@ export default function Home() {
         </div>
         <div className="max-w-[1440px] mx-auto px-6 md:px-16 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#03caff] border border-[#03caff]/30 rounded-full uppercase mb-5">2025–2026 o'quv yili</span>
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#03caff] border border-[#03caff]/30 rounded-full uppercase mb-5">{h.olympiad_badge}</span>
             <h2 className="font-headline text-4xl md:text-6xl font-extrabold text-white tracking-tighter leading-tight">
-              Chempionlar <span className="text-[#03caff]">maktabi</span>
+              {h.olympiad_title} <span className="text-[#03caff]">{h.olympiad_title_accent}</span>
             </h2>
-            <p className="mt-5 text-white/70 max-w-2xl mx-auto text-lg">15 dan ortiq xalqaro va respublika olimpiadalarida faxrli o'rinlar</p>
+            <p className="mt-5 text-white/70 max-w-2xl mx-auto text-lg">{h.olympiad_subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
@@ -360,8 +329,8 @@ export default function Home() {
               <span className="material-symbols-outlined text-[#03caff] text-4xl">code</span>
             </div>
             <div className="flex-1">
-              <h3 className="font-headline font-extrabold text-white text-2xl md:text-3xl mb-3">Code.org xalqaro sertifikati</h3>
-              <p className="text-white/70 leading-relaxed">O'tgan yil <strong className="text-white">50 ta o'quvchimiz</strong> Google, Amazon va Microsoft qo'llab-quvvatlaydigan Code.org platformasidan xalqaro sertifikat oldi.</p>
+              <h3 className="font-headline font-extrabold text-white text-2xl md:text-3xl mb-3">{h.codeorg_title}</h3>
+              <p className="text-white/70 leading-relaxed"><strong className="text-white">{h.codeorg_students}</strong> {h.codeorg_desc}</p>
             </div>
             <a href="https://code.org" target="_blank" rel="noopener noreferrer"
               className="flex-shrink-0 bg-[#03caff] text-white rounded-full px-7 py-3.5 font-bold uppercase tracking-widest text-xs shadow-lg shadow-[#03caff]/30 hover:scale-105 transition-transform">
@@ -377,11 +346,11 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
             <div className="flex flex-col justify-between py-2">
               <div className="mb-8">
-                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Rasmiy Tashrif</span>
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">{h.vip_badge}</span>
                 <h2 className="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-4 leading-tight">
-                  Nufuzli mehmonlar <span className="text-[#03caff]">manzili</span>
+                  {h.vip_title} <span className="text-[#03caff]">{h.vip_title_accent}</span>
                 </h2>
-                <p className="text-on-surface-muted text-base leading-relaxed">Ochiqligimiz va natijalarimiz tufayli maktabimiz davlat va hukumat vakillari uchun ham diqqatga tushgan manzilga aylandi.</p>
+                <p className="text-on-surface-muted text-base leading-relaxed">{h.vip_subtitle}</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
                 {vipVisitors.map((v, i) => (
@@ -405,8 +374,8 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/10 to-transparent pointer-events-none" />
               <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8">
                 <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 md:p-5 shadow-2xl">
-                  <p className="text-white font-headline font-extrabold text-lg md:text-xl mb-1">O'zbekiston Prezidenti bilan</p>
-                  <p className="text-white/80 text-xs md:text-sm">2023-yil 31-mart va 2025-yil 1-may — ikki marta uchrashuv</p>
+                  <p className="text-white font-headline font-extrabold text-lg md:text-xl mb-1">{h.vip_president_caption}</p>
+                  <p className="text-white/80 text-xs md:text-sm">{h.vip_president_dates}</p>
                 </div>
               </div>
             </div>
@@ -420,13 +389,13 @@ export default function Home() {
           <div className="max-w-[1440px] mx-auto px-6 md:px-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div>
-                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">Yangiliklar</span>
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">{h.blog_badge}</span>
                 <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tighter leading-tight">
-                  So'nggi <span className="text-[#03caff]">maqolalar</span>
+                  {h.blog_title} <span className="text-[#03caff]">{h.blog_title_accent}</span>
                 </h2>
               </div>
               <Link to="/blog" className="inline-flex items-center gap-2 font-headline font-bold text-sm text-[#062bad] hover:text-secondary transition-colors flex-shrink-0 group">
-                Barchasini ko'rish <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                {h.blog_see_all} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
 
@@ -453,7 +422,7 @@ export default function Home() {
                     </h3>
                     <p className="text-on-surface-muted text-sm leading-relaxed mb-6 line-clamp-2">{article.excerpt}</p>
                     <Link to={`/blog/${article.id}`} className="inline-flex items-center gap-2 font-headline font-bold text-sm text-[#062bad] hover:text-secondary transition-colors group/link">
-                      O'qish <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
+                      {h.blog_read} <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </article>
