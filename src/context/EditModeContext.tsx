@@ -67,10 +67,20 @@ export const EditModeProvider = ({ children }: { children: React.ReactNode }) =>
     if (pendingSavesRef.current.size === 0) return;
     setIsSavingAll(true);
     try {
-      const fns = Array.from(pendingSavesRef.current.values()) as Array<() => Promise<void>>;
-      await Promise.all(fns.map(fn => fn()));
-      pendingSavesRef.current.clear();
+      // Swap the map out before executing so saves registered DURING execution
+      // (e.g., EditableImage.onSave → saveKey → registerPendingSave) are captured separately
+      const currentMap = pendingSavesRef.current;
+      pendingSavesRef.current = new Map();
       setPendingCount(0);
+      const fns = Array.from(currentMap.values()) as Array<() => Promise<void>>;
+      await Promise.all(fns.map(fn => fn()));
+      // Run any saves that were registered during the above execution (e.g. global_settings_save)
+      if (pendingSavesRef.current.size > 0) {
+        const followUpFns = Array.from(pendingSavesRef.current.values()) as Array<() => Promise<void>>;
+        pendingSavesRef.current.clear();
+        setPendingCount(0);
+        await Promise.all(followUpFns.map(fn => fn()));
+      }
     } finally {
       setIsSavingAll(false);
     }

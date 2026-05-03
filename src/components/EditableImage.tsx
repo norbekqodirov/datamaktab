@@ -138,8 +138,15 @@ export default function EditableImage({
     );
   }
 
+  // Don't add `relative` if className already has absolute/fixed positioning — it would
+  // override the position and cause the container to expand to the image's natural size.
+  const needsRelative = !className.includes('absolute') && !className.includes('fixed');
+
   return (
-    <div className={`${className} relative group overflow-hidden`} style={{ isolate: 'isolate', clipPath: 'inset(0)' }}>
+    <div
+      className={`${className} group overflow-hidden${needsRelative ? ' relative' : ''}`}
+      style={{ isolation: 'isolate', clipPath: 'inset(0)' }}
+    >
       <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} />
 
       {/* Pending indicator dot */}
