@@ -113,7 +113,7 @@ export const uz = {
     ],
     yashnar_badge: "Ijtimoiy Loyiha",
     yashnar_title: "“YASHNAR” — BIR BOLA, BIR OILA, BIR JAMIYAT",
-    yashnar_desc: "DATA xalqaro maktabi tashabbusi bilan “YASHNAR” nodavlat notijorat tashkiloti tuzilgan. Tashkilot ta’lim orqali ijtimoiy muammolarni hal qilishni maqsad qilgan. DATA xalqaro maktabi daromadining ma’lum qismi aynan shu tashkilot loyihalariga yo’naltiriladi. Ya’ni siz farzandingizni maktabimizda o’qitish orqali nafaqat uning kelajagiga, balki jamiyat kelajagiga ham hissa qo’shasiz. Har bir bola yashnasin, yashasin.",
+    yashnar_desc: "DATA xalqaro maktabi asos solgan “YASHNAR” NNT ta’lim orqali ijtimoiy muammolarni hal qilishni ko'zlaydi. Maktab tushumining bir qismi uning loyihalariga sarflanadi. Bizda o’qishni tanlash bilan siz ham jamiyat kelajagiga amaliy hissa qo’shasiz. Har bir bola yashnasin!",
     yashnar_features: [
       "Ingliz va rus tili chuqurlashtirilgan",
       "Mental arifmetika va mantiq",
@@ -144,7 +144,7 @@ export const uz = {
       "Jamiyatda ongli va mas'uliyatli avlodni shakllantirish",
     ],
     yashnar_quote_title: "Biz nimaga ishonamiz?",
-    yashnar_quote: "Har bir bola sifatli ta’lim olish huquqiga, rivojlanish imkoniyatiga va qo’llab-quvvatlashga loyiq. “Yashnar” NNT aynan shu imkoniyatlarni kengaytirish uchun faoliyat yuritadi.",
+    yashnar_quote: "Har bir bola sifatli ta’lim olish huquqiga va rivojlanish imkoniyatiga ega. “Yashnar” NNT aynan shu imkoniyatlarni hammaga kengaytirish uchun xizmat qiladi.",
     director_badge: "Direktor So'zi",
     director_title: "Adolat, tartib va ochiqlik — boshqaruvimizning asosi",
     director_text: "Direktor sifatida kafolatlayman — boshqaruvning barcha darajalarida adolat, tartib va ochiqlik tamoyillari ustuvor. Har bir o'quvchi bilan ishlashda individual yondashuv qo'llaniladi.",
