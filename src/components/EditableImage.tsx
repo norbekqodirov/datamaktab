@@ -133,7 +133,7 @@ export default function EditableImage({
   if (!isEditMode) {
     return (
       <div className={`${className} overflow-hidden`}>
-        <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} />
+        <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} loading="lazy" decoding="async" />
       </div>
     );
   }
