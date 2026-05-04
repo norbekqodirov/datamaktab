@@ -234,55 +234,6 @@ app.delete('/api/messages/:id', (req, res) => {
   res.json({ success: true });
 });
 
-// --- Sitemap ---
-app.get('/sitemap.xml', (req, res) => {
-  const baseUrl = 'https://datamaktab.uz';
-  const staticRoutes = [
-    '/',
-    '/maktab-haqida',
-    '/talim',
-    '/qabul',
-    '/aloqa',
-    '/blog'
-  ];
-
-  try {
-    const articles = db.prepare('SELECT id, created_at FROM articles ORDER BY created_at DESC').all() as any[];
-    
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
-
-    // Add static routes
-    staticRoutes.forEach(route => {
-      xml += `
-  <url>
-    <loc>${baseUrl}${route}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
-  </url>`;
-    });
-
-    // Add dynamic article routes
-    articles.forEach(article => {
-      xml += `
-  <url>
-    <loc>${baseUrl}/blog/${article.id}</loc>
-    <lastmod>${new Date(article.created_at).toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`;
-    });
-
-    xml += `\n</urlset>`;
-
-    res.header('Content-Type', 'application/xml');
-    res.send(xml);
-  } catch (err: any) {
-    res.status(500).send('Error generating sitemap');
-  }
-});
-
 // --- Settings ---
 app.get('/api/settings', (req, res) => {
   const settings = db.prepare('SELECT * FROM site_content').all();
