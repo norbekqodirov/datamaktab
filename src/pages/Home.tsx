@@ -51,6 +51,36 @@ export default function Home() {
         url="/"
         title="Bosh Sahifa"
         description="DATA Xalqaro Maktabi — Urganch shahridagi zamonaviy xalqaro maktab. Sifatli ta'lim, ingliz tili, sport va ijodiy rivojlanish. 2026–2027 o'quv yiliga qabul davom etmoqda."
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'School',
+          name: 'DATA Xalqaro Maktabi',
+          url: 'https://datamaktab.uz',
+          logo: 'https://datamaktab.uz/icon.svg',
+          image: 'https://datamaktab.uz/og-image.png',
+          description: "Urganch shahridagi zamonaviy xalqaro maktab. Sifatli ta'lim, ingliz tili, sport va ijodiy rivojlanish.",
+          telephone: '+998556020055',
+          email: 'info@datamaktab.uz',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: "Al-Xorazmiy ko'chasi, 110-uy",
+            addressLocality: 'Urganch',
+            addressRegion: 'Xorazm viloyati',
+            addressCountry: 'UZ',
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 41.5476,
+            longitude: 60.6248,
+          },
+          sameAs: [
+            'https://instagram.com/data_maktabi',
+            'https://t.me/data_maktabi',
+            'https://facebook.com/data_maktabi',
+          ],
+          openingHours: 'Mo-Sa 08:00-18:00',
+          priceRange: '$$',
+        }}
       />
     <div className="bg-transparent font-body text-on-surface">
 

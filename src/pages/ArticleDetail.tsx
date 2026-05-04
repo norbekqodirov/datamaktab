@@ -56,8 +56,26 @@ export default function ArticleDetail() {
     <SEO
       title={article.title}
       description={article.excerpt.slice(0, 160)}
-      url={`/news/${article.id}`}
+      url={`/blog/${article.id}`}
       image={article.image_url || undefined}
+      schema={{
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        description: article.excerpt.slice(0, 160),
+        image: article.image_url || 'https://datamaktab.uz/og-image.png',
+        datePublished: article.created_at,
+        url: `https://datamaktab.uz/blog/${article.id}`,
+        publisher: {
+          '@type': 'Organization',
+          name: 'DATA Xalqaro Maktabi',
+          url: 'https://datamaktab.uz',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://datamaktab.uz/icon.svg',
+          },
+        },
+      }}
     />
     <div className="bg-white min-h-screen font-body pb-24">
       <div className="max-w-[800px] mx-auto px-6 pt-32">

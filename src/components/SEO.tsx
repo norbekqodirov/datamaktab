@@ -5,17 +5,18 @@ interface SEOProps {
   description?: string;
   url?: string;
   image?: string;
+  schema?: Record<string, unknown>;
 }
 
 const SITE_NAME = 'DATA Xalqaro Maktabi';
 const DEFAULT_DESC = "DATA Xalqaro Maktabi — Urganch shahridagi zamonaviy xalqaro maktab. Sifatli ta'lim, ingliz tili, sport va ijodiy rivojlanish.";
 const DOMAIN = 'https://datamaktab.uz';
 
-export default function SEO({ title, description, url, image }: SEOProps) {
+export default function SEO({ title, description, url, image, schema }: SEOProps) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
   const desc = description || DEFAULT_DESC;
   const canonical = url ? `${DOMAIN}${url}` : DOMAIN;
-  const ogImage = image || `${DOMAIN}/students-hero.webp`;
+  const ogImage = image || `${DOMAIN}/og-image.png`;
 
   return (
     <Helmet>
@@ -29,6 +30,8 @@ export default function SEO({ title, description, url, image }: SEOProps) {
       <meta property="og:description" content={desc} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="uz_UZ" />
 
@@ -41,6 +44,13 @@ export default function SEO({ title, description, url, image }: SEOProps) {
       {/* Misc */}
       <meta name="robots" content="index, follow" />
       <meta name="theme-color" content="#062bad" />
+
+      {/* Schema.org JSON-LD */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 }
