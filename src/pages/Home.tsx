@@ -94,6 +94,7 @@ export default function Home() {
             onSave={v => saveKey('hero_bg', v)}
             className="w-full h-full"
             imgClassName="w-full h-full object-cover grayscale-[30%] scale-105"
+            priority={true}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-secondary/50 mix-blend-multiply pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80 pointer-events-none" />
@@ -150,6 +151,7 @@ export default function Home() {
                   onSave={v => saveKey('hero_student_img', v)}
                   className="w-full h-full relative z-10 pointer-events-auto flex justify-end items-start"
                   imgClassName="w-full h-full object-contain object-right-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                  priority={true}
                 />
               </div>
             </div>

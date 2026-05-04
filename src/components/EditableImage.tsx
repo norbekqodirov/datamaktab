@@ -15,6 +15,7 @@ interface EditableImageProps {
   onSave: (url: string) => void;
   className?: string;
   imgClassName?: string;
+  priority?: boolean;
 }
 
 function encodeSrc(url: string, style: ImageStyle) {
@@ -47,6 +48,7 @@ export default function EditableImage({
   onSave,
   className = '',
   imgClassName = '',
+  priority = false,
 }: EditableImageProps) {
   const { isEditMode, registerPendingSave, unregisterPendingSave } = useEditMode();
   const instanceId = useId();
@@ -133,7 +135,15 @@ export default function EditableImage({
   if (!isEditMode) {
     return (
       <div className={`${className} overflow-hidden`}>
-        <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} loading="lazy" decoding="async" />
+        <img 
+          src={imgUrl} 
+          alt={alt} 
+          className={imgClassName} 
+          style={imgStyle} 
+          loading={priority ? "eager" : "lazy"} 
+          fetchPriority={priority ? "high" : "auto"}
+          decoding={priority ? "sync" : "async"} 
+        />
       </div>
     );
   }
@@ -147,7 +157,13 @@ export default function EditableImage({
       className={`${className} group overflow-hidden${needsRelative ? ' relative' : ''}`}
       style={{ isolation: 'isolate', clipPath: 'inset(0)' }}
     >
-      <img src={imgUrl} alt={alt} className={imgClassName} style={imgStyle} />
+      <img 
+        src={imgUrl} 
+        alt={alt} 
+        className={imgClassName} 
+        style={imgStyle} 
+        loading={priority ? "eager" : undefined}
+      />
 
       {/* Pending indicator dot */}
       {hasPending && (

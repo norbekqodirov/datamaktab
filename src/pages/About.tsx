@@ -48,7 +48,7 @@ export default function About() {
       <section className="relative h-auto pt-28 pb-10 md:pt-36 md:pb-14 overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">
           <EditableImage src={get('about_hero_bg', '/maktab.webp')} alt={a.hero_title} onSave={v => saveKey('about_hero_bg', v)}
-            className="w-full h-full" imgClassName="w-full h-full object-cover grayscale-[10%]" />
+            className="w-full h-full" imgClassName="w-full h-full object-cover grayscale-[10%]" priority={true} />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/95" />
         </div>
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16 relative z-10 pb-0">
