@@ -33,7 +33,13 @@ export default function EnrollModal() {
 
     const nameParts = parentName.trim().split(/\s+/);
     const firstName = nameParts[0] || parentName;
-    const lastName = nameParts.slice(1).join(' ') || '';
+    const lastName = nameParts.slice(1).join(' ') || nameParts[0] || parentName;
+
+    // Durbin requires +998XXXXXXXXXXXX format (12 digits after +)
+    const rawDigits = phone.replace(/\D/g, '');
+    const formattedPhone = rawDigits.startsWith('998')
+      ? `+${rawDigits}`
+      : `+998${rawDigits}`;
 
     const descParts = [
       `O'quvchi: ${childName}`,
@@ -46,7 +52,7 @@ export default function EnrollModal() {
 
     const crmBody = {
       firstName,
-      phone,
+      phone: formattedPhone,
       lastName,
       description: descParts.join(' | '),
     };
