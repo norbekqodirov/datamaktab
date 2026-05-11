@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
+import PhotoGallery from '../components/PhotoGallery';
 import SEO from '../components/SEO';
 
 export default function About() {
@@ -175,6 +176,8 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      <PhotoGallery />
 
       {/* Achievements */}
       <section className="py-16 bg-gradient-to-r from-primary via-[#041c80] to-secondary">
