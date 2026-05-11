@@ -162,6 +162,9 @@ export const ru: Translations = {
     ],
     see_all_team: "Посмотреть всех членов команды",
     partner_prefix: "Партнёрство:",
+    youtube_shorts_title: "Отзывы родителей",
+    youtube_shorts_subtitle: "Что о нас говорят?",
+    youtube_shorts_add: "Добавить видео",
   },
 
   team: {

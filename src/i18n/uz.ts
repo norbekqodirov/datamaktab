@@ -160,6 +160,9 @@ export const uz = {
     ],
     see_all_team: "Barcha jamoa a'zolarini ko'rish",
     partner_prefix: "Hamkorlik:",
+    youtube_shorts_title: "Ota-onalar fikri",
+    youtube_shorts_subtitle: "Biz haqimizda nima deyishadi?",
+    youtube_shorts_add: "Video qo'shish",
   },
 
   team: {

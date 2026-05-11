@@ -162,6 +162,9 @@ export const en: Translations = {
     ],
     see_all_team: "See all team members",
     partner_prefix: "Partnership:",
+    youtube_shorts_title: "Parents' Feedback",
+    youtube_shorts_subtitle: "What they say about us?",
+    youtube_shorts_add: "Add Video",
   },
 
   team: {

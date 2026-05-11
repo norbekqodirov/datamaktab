@@ -6,6 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
+import YoutubeShortsMarquee from '../components/YoutubeShortsMarquee';
 import SEO from '../components/SEO';
 
 interface Article {
@@ -463,6 +464,8 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <YoutubeShortsMarquee />
 
       {/* ─── CTA ─── */}
       <section className="py-16 md:py-24">
