@@ -316,8 +316,11 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     app.use(express.static(process.cwd() + '/dist'));
+    // Valid SPA routes — serve index.html with 200
+    const SPA_ROUTES = /^(\/?|\/maktab-haqida(\/jamoa)?|\/talim|\/qabul|\/blog(\/[^/]+)?|\/aloqa|\/maktabpanel(\/.*)?)\/?$/;
     app.get('*', (req, res) => {
-      res.sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));
+      const status = SPA_ROUTES.test(req.path) ? 200 : 404;
+      res.status(status).sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));
     });
   }
 
