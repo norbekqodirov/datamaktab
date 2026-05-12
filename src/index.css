@@ -19,10 +19,11 @@
   --color-on-surface-muted: #475569;
 
   --animate-marquee: marquee 30s linear infinite;
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(-100% - 1.5rem)); }
-  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - 1.5rem)); }
 }
 
 body {

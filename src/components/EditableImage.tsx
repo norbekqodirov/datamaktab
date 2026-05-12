@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useId } from 'react';
+import React, { useRef, useState, useEffect, useId, useCallback } from 'react';
 import { useEditMode } from '../context/EditModeContext';
-import { Camera, Upload, Move, ZoomIn, X, RotateCcw } from 'lucide-react';
+import { Camera, Move, ZoomIn, X, RotateCcw } from 'lucide-react';
 
 interface ImageStyle {
   scale: number;
@@ -42,6 +42,8 @@ function decodeSrc(raw: string): { url: string; style: ImageStyle } {
   };
 }
 
+function clamp(v: number, min: number, max: number) { return Math.max(min, Math.min(max, v)); }
+
 export default function EditableImage({
   src,
   alt,
@@ -55,13 +57,18 @@ export default function EditableImage({
   const [uploading, setUploading] = useState(false);
   const [showPanel, setShowPanel] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { url: initialUrl, style: initialStyle } = decodeSrc(src);
   const [imgUrl, setImgUrl] = useState(initialUrl);
   const [style, setStyle] = useState<ImageStyle>(initialStyle);
-
-  // Track if there are local unsaved changes
   const [hasPending, setHasPending] = useState(false);
+
+  // Always-fresh refs for use inside native event handlers
+  const styleRef = useRef(style);
+  const imgUrlRef = useRef(imgUrl);
+  styleRef.current = style;
+  imgUrlRef.current = imgUrl;
 
   useEffect(() => {
     const { url: u, style: s } = decodeSrc(src);
@@ -70,21 +77,28 @@ export default function EditableImage({
     setHasPending(false);
   }, [src]);
 
-  // Unregister on unmount so pending saves don't leak
   useEffect(() => {
-    return () => {
-      unregisterPendingSave(instanceId);
-    };
+    return () => { unregisterPendingSave(instanceId); };
   }, [instanceId, unregisterPendingSave]);
 
-  const queueSave = (url: string, s: ImageStyle) => {
+  const queueSave = useCallback((url: string, s: ImageStyle) => {
     const encoded = encodeSrc(url, s);
-    registerPendingSave(instanceId, async () => {
-      await onSave(encoded);
-    });
+    registerPendingSave(instanceId, async () => { await onSave(encoded); });
     setHasPending(true);
+  }, [instanceId, onSave, registerPendingSave]);
+
+  const queueSaveRef = useRef(queueSave);
+  queueSaveRef.current = queueSave;
+
+  const updateStyle = (patch: Partial<ImageStyle>) => {
+    setStyle(prev => {
+      const next = { ...prev, ...patch };
+      queueSave(imgUrl, next);
+      return next;
+    });
   };
 
+  // ─── Upload ───────────────────────────────────────────────────────────────
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -106,24 +120,113 @@ export default function EditableImage({
     }
   };
 
-  const updateStyle = (patch: Partial<ImageStyle>) => {
-    const newStyle = { ...style, ...patch };
-    setStyle(newStyle);
-    queueSave(imgUrl, newStyle);
+  // ─── Drag-to-pan ──────────────────────────────────────────────────────────
+  const handleOverlayMouseDown = (e: React.MouseEvent) => {
+    if (!isEditMode || e.button !== 0) return;
+    // Let resize handle handle its own events
+    if ((e.target as HTMLElement).closest('[data-resize]')) return;
+
+    e.preventDefault();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startPosX = styleRef.current.posX;
+    const startPosY = styleRef.current.posY;
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    let moved = false;
+    document.body.style.cursor = 'grabbing';
+    document.body.style.userSelect = 'none';
+
+    const onMove = (ev: MouseEvent) => {
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+      if (!moved && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) moved = true;
+      if (!moved) return;
+
+      // Sensitivity decreases at higher zoom (more precise control)
+      const sens = 1 / styleRef.current.scale;
+      const newPosX = clamp(startPosX - (dx / rect.width) * 100 * sens, 0, 100);
+      const newPosY = clamp(startPosY - (dy / rect.height) * 100 * sens, 0, 100);
+
+      setStyle(prev => {
+        const next = { ...prev, posX: newPosX, posY: newPosY };
+        queueSaveRef.current(imgUrlRef.current, next);
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      if (!moved) inputRef.current?.click(); // treat as upload click
+    };
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
   };
 
+  // ─── Corner resize handle (drag UP = zoom in, DOWN = zoom out) ────────────
+  const handleCornerMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const startY = e.clientY;
+    const startScale = styleRef.current.scale;
+
+    document.body.style.cursor = 'nwse-resize';
+    document.body.style.userSelect = 'none';
+
+    const onMove = (ev: MouseEvent) => {
+      const dy = startY - ev.clientY; // up = positive = zoom in
+      const newScale = clamp(startScale + dy * 0.012, 0.5, 3);
+      setStyle(prev => {
+        const next = { ...prev, scale: newScale };
+        queueSaveRef.current(imgUrlRef.current, next);
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  };
+
+  // ─── Scroll-to-zoom ───────────────────────────────────────────────────────
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !isEditMode) return;
+
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.08 : 0.08;
+      setStyle(prev => {
+        const next = { ...prev, scale: clamp(prev.scale + delta, 0.5, 3) };
+        queueSaveRef.current(imgUrlRef.current, next);
+        return next;
+      });
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [isEditMode]);
+
+  // ─── Revert / Reset ───────────────────────────────────────────────────────
   const handleRevert = () => {
     const { url: u, style: s } = decodeSrc(src);
-    setImgUrl(u);
-    setStyle(s);
-    setHasPending(false);
+    setImgUrl(u); setStyle(s); setHasPending(false);
     unregisterPendingSave(instanceId);
   };
 
   const handleReset = () => {
-    const resetStyle: ImageStyle = { scale: 1, posX: 50, posY: 50, rotation: 0 };
-    setStyle(resetStyle);
-    queueSave(imgUrl, resetStyle);
+    updateStyle({ scale: 1, posX: 50, posY: 50, rotation: 0 });
   };
 
   const imgStyle: React.CSSProperties = {
@@ -132,75 +235,97 @@ export default function EditableImage({
     transformOrigin: `${style.posX}% ${style.posY}%`,
   };
 
+  // ─── View mode ────────────────────────────────────────────────────────────
   if (!isEditMode) {
     return (
       <div className={`${className} overflow-hidden`}>
-        <img 
-          src={imgUrl} 
-          alt={alt} 
-          className={imgClassName} 
-          style={imgStyle} 
-          loading={priority ? "eager" : "lazy"} 
-          fetchPriority={priority ? "high" : "auto"}
-          decoding={priority ? "sync" : "async"} 
+        <img
+          src={imgUrl}
+          alt={alt}
+          className={imgClassName}
+          style={imgStyle}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : 'auto'}
+          decoding={priority ? 'sync' : 'async'}
         />
       </div>
     );
   }
 
-  // Don't add `relative` if className already has absolute/fixed positioning — it would
-  // override the position and cause the container to expand to the image's natural size.
   const needsRelative = !className.includes('absolute') && !className.includes('fixed');
 
+  // ─── Edit mode ────────────────────────────────────────────────────────────
   return (
     <div
+      ref={containerRef}
       className={`${className} group overflow-hidden${needsRelative ? ' relative' : ''}`}
       style={{ isolation: 'isolate', clipPath: 'inset(0)' }}
     >
-      <img 
-        src={imgUrl} 
-        alt={alt} 
-        className={imgClassName} 
-        style={imgStyle} 
-        loading={priority ? "eager" : undefined}
+      <img
+        src={imgUrl}
+        alt={alt}
+        className={imgClassName}
+        style={imgStyle}
+        loading={priority ? 'eager' : undefined}
       />
 
-      {/* Pending indicator dot */}
+      {/* Unsaved indicator */}
       {hasPending && (
-        <span className="absolute top-2 left-2 z-20 w-2.5 h-2.5 rounded-full bg-orange-400 border-2 border-white shadow" title="Saqlanmagan o'zgarish bor" />
+        <span className="absolute top-2 left-2 z-20 w-2.5 h-2.5 rounded-full bg-orange-400 border-2 border-white shadow" title="Saqlanmagan o'zgarish" />
       )}
 
-      {/* Upload overlay on hover */}
+      {/* Drag overlay — full image area, grab cursor */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 cursor-pointer z-10"
-        onClick={() => inputRef.current?.click()}
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/15"
+        style={{ cursor: uploading ? 'wait' : 'grab' }}
+        onMouseDown={handleOverlayMouseDown}
       >
         {uploading ? (
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-white" />
         ) : (
-          <span className="text-white text-xs font-bold px-3 py-1.5 bg-[#03caff] rounded-full flex items-center gap-1 shadow-lg">
-            <Upload size={12} /> Rasm almashtirish
-          </span>
+          <div className="flex flex-col items-center gap-2 pointer-events-none select-none">
+            <div className="flex items-center gap-1.5 text-white/90 text-[11px] font-bold bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
+              <Move size={11} /> Surish · Scroll: zoom
+            </div>
+            <div className="flex items-center gap-1.5 text-white/70 text-[10px] font-semibold">
+              <Camera size={10} /> Bosing — almashtirish
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Toggle panel button */}
+      {/* Settings toggle button */}
       <button
         type="button"
         onClick={e => { e.stopPropagation(); setShowPanel(p => !p); }}
         className="absolute top-2 right-2 z-20 bg-white/90 hover:bg-white text-slate-700 rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all"
-        title="Rasm sozlamalari"
+        title="Sozlamalar"
       >
-        {showPanel ? <X size={14} /> : <Move size={14} />}
+        {showPanel ? <X size={14} /> : <ZoomIn size={14} />}
       </button>
 
-      {/* Floating control panel */}
+      {/* Corner resize handle */}
+      <div
+        data-resize
+        className="absolute bottom-2 right-2 z-20 w-7 h-7 opacity-0 group-hover:opacity-100 transition-opacity"
+        style={{ cursor: 'nwse-resize' }}
+        onMouseDown={handleCornerMouseDown}
+        title="Yuqoriga torting — kattalashtirish"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" className="absolute bottom-0 right-0 drop-shadow" fill="none">
+          <line x1="14" y1="2" x2="2" y2="14" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="14" y1="7" x2="7" y2="14" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="14" y1="12" x2="12" y2="14" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      </div>
+
+      {/* Floating settings panel */}
       {showPanel && (
         <div
           className="absolute bottom-0 left-0 right-0 z-30 bg-black/85 backdrop-blur-sm text-white p-3 space-y-2"
           onClick={e => e.stopPropagation()}
+          onMouseDown={e => e.stopPropagation()}
         >
-          {/* Scale */}
           <div className="flex items-center gap-2">
             <ZoomIn size={13} className="text-[#03caff] shrink-0" />
             <span className="text-[10px] font-bold uppercase tracking-widest w-14 shrink-0">Zoom</span>
@@ -212,8 +337,6 @@ export default function EditableImage({
             />
             <span className="text-[10px] w-8 text-right shrink-0">{Math.round(style.scale * 100)}%</span>
           </div>
-
-          {/* X Pan */}
           <div className="flex items-center gap-2">
             <Move size={13} className="text-[#03caff] shrink-0" />
             <span className="text-[10px] font-bold uppercase tracking-widest w-14 shrink-0">↔ X</span>
@@ -223,10 +346,8 @@ export default function EditableImage({
               onChange={e => updateStyle({ posX: parseFloat(e.target.value) })}
               className="flex-1 accent-[#03caff] cursor-pointer"
             />
-            <span className="text-[10px] w-8 text-right shrink-0">{style.posX}%</span>
+            <span className="text-[10px] w-8 text-right shrink-0">{Math.round(style.posX)}%</span>
           </div>
-
-          {/* Y Pan */}
           <div className="flex items-center gap-2">
             <Move size={13} className="text-[#03caff] shrink-0 rotate-90" />
             <span className="text-[10px] font-bold uppercase tracking-widest w-14 shrink-0">↕ Y</span>
@@ -236,16 +357,13 @@ export default function EditableImage({
               onChange={e => updateStyle({ posY: parseFloat(e.target.value) })}
               className="flex-1 accent-[#03caff] cursor-pointer"
             />
-            <span className="text-[10px] w-8 text-right shrink-0">{style.posY}%</span>
+            <span className="text-[10px] w-8 text-right shrink-0">{Math.round(style.posY)}%</span>
           </div>
-
-          {/* Buttons */}
           <div className="flex gap-2 pt-1">
             <button
               type="button"
               onClick={() => updateStyle({ rotation: ((style.rotation || 0) + 90) % 360 })}
-              className="text-[10px] font-bold bg-[#062bad] hover:bg-[#051fa0] text-white px-3 py-1.5 rounded-lg flex items-center justify-center transition-colors"
-              title="Aylantirish (Rotate)"
+              className="text-[10px] font-bold bg-[#062bad] hover:bg-[#051fa0] text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors"
             >
               <RotateCcw size={11} className="scale-[-1]" /> 90°
             </button>
@@ -254,14 +372,14 @@ export default function EditableImage({
               onClick={() => inputRef.current?.click()}
               className="flex-1 text-[10px] font-bold bg-[#03caff] hover:bg-[#00b8e6] text-slate-900 px-2 py-1.5 rounded-lg flex items-center justify-center gap-1 transition-colors"
             >
-              <Camera size={11} /> 
+              <Camera size={11} /> Almashtirish
             </button>
             {hasPending && (
               <button
                 type="button"
                 onClick={handleRevert}
                 title="Bekor qilish"
-                className="text-[10px] font-bold bg-red-500/70 hover:bg-red-500/90 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center justify-center"
+                className="text-[10px] font-bold bg-red-500/70 hover:bg-red-500/90 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center"
               >
                 <X size={11} />
               </button>

@@ -29,7 +29,8 @@ export default function YoutubeShortsMarquee() {
   const { get, saveKey } = useSiteSettings();
   const { isEditMode } = useEditMode();
 
-  const titleWords = t.home.youtube_shorts_title.split(' ');
+  const titleText = t.home?.youtube_shorts_title ?? 'Ota-onalar fikri';
+  const titleWords = titleText.split(' ');
   const titleMain = titleWords.slice(0, -1).join(' ');
   const titleAccent = titleWords[titleWords.length - 1];
   
@@ -67,7 +68,7 @@ export default function YoutubeShortsMarquee() {
     : [];
 
   return (
-    <section className="py-10 md:py-14 bg-surface overflow-hidden">
+    <section className="pt-4 pb-10 md:pt-6 md:pb-14 bg-surface overflow-hidden">
 
       {/* Admin panel */}
       {isEditMode && (
@@ -109,9 +110,9 @@ export default function YoutubeShortsMarquee() {
       {urls.length > 0 ? (
         <>
           {/* Title — directly above the videos */}
-          <div className="max-w-[1440px] mx-auto px-6 md:px-16 mb-10">
-            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">
-              {t.home.youtube_shorts_subtitle}
+          <div className="max-w-[1440px] mx-auto px-6 md:px-16 mb-8">
+            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-3">
+              {t.home?.youtube_shorts_subtitle}
             </span>
             <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tighter leading-tight">
               {titleMain} <span className="text-[#03caff]">{titleAccent}</span>
