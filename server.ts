@@ -85,8 +85,9 @@ app.post('/api/upload', uploadMemory.single('file'), async (req, res) => {
     
     const beforeSize = req.file.buffer.length;
     await sharp(req.file.buffer)
-      .rotate()   // auto-rotate based on EXIF orientation
-      .webp({ quality: 85, effort: 4 })
+      .rotate()
+      .resize({ width: 1920, withoutEnlargement: true })
+      .webp({ quality: 78, effort: 4 })
       .toFile(outPath);
       
     const afterSize = fs.statSync(outPath).size;

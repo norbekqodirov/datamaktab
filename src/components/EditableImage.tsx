@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useId, useCallback } from 'react';
 import { useEditMode } from '../context/EditModeContext';
-import { Camera, Move, ZoomIn, X, RotateCcw } from 'lucide-react';
+import { Camera, Move } from 'lucide-react';
 
 interface ImageStyle {
   scale: number;
@@ -55,7 +55,6 @@ export default function EditableImage({
   const { isEditMode, registerPendingSave, unregisterPendingSave } = useEditMode();
   const instanceId = useId();
   const [uploading, setUploading] = useState(false);
-  const [showPanel, setShowPanel] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -89,14 +88,6 @@ export default function EditableImage({
 
   const queueSaveRef = useRef(queueSave);
   queueSaveRef.current = queueSave;
-
-  const updateStyle = (patch: Partial<ImageStyle>) => {
-    setStyle(prev => {
-      const next = { ...prev, ...patch };
-      queueSave(imgUrl, next);
-      return next;
-    });
-  };
 
   // ─── Upload ───────────────────────────────────────────────────────────────
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -218,17 +209,6 @@ export default function EditableImage({
     return () => el.removeEventListener('wheel', onWheel);
   }, [isEditMode]);
 
-  // ─── Revert / Reset ───────────────────────────────────────────────────────
-  const handleRevert = () => {
-    const { url: u, style: s } = decodeSrc(src);
-    setImgUrl(u); setStyle(s); setHasPending(false);
-    unregisterPendingSave(instanceId);
-  };
-
-  const handleReset = () => {
-    updateStyle({ scale: 1, posX: 50, posY: 50, rotation: 0 });
-  };
-
   const imgStyle: React.CSSProperties = {
     objectPosition: `${style.posX}% ${style.posY}%`,
     transform: `scale(${style.scale}) rotate(${style.rotation || 0}deg)`,
@@ -294,16 +274,6 @@ export default function EditableImage({
         )}
       </div>
 
-      {/* Settings toggle button */}
-      <button
-        type="button"
-        onClick={e => { e.stopPropagation(); setShowPanel(p => !p); }}
-        className="absolute top-2 right-2 z-20 bg-white/90 hover:bg-white text-slate-700 rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all"
-        title="Sozlamalar"
-      >
-        {showPanel ? <X size={14} /> : <ZoomIn size={14} />}
-      </button>
-
       {/* Corner resize handle */}
       <div
         data-resize
@@ -318,82 +288,6 @@ export default function EditableImage({
           <line x1="14" y1="12" x2="12" y2="14" stroke="white" strokeWidth="2" strokeLinecap="round" />
         </svg>
       </div>
-
-      {/* Floating settings panel */}
-      {showPanel && (
-        <div
-          className="absolute bottom-0 left-0 right-0 z-30 bg-black/85 backdrop-blur-sm text-white p-3 space-y-2"
-          onClick={e => e.stopPropagation()}
-          onMouseDown={e => e.stopPropagation()}
-        >
-          <div className="flex items-center gap-2">
-            <ZoomIn size={13} className="text-[#03caff] shrink-0" />
-            <span className="text-[10px] font-bold uppercase tracking-widest w-14 shrink-0">Zoom</span>
-            <input
-              type="range" min={0.5} max={3} step={0.05}
-              value={style.scale}
-              onChange={e => updateStyle({ scale: parseFloat(e.target.value) })}
-              className="flex-1 accent-[#03caff] cursor-pointer"
-            />
-            <span className="text-[10px] w-8 text-right shrink-0">{Math.round(style.scale * 100)}%</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Move size={13} className="text-[#03caff] shrink-0" />
-            <span className="text-[10px] font-bold uppercase tracking-widest w-14 shrink-0">↔ X</span>
-            <input
-              type="range" min={0} max={100} step={1}
-              value={style.posX}
-              onChange={e => updateStyle({ posX: parseFloat(e.target.value) })}
-              className="flex-1 accent-[#03caff] cursor-pointer"
-            />
-            <span className="text-[10px] w-8 text-right shrink-0">{Math.round(style.posX)}%</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Move size={13} className="text-[#03caff] shrink-0 rotate-90" />
-            <span className="text-[10px] font-bold uppercase tracking-widest w-14 shrink-0">↕ Y</span>
-            <input
-              type="range" min={0} max={100} step={1}
-              value={style.posY}
-              onChange={e => updateStyle({ posY: parseFloat(e.target.value) })}
-              className="flex-1 accent-[#03caff] cursor-pointer"
-            />
-            <span className="text-[10px] w-8 text-right shrink-0">{Math.round(style.posY)}%</span>
-          </div>
-          <div className="flex gap-2 pt-1">
-            <button
-              type="button"
-              onClick={() => updateStyle({ rotation: ((style.rotation || 0) + 90) % 360 })}
-              className="text-[10px] font-bold bg-[#062bad] hover:bg-[#051fa0] text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors"
-            >
-              <RotateCcw size={11} className="scale-[-1]" /> 90°
-            </button>
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              className="flex-1 text-[10px] font-bold bg-[#03caff] hover:bg-[#00b8e6] text-slate-900 px-2 py-1.5 rounded-lg flex items-center justify-center gap-1 transition-colors"
-            >
-              <Camera size={11} /> Almashtirish
-            </button>
-            {hasPending && (
-              <button
-                type="button"
-                onClick={handleRevert}
-                title="Bekor qilish"
-                className="text-[10px] font-bold bg-red-500/70 hover:bg-red-500/90 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center"
-              >
-                <X size={11} />
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={handleReset}
-              className="text-[10px] font-bold bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg transition-colors"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-      )}
 
       <input ref={inputRef} type="file" accept="image/*" hidden onChange={handleUpload} />
     </div>
