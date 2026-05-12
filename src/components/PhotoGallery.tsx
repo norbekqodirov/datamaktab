@@ -3,6 +3,26 @@ import { useLanguage } from '../context/LanguageContext';
 import { useEditMode } from '../context/EditModeContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import { Plus, Trash2, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import EditableImage from './EditableImage';
+
+function decodePhotoSrc(raw: string) {
+  const def = { scale: 1, posX: 50, posY: 50, rotation: 0 };
+  if (!raw) return { url: raw, style: def };
+  const idx = raw.indexOf('||scale=');
+  if (idx === -1) return { url: raw, style: def };
+  const url = raw.slice(0, idx);
+  const m = raw.slice(idx + 2).match(/scale=([\d.]+),x=([\d.]+),y=([\d.]+)(?:,r=([-]?\d+))?/);
+  if (!m) return { url, style: def };
+  return {
+    url,
+    style: {
+      scale: parseFloat(m[1]),
+      posX: parseFloat(m[2]),
+      posY: parseFloat(m[3]),
+      rotation: m[4] ? parseInt(m[4], 10) : 0,
+    },
+  };
+}
 
 const cardCls = "w-[300px] h-[200px] rounded-2xl overflow-hidden flex-shrink-0 bg-slate-100 relative group/card cursor-pointer shadow-md hover:shadow-2xl transition-all duration-300 hover:scale-[1.04] hover:z-10";
 const imgCls  = "w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110";
@@ -23,6 +43,10 @@ export default function PhotoGallery() {
     } catch { return []; }
   })();
 
+  // Ref so onSave callbacks always see the latest photos array
+  const photosRef = useRef(photos);
+  photosRef.current = photos;
+
   const savePhotos = (arr: string[]) => saveKey('gallery_photos_img', JSON.stringify(arr));
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +58,7 @@ export default function PhotoGallery() {
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: form });
       const data = await res.json();
-      savePhotos([...photos, data.url]);
+      savePhotos([...photosRef.current, data.url]);
     } catch {
       alert('Yuklashda xatolik');
     } finally {
@@ -53,7 +77,6 @@ export default function PhotoGallery() {
   const titleText = t.about?.gallery_title ?? 'Fotogaleriya';
   const badgeText = t.about?.gallery_badge ?? 'Maktab hayoti';
 
-  // Pad to minimum so the marquee loop is seamless
   const fill = (arr: string[]) =>
     arr.length === 0
       ? []
@@ -62,18 +85,29 @@ export default function PhotoGallery() {
   const row1 = fill(photos);
   const row2 = fill([...photos].reverse());
 
-  const openLightbox = (src: string) => {
-    const idx = photos.indexOf(src);
+  const openLightbox = (encodedSrc: string) => {
+    const idx = photos.indexOf(encodedSrc);
     setLightboxIdx(idx >= 0 ? idx : 0);
   };
 
   const strip = (srcs: string[], keyPrefix: string, onClick?: (src: string) => void) =>
-    srcs.map((src, i) => (
-      <div key={`${keyPrefix}-${i}`} className={cardCls} onClick={() => onClick?.(src)}>
-        <img src={src} alt="" className={imgCls} loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity pointer-events-none" />
-      </div>
-    ));
+    srcs.map((encodedSrc, i) => {
+      const { url, style } = decodePhotoSrc(encodedSrc);
+      const imgStyle: React.CSSProperties = {
+        objectPosition: `${style.posX}% ${style.posY}%`,
+        transform: `scale(${style.scale}) rotate(${style.rotation}deg)`,
+        transformOrigin: `${style.posX}% ${style.posY}%`,
+      };
+      return (
+        <div key={`${keyPrefix}-${i}`} className={cardCls} onClick={() => onClick?.(encodedSrc)}>
+          <img src={url} alt="" className={imgCls} style={imgStyle} loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity pointer-events-none" />
+        </div>
+      );
+    });
+
+  const lightboxEncoded = lightboxIdx !== null ? photos[lightboxIdx] : null;
+  const lightboxUrl = lightboxEncoded ? decodePhotoSrc(lightboxEncoded).url : '';
 
   return (
     <section className="py-12 md:py-16 bg-white overflow-hidden">
@@ -106,16 +140,28 @@ export default function PhotoGallery() {
 
             {photos.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {photos.map((src, i) => (
+                {photos.map((encodedSrc, i) => (
                   <div key={i} className="relative group aspect-[3/2] rounded-xl overflow-hidden bg-slate-100 shadow-sm">
-                    <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    <EditableImage
+                      src={encodedSrc}
+                      alt={`Gallery ${i + 1}`}
+                      onSave={(encoded) => {
+                        const cur = photosRef.current;
+                        const updated = [...cur];
+                        updated[i] = encoded;
+                        savePhotos(updated);
+                      }}
+                      className="absolute inset-0"
+                      imgClassName="w-full h-full object-cover"
+                    />
+                    {/* Delete — z-40 stays above EditableImage's isolated stacking context */}
                     <button
                       onClick={() => handleRemove(i)}
-                      className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute top-2 left-2 z-40 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <Trash2 size={13} />
                     </button>
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[10px] font-bold text-center py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-0 left-0 right-0 z-40 bg-black/40 text-white text-[10px] font-bold text-center py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                       #{i + 1}
                     </div>
                   </div>
@@ -166,7 +212,7 @@ export default function PhotoGallery() {
       )}
 
       {/* Lightbox */}
-      {lightboxIdx !== null && photos[lightboxIdx] && (
+      {lightboxIdx !== null && lightboxUrl && (
         <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center" onClick={closeLightbox}>
           <button className="absolute top-5 right-5 text-white/60 hover:text-white transition-colors" onClick={closeLightbox}>
             <X size={28} />
@@ -175,7 +221,7 @@ export default function PhotoGallery() {
             <ChevronLeft size={32} />
           </button>
           <img
-            src={photos[lightboxIdx]}
+            src={lightboxUrl}
             alt=""
             className="max-w-[90vw] max-h-[90vh] rounded-xl object-contain select-none"
             onClick={e => e.stopPropagation()}
