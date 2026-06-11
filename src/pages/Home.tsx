@@ -121,7 +121,7 @@ export default function Home() {
               </EditableText>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-10">
                 <button onClick={openEnrollModal} className="btn-primary px-8 py-3.5 rounded-full text-[11px] uppercase font-bold tracking-widest shadow-[0_10px_40px_-5px_rgba(1,202,255,0.4)]">
-                  {t.hero.cta_primary}
+                  {get('hero_cta_primary', t.hero.cta_primary)}
                 </button>
                 <Link to="/maktab-haqida" className="bg-white/10 backdrop-blur-lg border border-white/20 text-white px-8 py-3.5 rounded-full font-headline font-bold uppercase tracking-widest text-[11px] hover:bg-white hover:text-primary transition-all flex items-center justify-center">
                   {t.hero.cta_secondary}
