@@ -6,3 +6,10 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Database and uploaded files - should NEVER be in git
+database.sqlite
+database.sqlite-wal
+database.sqlite-shm
+public/uploads/
+run_update.py
