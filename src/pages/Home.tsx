@@ -133,7 +133,7 @@ export default function Home() {
                   { val: t.hero.stat2_val, label: t.hero.stat2_label },
                   { val: t.hero.stat3_val, label: t.hero.stat3_label },
                 ].map((stat, idx) => (
-                  <div key={idx} className="glass-card p-3 md:p-5 rounded-2xl text-center">
+                  <div key={idx} className="bg-white/15 backdrop-blur-md border border-white/20 p-3 md:p-5 rounded-2xl text-center">
                     <h4 className="text-2xl md:text-3xl font-extrabold text-white mb-1 font-headline">{stat.val}</h4>
                     <p className="text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-white/70">{stat.label}</p>
                   </div>
