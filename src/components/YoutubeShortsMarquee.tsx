@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { useEditMode } from '../context/EditModeContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
+import EditableText from './EditableText';
 import { Plus, Trash2 } from 'lucide-react';
 
 // Extract the Video ID to form a proper embed URL (e.g. for YouTube Shorts)
@@ -29,11 +30,6 @@ export default function YoutubeShortsMarquee() {
   const { get, saveKey } = useSiteSettings();
   const { isEditMode } = useEditMode();
 
-  const titleText = t.home?.youtube_shorts_title ?? 'Ota-onalar fikri';
-  const titleWords = titleText.split(' ');
-  const titleMain = titleWords.slice(0, -1).join(' ');
-  const titleAccent = titleWords[titleWords.length - 1];
-  
   const [newUrl, setNewUrl] = useState('');
 
   const urlsStr = get('youtube_shorts_urls_img', '[]');
@@ -68,7 +64,7 @@ export default function YoutubeShortsMarquee() {
     : [];
 
   return (
-    <section className="pt-4 pb-10 md:pt-6 md:pb-14 bg-surface overflow-hidden">
+    <section className="py-10 md:py-14 bg-surface overflow-hidden">
 
       {/* Admin panel */}
       {isEditMode && (
@@ -76,21 +72,21 @@ export default function YoutubeShortsMarquee() {
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 mb-6">
             <h3 className="font-bold text-slate-700 mb-3">Admin: YouTube Short Linklarini Boshqarish</h3>
             <div className="flex gap-3 mb-4">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={newUrl}
                 onChange={e => setNewUrl(e.target.value)}
                 placeholder="https://www.youtube.com/shorts/..."
                 className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-secondary"
               />
-              <button 
+              <button
                 onClick={handleAdd}
                 className="bg-[#03caff] text-white px-5 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-[#00b8e6] transition-colors"
               >
                 <Plus size={16} /> Qo'shish
               </button>
             </div>
-            
+
             {urls.length > 0 && (
               <div className="flex flex-wrap gap-3">
                 {urls.map((url, i) => (
@@ -110,13 +106,20 @@ export default function YoutubeShortsMarquee() {
       {urls.length > 0 ? (
         <>
           {/* Title — directly above the videos */}
-          <div className="max-w-[1440px] mx-auto px-6 md:px-16 mb-8">
-            <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-3">
-              {t.home?.youtube_shorts_subtitle}
-            </span>
-            <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tighter leading-tight">
-              {titleMain} <span className="text-[#03caff]">{titleAccent}</span>
-            </h2>
+          <div className="max-w-[1440px] mx-auto px-6 md:px-16 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+            <div>
+              <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-[#062bad] bg-[#03caff]/10 rounded-full uppercase mb-5">
+                <EditableText value={get('youtube_shorts_badge', t.home.youtube_shorts_subtitle)} onSave={v => saveKey('youtube_shorts_badge', v)}>
+                  {get('youtube_shorts_badge', t.home.youtube_shorts_subtitle)}
+                </EditableText>
+              </span>
+              <h2 className="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tighter leading-tight">
+                <EditableText value={get('youtube_shorts_title', t.home.youtube_shorts_title)} onSave={v => saveKey('youtube_shorts_title', v)}>
+                  {get('youtube_shorts_title', t.home.youtube_shorts_title)}
+                </EditableText>
+              </h2>
+            </div>
+            {/* O'ng tarafdagi bo'sh joy qoldirilsa xuddi blogdagi ko'rinishga mos keladi, admin panel tugmasini qo'shib qo'yamiz yoki bo'sh joy */}
           </div>
 
           {/* Video marquee */}
@@ -126,8 +129,8 @@ export default function YoutubeShortsMarquee() {
               <div className="flex gap-6 animate-marquee group-hover:[animation-play-state:paused] pr-6 flex-shrink-0">
                 {renderList.map((url, i) => (
                   <div key={`s1-${i}`} className="w-[240px] h-[420px] rounded-[2rem] overflow-hidden shadow-2xl flex-shrink-0 bg-slate-100 relative transition-transform duration-300 hover:scale-[1.03]">
-                    <iframe 
-                      src={url} 
+                    <iframe
+                      src={url}
                       title={`Parent Testimonial ${i + 1}`}
                       className="w-full h-full"
                       frameBorder="0"
@@ -142,8 +145,8 @@ export default function YoutubeShortsMarquee() {
               <div className="flex gap-6 animate-marquee group-hover:[animation-play-state:paused] pr-6 flex-shrink-0" aria-hidden="true">
                 {renderList.map((url, i) => (
                   <div key={`s2-${i}`} className="w-[240px] h-[420px] rounded-[2rem] overflow-hidden shadow-2xl flex-shrink-0 bg-slate-100 relative transition-transform duration-300 hover:scale-[1.03]">
-                    <iframe 
-                      src={url} 
+                    <iframe
+                      src={url}
                       title={`Parent Testimonial ${i + 1}`}
                       className="w-full h-full"
                       frameBorder="0"

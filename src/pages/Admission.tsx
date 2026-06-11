@@ -1,4 +1,6 @@
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
@@ -38,6 +40,27 @@ export default function Admission() {
               {get('adm_hero_desc', a.hero_desc)}
             </EditableText>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Mos maktab testi banneri */}
+      <section className="bg-white pt-10">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <Link
+            to="/mos-maktab"
+            className="group flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-7 rounded-3xl border border-[#03caff]/30 bg-gradient-to-r from-[#062bad]/5 to-[#03caff]/10 p-6 md:p-7 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <div className="w-13 h-13 md:w-14 md:h-14 rounded-2xl editorial-gradient flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
+              <span className="material-symbols-outlined text-white text-2xl">quiz</span>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-headline font-extrabold text-primary text-lg md:text-xl">{t.quiz.admission_banner.title}</h3>
+              <p className="text-on-surface-muted text-sm mt-1">{t.quiz.admission_banner.desc}</p>
+            </div>
+            <span className="btn-primary px-7 py-3.5 text-[11px] uppercase tracking-widest inline-flex items-center gap-2 whitespace-nowrap group-hover:scale-105">
+              {t.quiz.admission_banner.btn} <ArrowRight size={14} />
+            </span>
+          </Link>
         </div>
       </section>
 

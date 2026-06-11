@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight, Calendar, Timer } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import EditableText from '../components/EditableText';
@@ -179,6 +179,35 @@ export default function Home() {
                 <p className="text-on-surface-muted text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── MOS MAKTAB TESTI CTA ─── */}
+      <section className="py-6 md:py-10 bg-surface">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+          <div className="relative rounded-[2.5rem] overflow-hidden bg-gradient-to-r from-primary via-[#041c80] to-secondary p-8 md:p-14 shadow-2xl">
+            <div className="absolute -right-20 -top-20 w-72 h-72 bg-secondary/30 blur-3xl rounded-full pointer-events-none" />
+            <div className="absolute -left-16 -bottom-16 w-56 h-56 bg-white/10 blur-3xl rounded-full pointer-events-none" />
+            <div className="relative z-10 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+              <div>
+                <span className="inline-block px-4 py-1.5 text-[10px] font-extrabold tracking-[0.25em] text-white bg-white/10 border border-white/20 rounded-full uppercase mb-5">
+                  {t.quiz.home_cta.badge}
+                </span>
+                <h2 className="font-headline text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+                  {t.quiz.home_cta.title}
+                </h2>
+                <p className="text-white/75 max-w-xl leading-relaxed">{t.quiz.home_cta.desc}</p>
+              </div>
+              <div className="flex flex-col items-start lg:items-center gap-3">
+                <Link to="/mos-maktab" className="bg-white text-primary hover:bg-slate-50 px-10 py-4 rounded-full font-bold uppercase tracking-widest text-xs shadow-xl transition-all hover:scale-105 inline-flex items-center gap-2">
+                  {t.quiz.home_cta.btn} <ArrowRight size={15} />
+                </Link>
+                <span className="flex items-center gap-1.5 text-white/60 text-xs font-semibold">
+                  <Timer size={13} /> {t.quiz.home_cta.time}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

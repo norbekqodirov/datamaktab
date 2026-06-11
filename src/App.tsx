@@ -13,6 +13,7 @@ const Admission    = lazy(() => import('./pages/Admission'));
 const News         = lazy(() => import('./pages/News'));
 const ArticleDetail = lazy(() => import('./pages/ArticleDetail'));
 const Contact      = lazy(() => import('./pages/Contact'));
+const SchoolMatch  = lazy(() => import('./pages/SchoolMatch'));
 const Admin        = lazy(() => import('./pages/Admin'));
 
 function PageLoader() {
@@ -44,6 +45,7 @@ export default function App() {
               <Route path="/blog" element={<News />} />
               <Route path="/blog/:id" element={<ArticleDetail />} />
               <Route path="/aloqa" element={<Contact />} />
+              <Route path="/mos-maktab" element={<SchoolMatch />} />
               <Route path="/maktabpanel/*" element={<Admin />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

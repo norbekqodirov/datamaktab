@@ -32,7 +32,8 @@ export default function EnrollModal() {
 
     const nameParts = parentName.trim().split(/\s+/);
     const firstName = nameParts[0] || parentName;
-    const lastName = nameParts.slice(1).join(' ') || '';
+    // Durbin lastName bo'sh bo'lishini qabul qilmaydi (422 UNPROCESSABLE_ENTITY)
+    const lastName = nameParts.slice(1).join(' ') || '-';
 
     // Durbin requires +998XXXXXXXXXXXX format (12 digits after +)
     const rawDigits = phone.replace(/\D/g, '');

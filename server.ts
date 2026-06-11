@@ -276,6 +276,7 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/qabul', priority: '0.8', changefreq: 'monthly' },
     { loc: '/blog', priority: '0.9', changefreq: 'weekly' },
     { loc: '/aloqa', priority: '0.6', changefreq: 'monthly' },
+    { loc: '/mos-maktab', priority: '0.8', changefreq: 'monthly' },
   ];
   const articles = db.prepare('SELECT id, created_at FROM articles ORDER BY created_at DESC').all() as { id: number; created_at: string }[];
   const articleEntries = articles.map(a => ({
@@ -317,7 +318,7 @@ async function startServer() {
   } else {
     app.use(express.static(process.cwd() + '/dist'));
     // Valid SPA routes — serve index.html with 200
-    const SPA_ROUTES = /^(\/?|\/maktab-haqida(\/jamoa)?|\/talim|\/qabul|\/blog(\/[^/]+)?|\/aloqa|\/maktabpanel(\/.*)?)\/?$/;
+    const SPA_ROUTES = /^(\/?|\/maktab-haqida(\/jamoa)?|\/talim|\/qabul|\/blog(\/[^/]+)?|\/aloqa|\/mos-maktab|\/maktabpanel(\/.*)?)\/?$/;
     app.get('*', (req, res) => {
       const status = SPA_ROUTES.test(req.path) ? 200 : 404;
       res.status(status).sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));

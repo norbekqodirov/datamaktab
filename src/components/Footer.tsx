@@ -9,6 +9,7 @@ export default function Footer() {
     { name: t.nav.about, path: '/maktab-haqida' },
     { name: t.nav.education, path: '/talim' },
     { name: t.nav.admission, path: '/qabul' },
+    { name: t.quiz.footer_link, path: '/mos-maktab' },
     { name: t.nav.blog, path: '/blog' },
     { name: t.nav.contact, path: '/aloqa' },
   ];
