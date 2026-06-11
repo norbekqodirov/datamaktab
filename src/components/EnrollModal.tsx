@@ -28,12 +28,11 @@ export default function EnrollModal() {
     const grade = (formData.get('grade') as string) || '';
     const language = (formData.get('language') as string) || '';
     const source = (formData.get('source') as string) || '';
-    const email = (formData.get('email') as string) || '';
     const message = (formData.get('message') as string) || '';
 
     const nameParts = parentName.trim().split(/\s+/);
     const firstName = nameParts[0] || parentName;
-    const lastName = nameParts.slice(1).join(' ') || nameParts[0] || parentName;
+    const lastName = nameParts.slice(1).join(' ') || '';
 
     // Durbin requires +998XXXXXXXXXXXX format (12 digits after +)
     const rawDigits = phone.replace(/\D/g, '');
@@ -41,20 +40,15 @@ export default function EnrollModal() {
       ? `+${rawDigits}`
       : `+998${rawDigits}`;
 
-    const descParts = [
-      `O'quvchi: ${childName}`,
-      `Sinf: ${grade}`,
-      `Ta'lim tili: ${language}`,
-      source ? `Manba: ${source}` : '',
-      email ? `Email: ${email}` : '',
-      message ? `Xabar: ${message}` : '',
-    ].filter(Boolean);
-
     const crmBody = {
       firstName,
-      phone: formattedPhone,
       lastName,
-      description: descParts.join(' | '),
+      phone: formattedPhone,
+      studentName: childName,
+      class: grade,
+      educationLanguage: language,
+      source: source,
+      description: message,
     };
 
     try {
@@ -110,15 +104,9 @@ export default function EnrollModal() {
 
             <div className="p-8 overflow-y-auto">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{em.child_name} *</label>
-                    <input type="text" name="child_name" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50" placeholder="Abdullayev Alisher" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{em.birth_date} *</label>
-                    <input type="date" name="birth_date" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50" />
-                  </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">{em.child_name} *</label>
+                  <input type="text" name="child_name" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50" placeholder="Abdullayev Alisher" />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -150,21 +138,15 @@ export default function EnrollModal() {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{em.email}</label>
-                    <input type="email" name="email" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50" placeholder="example@mail.com" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">{em.source_label} *</label>
-                    <select name="source" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50">
-                      <option value="">{em.source_placeholder}</option>
-                      <option value="Instagram">Instagram</option>
-                      <option value={em.source_friend}>{em.source_friend}</option>
-                      <option value="Google">Google</option>
-                      <option value={em.source_other}>{em.source_other}</option>
-                    </select>
-                  </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">{em.source_label} *</label>
+                  <select name="source" required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all bg-slate-50">
+                    <option value="">{em.source_placeholder}</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value={em.source_friend}>{em.source_friend}</option>
+                    <option value="Google">Google</option>
+                    <option value={em.source_other}>{em.source_other}</option>
+                  </select>
                 </div>
 
                 <div>

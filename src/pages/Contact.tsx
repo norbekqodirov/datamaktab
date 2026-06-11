@@ -19,14 +19,24 @@ export default function Contact() {
       const firstName = nameParts[0] || form.name;
       const lastName = nameParts.slice(1).join(' ') || '';
 
+      // Durbin requires +998XXXXXXXXXXXX format (12 digits after +)
+      const rawDigits = form.phone.replace(/\D/g, '');
+      const formattedPhone = rawDigits.startsWith('998')
+        ? `+${rawDigits}`
+        : `+998${rawDigits}`;
+
       const res = await fetch('/api/crm/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           firstName,
-          phone: form.phone,
           lastName,
-          description: `[Sayt Xabar] ${form.message}`,
+          phone: formattedPhone,
+          studentName: '',
+          class: '',
+          educationLanguage: '',
+          source: 'Aloqa sahifasi',
+          description: form.message,
         }),
       });
 
