@@ -577,10 +577,10 @@ export const uz = {
   },
   quiz: {
     seo_title: "Farzandingizga mos maktab testi",
-    seo_desc: "8 ta savolga javob bering — farzandingiz ehtiyojiga mos DATA Xalqaro maktabi yo'l xaritasini oling. Natijani PDF shaklida yuklab oling.",
-    badge: "2 daqiqalik test",
+    seo_desc: "10 ta savolga javob bering — savollar farzandingiz yoshiga moslashadi. DATA Xalqaro maktabining shaxsiy yo'l xaritasini oling va PDF shaklida yuklab oling.",
+    badge: "3 daqiqalik aqlli test",
     intro_title: "Farzandingizga mos maktab qanday bo'lishi kerak?",
-    intro_desc: "8 ta qisqa savolga javob bering — javoblaringiz asosida farzandingiz uchun DATA Xalqaro maktabining shaxsiy yo'l xaritasini tuzib beramiz.",
+    intro_desc: "10 ta qisqa savolga javob bering. Test aqlli: birinchi javobingizdan keyin savollar farzandingiz yoshi va sizning ehtiyojlaringizga moslashadi — natijada aniq shaxsiy yo'l xarita olasiz.",
     intro_stats: [
       { val: '95%', label: 'ota-ona tavsiya qiladi' },
       { val: '1–10', label: 'sinflarga qabul' },
@@ -592,81 +592,305 @@ export const uz = {
     back: 'Orqaga',
     next: 'Keyingi savol',
     see_result: "Natijani ko'rish",
-    questions: [
-      {
-        q: "Farzandingiz hozir necha sinfda o'qiydi?",
-        sub: "Har bir bosqich uchun alohida ta'lim yo'l xaritamiz bor.",
+    questions: {
+      start: {
+        q: "Farzandingiz hozir qaysi bosqichda o'qiydi?",
+        sub: "Keyingi savollar farzandingiz yoshiga moslashadi.",
         options: [
           { label: "Hali maktabgacha / 1–2-sinf", tag: "Boshlang'ich", title: "Erkin va ishonchli boshlanish", text: "1–4-sinflarda Montessori asosidagi yondashuv: bola o'zi tanlaydi, o'zi bajaradi. Tizimni bolaga moslashtiramiz — aksincha emas." },
           { label: "3–6-sinf", tag: "O'rta bosqich", title: "Asoslar mustahkamlanadigan davr", text: "Matematika, ingliz tili va IT'ga dars soatlarining 56% ajratilgan. Mantiq, til va texnologiya birga rivojlanadi." },
-          { label: "7–10-sinf", tag: "Yuqori bosqich", title: "Universitetga aniq tayyorgarlik", text: "IELTS, SAT va fan sertifikatlari, portfolio va xorijiy oliygohlarga hujjat topshirish — hammasi maktab ichida tizimli olib boriladi." },
+          { label: "7–10-sinf", tag: "Yuqori bosqich", title: "Universitetga aniq tayyorgarlik", text: "IELTS, SAT va fan sertifikatlari, portfolio va oliygohlarga hujjat topshirish — hammasi maktab ichida tizimli olib boriladi." },
         ],
       },
-      {
-        q: "Farzandingiz ta'limida sizni eng ko'p nima o'ylantiradi?",
-        sub: "Eng asosiy tashvishingizni tanlang.",
+
+      // ── BOSHLANG'ICH ──
+      b1: {
+        q: "Farzandingiz maktab hayotiga qanday moslashadi deb o'ylaysiz?",
+        sub: "Birinchi taassurot — maktabga muhabbatning poydevori.",
         options: [
-          { label: "Ingliz tili darajasi past", tag: "Ingliz tili", title: "CEFR tizimi: A1'dan C1'gacha", text: "British Council bilan hamkorlik, maktab ichida IELTS markazi. 9–11-sinfda o'quvchilar IELTS 6.0–7.5+ darajaga chiqadi." },
-          { label: "Individual e'tibor yetishmaydi", tag: "Individual yondashuv", title: "Har sinfda 20–24 o'quvchi + tyutor", text: "Yuqori sinflarga shaxsiy tyutor biriktiriladi: har kuni bilim, intizom va rivojni kuzatadi, ota-ona bilan doimiy aloqada." },
-          { label: "Universitetga kira oladimi", tag: "Kelajak", title: "Grant va xorijiy oliygohlar yo'li", text: "Rasmiy SAT markazimiz bor: 1200+ ball — davlat granti kafolati. SAT natijasi bilan AQSh, Britaniya, Osiyo universitetlariga ariza beriladi." },
-          { label: "Tarbiya va xavfsizlik", tag: "Tarbiya", title: "Bilim emas, shaxs tarbiyalanadi", text: "Shifokor, psixolog, logoped, dietolog xizmati, sug'urta va Milliy gvardiya nazorati. Qadriyatlarga asoslangan xavfsiz muhit." },
+          { label: "Yangi muhitga ko'nikishi qiyin bo'lishi mumkin", tag: "Yumshoq moslashish", title: "Tizim bolaga moslashadi — aksincha emas", text: "1–4-sinflarda Montessori asosidagi yondashuv: bola o'zi tanlaydi, o'z tezligida o'rganadi. Maktab psixologi har bir kichkintoyning moslashuvini alohida kuzatadi." },
+          { label: "Juda faol va qiziquvchan — zerikib qolmasin", tag: "Faol bola", title: "Qiziqish so'nmaydigan muhit", text: "Montessori muhitida tayyor javob berilmaydi — bola o'zi izlanadi. Shaxmat, robototexnika va sport to'garaklari energiyani to'g'ri o'zanga yo'naltiradi." },
+          { label: "Tayyor deb o'ylayman — asosiysi to'g'ri maktab", tag: "To'g'ri tanlov", title: "1-sinfga qabul bolani bilishdan boshlanadi", text: "Qabulda bola suhbat orqali o'rganiladi: tayyorlik darajasi va qiziqishlari aniqlanib, unga mos sinf shakllantiriladi." },
         ],
       },
-      {
-        q: "Hozirgi maktabida farzandingizga yetarlicha e'tibor berilyaptimi?",
-        sub: "Ochiq javob bering — shu asosda yechim ko'rsatamiz.",
+      b2: {
+        q: "Boshlang'ich sinflarda siz uchun eng muhimi nima?",
+        sub: "Bitta — eng asosiysini tanlang.",
         options: [
-          { label: "Yo'q, ko'pincha e'tibordan chetda", tag: "Yechim", title: "Hech kim ortda qolmaydi", text: "DATA'da har 2 oyda progress-test, har oyda level imtihon. O'quvchining o'sishi raqamlarda ko'rinadi, zaif tomonlar darhol aniqlanadi." },
-          { label: "Bilmayman, aniq ko'rinmaydi", tag: "Shaffoflik", title: "Bola rivoji — telefoningizda", text: "Durbin ilovasi orqali baholar, jadval va e'lonlarni real vaqtda ko'rasiz. Sun'iy intellekt kuchli va zaif tomonlarni topadi." },
-          { label: "Ha, lekin ko'proq istardim", tag: "Yuqori standart", title: "Eng yaxshisidan ko'proq", text: "Ustozlar 4 bosqichli qat'iy tanlovdan o'tadi. 84% ota-ona muammolar o'z vaqtida hal bo'lishini tasdiqlagan." },
+          { label: "O'qish, yozish va hisob poydevori", tag: "Poydevor", title: "O'sish raqamlarda ko'rinadi", text: "Har 2 oyda progress-test: o'qish, yozish va hisob ko'nikmalari o'lchanadi. Zaif joy darhol aniqlanib, alohida ishlanadi." },
+          { label: "Bola maktabni sevib borsin", tag: "Muhabbat", title: "Majburlash emas — qiziqtirish", text: "Montessori sinflarida bola faoliyatni o'zi tanlaydi. Birinchi yillarda baho bosimi yo'q — o'rganishga tabiiy qiziqish shakllanadi." },
+          { label: "Tarbiya va odob", tag: "Tarbiya", title: "Bilim bilan birga shaxs shakllanadi", text: "Qadriyatlarga asoslangan tarbiya: mehr, hurmat, mas'uliyat. Psixolog va tarbiyachilar jamoasi bola xulqini birga kuzatadi." },
+          { label: "Ingliz tili erta boshlansin", tag: "Ingliz tili", title: "CEFR tizimi — 1-sinfdan", text: "Ingliz tili 1-sinfdan o'yin va qo'shiq orqali boshlanadi. CEFR bosqichlari bo'yicha bola tabiiy ravishda A1 darajaga chiqadi." },
         ],
       },
-      {
-        q: "Farzandingiz kelajakda qayerda o'qishini orzu qilasiz?",
-        sub: "Maqsadga qarab tayyorgarlikni yo'naltiramiz.",
-        options: [
-          { label: "O'zbekiston oliygohi — grant bilan", tag: "Grant", title: "SAT 1200+ = davlat granti", text: "Maktabning o'zida, tanish muhitda SAT topshiriladi. VMQ 578-son asosida grant kafolati ishlaydi." },
-          { label: "Xorijiy universitet", tag: "Xalqaro", title: "Universitetga ariza — 10-sinfda", text: "10-sinfda xorijiy oliygohlarga ariza topshirish bosqichi boshlanadi: IELTS, SAT, fan sertifikatlari va portfolio bilan AQSh, Britaniya, Osiyo universitetlariga." },
-          { label: "Hali aniq emas", tag: "Yo'l xarita", title: "1–11-sinf to'liq reja", text: "Finlandiya, AQSh va Singapur metodikalari integratsiyasi. Har sinf uchun aniq maqsad — bola tayyor bo'lib chiqadi." },
-        ],
-      },
-      {
-        q: "Ingliz tili sizning oilangiz uchun qanchalik muhim?",
+      b3: {
+        q: "Ingliz tilini erta boshlashga qanday qaraysiz?",
         sub: "",
         options: [
-          { label: "Juda muhim — ustuvor yo'nalish", tag: "Til", title: "Dars soatlarining 23% — ingliz tili", text: "Akademik yozuv, speaking va debat. Maktabda kompyuter IELTS markazi va xorijiy ustoz bor." },
-          { label: "Muhim, lekin asosiy emas", tag: "Balans", title: "Til + matematika + IT", text: "Til alohida emas — IT va matematika bilan birga global kompetensiya sifatida shakllantiriladi." },
-          { label: "O'rtacha yetsa bo'ldi", tag: "Asos", title: "Mustahkam poydevor", text: "1-sinfdan CEFR tizimi: bola sekin-asta erkin muloqotga chiqadi, majburlamasdan." },
+          { label: "Qanchalik erta — shuncha yaxshi", tag: "Erta boshlash", title: "O'yin orqali — bosimsiz", text: "1-sinfdan CEFR tizimi: qo'shiq, o'yin va muloqot orqali. Bola tilni 'o'qimaydi' — uni yashab o'rganadi." },
+          { label: "Avval ona tili va asoslar mustahkam bo'lsin", tag: "Balans", title: "Har fanga o'z vaqti", text: "Dastur muvozanatli: ona tili va matematika asosiy o'rinda, ingliz tili yoshga mos hajmda qo'shib boriladi." },
+          { label: "Foydali, lekin bolaga yuk bo'lmasin deyman", tag: "Bosimsiz", title: "Til — yuk emas, o'yin", text: "Boshlang'ichda til mashg'ulotlari o'yin shaklida o'tadi. Faoliyat turlari kun davomida almashinib turadi — bola charchamaydi." },
         ],
       },
-      {
-        q: "Maktabga qatnov masalasi siz uchun qanchalik dolzarb?",
-        sub: "Qulaylik ham farzand muvaffaqiyatining bir qismi.",
+      b3x: {
+        q: "Ingliz tilida qanday natijani ko'zlaysiz?",
+        sub: "Maqsadga qarab dastur quriladi.",
         options: [
-          { label: "Transport bo'lsa juda qulay edi", tag: "Sharoit", title: "Transport va 3 mahal ovqat", text: "GPS-kuzatuvli maktab avtobuslari, ertalabki nonushta, tushlik va poldnik. Dietolog ovqat sifatini nazorat qiladi." },
-          { label: "Yotoqxona varianti qiziq", tag: "Yotoqxona", title: "Uzoqdan keladiganlar uchun yotoqxona", text: "Yotoqxona 4-sinfdan katta o'g'il bolalar uchun tashkil etilgan — kutubxona, sport zal va to'garaklar bilan to'liq sharoitda." },
-          { label: "O'zimiz olib boramiz", tag: "Vaqt", title: "09:00–17:00 — to'liq kun", text: "Darsdan tashqari to'garaklar shu yerda: shaxmat, robototexnika, dasturlash, sport. Bola kuni mazmunli o'tadi." },
+          { label: "Erkin so'zlashib ketsin", tag: "Speaking", title: "Tabiiy muloqot muhiti", text: "Speaking mashg'ulotlari va til muhiti 1-sinfdan boshlanadi. Yuqori bosqichga borib bola IELTS yo'liga tayyor bo'ladi." },
+          { label: "Kelajakda xalqaro sertifikatlarga zamin", tag: "Istiqbol", title: "A1 dan boshlangan yo'l IELTS'gacha boradi", text: "CEFR zinapoyasi: boshlang'ichda poydevor, yuqori sinflarda maktab ichidagi IELTS markazida sertifikat." },
+          { label: "Maktab dasturi darajasi yetarli", tag: "Asos", title: "Dasturning o'zi ham kuchli", text: "Dars soatlarining 23% ingliz tiliga ajratilgan — dastur darajasining o'zi mustahkam zamin beradi." },
         ],
       },
-      {
-        q: "Zamonaviy texnologiya va IT ta'limi siz uchun muhimmi?",
+      b4: {
+        q: "Bolangiz va texnologiya — qanday bo'lishini istaysiz?",
         sub: "Bugungi bola — ertangi kasb egasi.",
         options: [
-          { label: "Juda muhim — kelajak kasbi", tag: "IT", title: "Code.org, AI, robototexnika", text: "24 ta iMac, 60 ta notebook. 1-sinfdan algoritm, 9–11-sinfda full-stack va startap loyiha. Cyberpark rezidenti." },
-          { label: "Muhim, lekin me'yorida", tag: "Balans", title: "Texnologiya — vosita", text: "IT alohida fan emas, kundalik o'quv vositasi. Ofis dasturlari, Scratch, mantiqiy fikrlash bosqichma-bosqich." },
-          { label: "Avval asosiy fanlar muhim", tag: "Asos", title: "Avval poydevor, keyin texnologiya", text: "Matematika va til mustahkamlanadi, texnologiya esa ularni qo'llab-quvvatlaydi — bola yuklanmaydi." },
+          { label: "Erta yoshdan to'g'ri o'rgansin", tag: "IT", title: "1-sinfdan algoritmik fikrlash", text: "Scratch, Code.org va mantiqiy o'yinlar orqali bola texnologiyani iste'molchi emas — yaratuvchi sifatida o'rganadi." },
+          { label: "Foydali o'zanga yo'naltirilsin — telefondan uzoq", tag: "To'g'ri o'zan", title: "Texnologiya — nazoratli muhitda", text: "Maktabda qurilmalar faqat ta'lim maqsadida: 24 iMac, 60 notebook. Kun to'garaklar bilan band — telefonga vaqt qolmaydi." },
+          { label: "Hozircha shart emas", tag: "Bosqichma-bosqich", title: "Avval poydevor", text: "Texnologiya majburlanmaydi: boshlang'ichda asosiy ko'nikmalar ustuvor, IT yoshga mos me'yorda kiritiladi." },
         ],
       },
-      {
-        q: "Farzandingiz sog'lig'i va xavfsizligida nimaga ko'proq e'tibor berasiz?",
+      b5: {
+        q: "Sinfdagi bolalar soni va e'tibor masalasiga qanday qaraysiz?",
         sub: "",
         options: [
-          { label: "Tibbiy va psixologik yordam", tag: "Sog'lik", title: "Shifokor, psixolog, logoped", text: "Maktab ichida doimiy tibbiy va psixologik xizmat. Bolaning ruhiy va jismoniy holatiga e'tibor." },
-          { label: "Ovqat sifati", tag: "Ovqatlanish", title: "Dietolog nazoratida 3 mahal", text: "Nonushta, tushlik va poldnik. Ovqat sifati dietolog tomonidan kuzatiladi." },
-          { label: "Umumiy xavfsizlik", tag: "Xavfsizlik", title: "Sug'urta + Milliy gvardiya", text: "Hudud Milliy gvardiya nazoratida, o'quvchilar sug'urtalangan. Ota-ona xotirjam bo'ladi." },
+          { label: "Kichik sinf — ko'p e'tibor. Bu hal qiluvchi", tag: "Kichik sinflar", title: "Har sinfda 20–24 o'quvchi", text: "O'qituvchi har bir bolaga yetib boradi. Bola 'ko'pchilikdan biri' bo'lib qolmaydi." },
+          { label: "Asosiysi — o'qituvchining mahorati", tag: "Ustozlar", title: "4 bosqichli qat'iy tanlov", text: "Ustozlar bilim, metodika, psixologiya va amaliyot bo'yicha 4 bosqichli tanlovdan o'tadi. Dars sifati doimiy nazoratda." },
+          { label: "Bolam faol — o'zi ham yo'l topadi", tag: "Kuzatuv baribir bor", title: "Faol bolaga ham tizim kerak", text: "Progress-testlar har bolaning o'sishini o'lchaydi — faol bola ham salohiyatidan to'liq foydalanishi uchun." },
         ],
       },
-    ],
+      b6: {
+        q: "Maktab sharoitida siz uchun qaysi biri muhimroq?",
+        sub: "Qulaylik ham bola muvaffaqiyatining bir qismi.",
+        options: [
+          { label: "Maktab transporti — qatnov qulay bo'lsin", tag: "Transport", title: "GPS-kuzatuvli 8 ta avtobus", text: "Bola yo'lda ham nazoratda: ota-ona avtobusni real vaqtda kuzatadi. Ertalabki nonushta maktabda." },
+          { label: "To'liq kun — to'garaklar bilan band jadval", tag: "To'liq kun", title: "09:00–17:00 mazmunli kun", text: "Darsdan keyin shaxmat, robototexnika, dasturlash va ijodiy to'garaklar — hammasi maktab ichida." },
+          { label: "Sport va faol dam olish sharoiti", tag: "Sport", title: "Sport zali va faol maydonlar", text: "Jismoniy faollik kun tartibining bir qismi — bola energiyasi to'g'ri sarflanadi, sog'lig'i mustahkamlanadi." },
+        ],
+      },
+      b7: {
+        q: "Bola salomatligida nimaga ko'proq e'tibor berasiz?",
+        sub: "",
+        options: [
+          { label: "Ovqat sifati", tag: "Ovqatlanish", title: "Dietolog nazoratida 3 mahal", text: "Nonushta, tushlik va poldnik — menyuni dietolog tuzadi va sifatni har kuni nazorat qiladi." },
+          { label: "Doimiy tibbiy kuzatuv", tag: "Tibbiyot", title: "Shifokor, psixolog, logoped", text: "Uchala mutaxassis maktab ichida doimiy ishlaydi. Boshlang'ich yoshda logoped xizmati ayniqsa muhim." },
+          { label: "Toza havo va gigiyena", tag: "Havo tizimi", title: "Har sinfda alohida havo almashinuvi", text: "Supply-exhaust ventilyatsiya va chiller tizimi: sinflar doim toza havo bilan ta'minlanadi — kasallik tarqalishi kamayadi." },
+        ],
+      },
+      b8: {
+        q: "Xavfsizlik haqida o'ylaganda nima birinchi keladi?",
+        sub: "",
+        options: [
+          { label: "Hudud va jismoniy xavfsizlik", tag: "Qo'riqlash", title: "Milliy gvardiya + kameralar + SOS", text: "Hudud Milliy gvardiya nazoratida, barcha hududlarda kamera va SOS tizimi ishlaydi." },
+          { label: "Sug'urta va tibbiy himoya", tag: "Sug'urta", title: "Har o'quvchi 20 mln gacha sug'urtalangan", text: "Har bir o'quvchi sug'urta bilan himoyalangan, tibbiy xizmat maktabning ichida." },
+          { label: "Ruhiy muhit — bolaga bosim bo'lmasin", tag: "Ruhiy xavfsizlik", title: "Bosimsiz, qadriyatli muhit", text: "Psixolog bolalar orasidagi munosabatlarni kuzatadi. Kichik sinflar va tarbiya tizimi bullingning oldini oladi." },
+        ],
+      },
+      b9: {
+        q: "Bolangiz rivojini qanday kuzatib borishni istaysiz?",
+        sub: "Xabardor ota-ona — xotirjam ota-ona.",
+        options: [
+          { label: "Telefonimda, real vaqtda", tag: "Durbin", title: "Hammasi bitta ilovada", text: "Durbin ilovasi: baholar, dars jadvali va e'lonlar real vaqtda. DATA o'z dasturiy ta'minotini yaratgan." },
+          { label: "Jonli uchrashuvlar va suhbatlar", tag: "Muloqot", title: "4 bosqichli aloqa tizimi", text: "Sinf rahbari, tyutor hisobotlari, ota-onalar majlisi va administrator darajasi — muammo qaysi bosqichda bo'lsa, shu yerda hal bo'ladi." },
+          { label: "Ikkalasi ham bo'lsin", tag: "To'liq nazorat", title: "Ilova + jonli muloqot", text: "Raqamli kuzatuv va shaxsiy uchrashuvlar birga. 84% ota-ona muammolar o'z vaqtida hal bo'lishini tasdiqlagan." },
+        ],
+      },
+
+      // ── O'RTA ──
+      m1: {
+        q: "Hozirgi o'qishida sizni nima ko'proq tashvishlantiradi?",
+        sub: "Eng asosiysini tanlang.",
+        options: [
+          { label: "Matematika va asoslar bo'sh", tag: "Poydevor", title: "Dars soatlarining 56% — asosiy fanlarga", text: "Matematika, ingliz tili va IT birga o'qitiladi. Har oyda level imtihon — bo'shliq qayerda ekani aniq ko'rinadi." },
+          { label: "Ingliz tili past", tag: "Ingliz tili", title: "Daraja testidan boshlaymiz", text: "Bola darajasi testlab aniqlanadi va o'z guruhiga qo'shiladi — 'hammaga bir xil dars' yondashuvi yo'q." },
+          { label: "Qiziqishi va motivatsiyasi pasaygan", tag: "Motivatsiya", title: "Qiziqish qaytadigan muhit", text: "Interaktiv darslar, VR, loyiha ishlari va to'garaklar — bola o'z natijasini ko'rib, qiziqishi qaytadi." },
+          { label: "Individual e'tibor yetishmayapti", tag: "E'tibor", title: "20–24 o'quvchi + progress-test", text: "Har 2 oyda o'sish o'lchanadi, zaif joy alohida ishlanadi. Hech kim ortda qolmaydi." },
+        ],
+      },
+      m2: {
+        q: "Ingliz tili oilangiz uchun qanchalik muhim?",
+        sub: "",
+        options: [
+          { label: "Juda muhim — ustuvor yo'nalish", tag: "Til", title: "Dars soatlarining 23% — ingliz tili", text: "3–6-sinflarda grammatika, speaking va yozuv birga rivojlantiriladi. British Council bilan hamkorlik." },
+          { label: "Muhim, lekin asosiy emas", tag: "Balans", title: "Til + matematika + IT", text: "Til alohida emas — IT va matematika bilan birga global kompetensiya sifatida shakllantiriladi." },
+          { label: "O'rtacha yetsa bo'ldi", tag: "Asos", title: "Mustahkam poydevor", text: "CEFR tizimi baribir ishlaydi: bola o'z darajasidan bosqichma-bosqich ko'tariladi, majburlamasdan." },
+        ],
+      },
+      m2x: {
+        q: "Ingliz tilida qanday maqsad qo'yasiz?",
+        sub: "Darajaga qarab guruh va dastur belgilanadi.",
+        options: [
+          { label: "Erkin so'zlashish — speaking kuchaysin", tag: "Speaking", title: "Til muhiti va xorijiy ustoz", text: "Speaking klublari, debat va xorijiy ustoz bilan jonli amaliyot — til 'kitobdan' chiqib hayotga o'tadi." },
+          { label: "Kelajakda IELTS uchun zamin", tag: "IELTS yo'li", title: "Maktab ichida IELTS markazi", text: "3–6-sinfdan boshlangan tizimli yo'l 9–11-sinfda IELTS 6.0–7.5+ natijaga olib boradi." },
+          { label: "Avval tilga qiziqtirish kerak", tag: "Qiziqtirish", title: "Muvaffaqiyat hissi qiziqish uyg'otadi", text: "Bola darajasiga mos guruhga tushadi — qiynalmaydi, kichik g'alabalar tilga mehr uyg'otadi." },
+        ],
+      },
+      m3: {
+        q: "Aniq fanlarga qobiliyatini qanday baholaysiz?",
+        sub: "",
+        options: [
+          { label: "Kuchli — olimpiadaga tayyorlash kerak", tag: "Olimpiada", title: "BOND tizimi: 15+ xalqaro natija", text: "Copernicus (AQSh) 10 bronza, Amakids'da 23 o'rin, 'Daho Bolalar' chempionlari — iqtidor tizimli tayyorlanadi." },
+          { label: "Yaxshi — tizimli rivojlantirish kerak", tag: "O'sish", title: "Level imtihon har oyda", text: "Qobiliyat muntazam o'lchab boriladi: kuchli o'quvchi olimpiada guruhiga yo'naltiriladi." },
+          { label: "Qiynaladi — asosdan mustahkamlash kerak", tag: "Yechim", title: "Hech kim ortda qolmaydi", text: "Progress-test bo'shliqni aniq topadi, alohida ish rejasi tuziladi va natija qayta o'lchanadi." },
+        ],
+      },
+      m4: {
+        q: "IT va dasturlashga qiziqishi bormi?",
+        sub: "DATA — Cyberpark rezidenti maktab.",
+        options: [
+          { label: "Ha — jiddiy o'rgansin", tag: "Dasturlash", title: "Code.org: 50 o'quvchi xalqaro sertifikat olgan", text: "24 iMac, 60 notebook. Scratch'dan boshlanib, yuqori sinflarda haqiqiy dasturlashga o'tiladi." },
+          { label: "Robototexnika va texnik ijod qiziq", tag: "Robototexnika", title: "Robototexnika, VR va AI", text: "20 ta VR ko'zoynak, har sinfda AI yordamchi — texnologiya qo'l bilan ushlab o'rganiladi." },
+          { label: "Me'yorida bo'lsa yetarli", tag: "Vosita", title: "IT — kundalik o'quv vositasi", text: "Ofis dasturlari, xavfsiz internet va mantiqiy fikrlash hamma o'quvchiga o'rgatiladi." },
+        ],
+      },
+      m5: {
+        q: "Darsdan keyingi vaqt qanday o'tishini istaysiz?",
+        sub: "",
+        options: [
+          { label: "Sport bilan shug'ullansin", tag: "Sport", title: "Sport zali va seksiyalar", text: "Jismoniy faollik kun tartibining bir qismi — bola energiyasi to'g'ri sarflanadi, salomatlik mustahkamlanadi." },
+          { label: "Aqliy mashg'ulotlar: shaxmat, mantiq", tag: "Shaxmat", title: "Shaxmat va mantiq to'garaklari", text: "Strategik fikrlash olimpiada matematikasiga zamin yaratadi." },
+          { label: "Kitobga mehr qo'ysin", tag: "Kutubxona", title: "4603 ta kitob — 7 tilda", text: "O'zbek, rus, ingliz, koreys, xitoy, nemis va brayl alifbosida. Kitobxonlik madaniyati maxsus dastur bilan shakllantiriladi." },
+        ],
+      },
+      m6: {
+        q: "Maktabga qatnov masalasi qanchalik dolzarb?",
+        sub: "",
+        options: [
+          { label: "Transport bo'lsa juda qulay edi", tag: "Transport", title: "GPS-kuzatuvli 8 ta avtobus", text: "Ota-ona avtobusni real vaqtda kuzatadi. Ertalabki nonushta maktabda — uydan shoshilish shart emas." },
+          { label: "Uzoqdan kelamiz — yotoqxona qiziq", tag: "Yotoqxona", title: "4-sinfdan o'g'il bolalar uchun", text: "Kutubxona, sport zal va to'garaklar bilan to'liq sharoit. Tarbiyachilar doimiy nazoratida." },
+          { label: "O'zimiz olib boramiz", tag: "To'liq kun", title: "09:00–17:00 mazmunli kun", text: "Darsdan tashqari to'garaklar shu yerda: shaxmat, robototexnika, dasturlash, sport." },
+        ],
+      },
+      m7: {
+        q: "Sog'liq va xavfsizlikda ustuvoringiz nima?",
+        sub: "",
+        options: [
+          { label: "Tibbiy va psixologik xizmat", tag: "Sog'lik", title: "Shifokor, psixolog, logoped", text: "Maktab ichida doimiy tibbiy va psixologik xizmat — bolaning ruhiy va jismoniy holatiga e'tibor." },
+          { label: "Ovqat sifati", tag: "Ovqatlanish", title: "Dietolog nazoratida 3 mahal", text: "Nonushta, tushlik va poldnik. Menyu va sifatni dietolog nazorat qiladi." },
+          { label: "Qo'riqlash va sug'urta", tag: "Xavfsizlik", title: "Milliy gvardiya + 20 mln sug'urta", text: "Hudud Milliy gvardiya nazoratida, har bir o'quvchi sug'urtalangan." },
+        ],
+      },
+      m8: {
+        q: "Telefon va o'yinlar masalasida ahvol qanday?",
+        sub: "Bu yoshdagi eng keng tarqalgan muammo.",
+        options: [
+          { label: "Vaqtini yutib yuboryapti — chora kerak", tag: "Yechim", title: "Band kun + texnologiya to'g'ri o'zanda", text: "09:00–17:00 mazmunli bandlik: telefon o'rnini dasturlash, sport va shaxmat egallaydi. Texnologiyaga qiziqish foydaga aylanadi." },
+          { label: "Nazorat qilamiz, lekin tashvishli", tag: "Hamkorlik", title: "Maktab va oila yagona tizimda", text: "Durbin orqali kun tartibi shaffof ko'rinadi. Tarbiyachilar va psixolog gadjet odatlarini oila bilan birga to'g'rilaydi." },
+          { label: "Bu masala bizda nazoratda", tag: "Davom ettiramiz", title: "Yaxshi odat mustahkamlanadi", text: "Maktab muhiti shu intizomni qo'llab-quvvatlaydi — atrofdagi bolalar ham band va maqsadli." },
+        ],
+      },
+      m9: {
+        q: "Farzandingiz rivojini qanday kuzatib borishni istaysiz?",
+        sub: "Xabardor ota-ona — xotirjam ota-ona.",
+        options: [
+          { label: "Telefonimda, real vaqtda", tag: "Durbin", title: "Hammasi bitta ilovada", text: "Durbin ilovasi: baholar, jadval va e'lonlar real vaqtda. Sun'iy intellekt kuchli va zaif tomonlarni ko'rsatadi." },
+          { label: "Jonli uchrashuvlar va suhbatlar", tag: "Muloqot", title: "4 bosqichli aloqa tizimi", text: "Sinf rahbari, hisobotlar, ota-onalar majlisi va administrator darajasi." },
+          { label: "Ikkalasi ham bo'lsin", tag: "To'liq nazorat", title: "Ilova + jonli muloqot", text: "Raqamli kuzatuv va shaxsiy uchrashuvlar birga. 84% ota-ona muammolar o'z vaqtida hal bo'lishini tasdiqlagan." },
+        ],
+      },
+
+      // ── YUQORI ──
+      y1: {
+        q: "Farzandingizning kelajagi haqida qanday maqsad bor?",
+        sub: "Maqsadga qarab tayyorgarlik quriladi.",
+        options: [
+          { label: "O'zbekiston oliygohi — grant bilan", tag: "Grant", title: "SAT 1200+ = davlat granti", text: "VMQ 578-son asosida SAT'dan 1200+ ball davlat grantini kafolatlaydi. SAT maktabning o'zida topshiriladi." },
+          { label: "Xorijiy universitet", tag: "Xalqaro", title: "10-sinfda ariza bosqichi boshlanadi", text: "IELTS, SAT, fan sertifikatlari va portfolio bilan AQSh, Britaniya va Osiyo universitetlariga hujjat topshiriladi." },
+          { label: "Hali aniq emas — yo'nalish topishga yordam kerak", tag: "Yo'l xarita", title: "Tyutor yo'nalish topishga yordam beradi", text: "Qiziqish va qobiliyat tahlili asosida shaxsiy reja tuziladi — bola o'z yo'lini ongli tanlaydi." },
+        ],
+      },
+      y2a: {
+        q: "SAT imtihoni bilan qanchalik tanishsiz?",
+        sub: "SAT — grant yo'lining kaliti.",
+        options: [
+          { label: "Bilamiz — tayyorgarlikni boshlash kerak", tag: "SAT markazi", title: "Rasmiy SAT markazi — maktab ichida", text: "Tayyorgarlik kursi ham, imtihonning o'zi ham shu yerda: bola tanish muhitda, ortiqcha stresssiz topshiradi." },
+          { label: "Eshitganmiz — batafsil bilmoqchimiz", tag: "Tushuntiramiz", title: "SAT — grant kaliti", text: "Matematika va ingliz tilidan xalqaro test. 1200+ ball VMQ 578-son bo'yicha davlat grantini beradi." },
+          { label: "Birinchi marta eshityapmiz", tag: "Imkoniyat", title: "Kontraktsiz o'qish yo'li bor", text: "SAT natijasi bilan kontrakt o'rniga grant olish mumkin. Mutaxassis qo'ng'iroqda to'liq tushuntirib beradi." },
+        ],
+      },
+      y2b: {
+        q: "IELTS tayyorgarligi qay bosqichda?",
+        sub: "Xorijiy universitetlar uchun asosiy talab.",
+        options: [
+          { label: "Boshlagan — davom ettirish kerak", tag: "Davom", title: "Kompyuter IELTS markazi maktabda", text: "Mock-testlar va real imtihon muhiti shu yerda — natija tezroq o'sadi, qo'shimcha markazlarga vaqt ketmaydi." },
+          { label: "Hali boshlamagan", tag: "Boshlaymiz", title: "9–11-sinflarda IELTS 6.0–7.5+", text: "Daraja testidan boshlanadi, CEFR bosqichlari bilan tizimli ravishda IELTS'ga olib boriladi." },
+          { label: "IELTS ham, SAT ham kerak", tag: "Ikkalasi", title: "Ikkala markaz — bitta maktabda", text: "IELTS va SAT tayyorgarligi parallel olib boriladi — qo'shimcha o'quv markazlarisiz, vaqt tejaladi." },
+        ],
+      },
+      y2c: {
+        q: "Qaysi yo'nalishlar farzandingizga yaqinroq?",
+        sub: "Taxminiy bo'lsa ham tanlang — aniqlashga yordam beramiz.",
+        options: [
+          { label: "IT va texnologiya", tag: "IT yo'li", title: "Full-stack va startap loyihalar", text: "9–11-sinfda real loyihalar va portfolio — kasbga maktabdayoq kirib boradi." },
+          { label: "Tillar va gumanitar fanlar", tag: "Tillar", title: "IELTS + akademik yozuv", text: "Til yo'nalishida IELTS, debat va akademik yozuv chuqur o'rgatiladi." },
+          { label: "Aniq fanlar", tag: "Aniq fanlar", title: "Olimpiada va fan sertifikatlari", text: "BOND tizimi orqali olimpiadalar — universitetga kuchli portfolio bo'ladi." },
+          { label: "Bilmaymiz — aniqlash kerak", tag: "Diagnostika", title: "Qiziqishlar tahlil qilinadi", text: "Tyutor va psixolog qobiliyat xaritasini tuzadi; sinab ko'rish uchun turli to'garaklar bor." },
+        ],
+      },
+      y3: {
+        q: "Hozirgi bilim darajasi tizimli nazoratda deb ayta olasizmi?",
+        sub: "",
+        options: [
+          { label: "Yo'q — bo'shliqlar qayerdaligini aniq bilmaymiz", tag: "Diagnostika", title: "Progress-test + AI tahlil", text: "Har 2 oyda o'lchov o'tkaziladi, Durbin'dagi sun'iy intellekt kuchli va zaif tomonlarni aniq ko'rsatadi." },
+          { label: "Repetitorlarga tayanyapmiz", tag: "Bitta tizim", title: "Repetitorsiz — hammasi maktab ichida", text: "IELTS, SAT va fan tayyorgarligi maktab dasturining o'zida. Vaqt va xarajat tejaladi." },
+          { label: "Nazoratda, lekin kuchliroq tizim kerak", tag: "Tyutor", title: "Shaxsiy tyutor biriktiriladi", text: "Tyutor har kuni bilim, intizom va rivojni kuzatadi, ota-ona bilan doimiy aloqada bo'ladi." },
+        ],
+      },
+      y4: {
+        q: "Zamonaviy kasb ko'nikmalariga qanday qaraysiz?",
+        sub: "Universitetlar endi faqat baho emas — portfolio ham so'raydi.",
+        options: [
+          { label: "IT ko'nikmalari albatta kerak", tag: "IT", title: "Full-stack + startap loyihalar", text: "9–11-sinfda real loyihalar: kod, dizayn, taqdimot. Cyberpark rezidenti muhitida." },
+          { label: "Loyiha va portfolio muhim", tag: "Portfolio", title: "Portfolio — qabulda ustunlik", text: "Loyihalar to'plami xorijiy universitetlar qabul komissiyalariga taqdim etiladi." },
+          { label: "Avval imtihon natijalari", tag: "Balans", title: "Imtihon + ko'nikma birga", text: "Sertifikatlar asosiy o'rinda, loyihalar esa arizaga qo'shimcha kuch beradi." },
+        ],
+      },
+      y5: {
+        q: "Olimpiadalarda qatnashish rejada bormi?",
+        sub: "",
+        options: [
+          { label: "Ha — natija kerak", tag: "Chempionlar", title: "15+ xalqaro va respublika natijasi", text: "Copernicus, SEAMO, Coding olimpiadasi (4 oltin, 1 kumush) — tayyorlov BOND tizimida olib boriladi." },
+          { label: "Qiziq, lekin asosiy emas", tag: "Qo'shimcha kuch", title: "Olimpiada — portfolio uchun plus", text: "Xorijiy universitetlar olimpiada natijalarini yuqori baholaydi — arizaga qo'shimcha vazn." },
+          { label: "Yo'q — sertifikatlarga e'tibor", tag: "Fokus", title: "IELTS/SAT ustuvor", text: "Kuch sertifikatlarga qaratiladi — bu ham mutlaqo to'g'ri strategiya." },
+        ],
+      },
+      y6: {
+        q: "Imtihon bosimi va ruhiy holat qanday?",
+        sub: "Yuqori sinf — eng katta bosim davri.",
+        options: [
+          { label: "Bosim sezilarli — qo'llab-quvvatlash kerak", tag: "Psixolog", title: "Doimiy psixologik xizmat", text: "Imtihon stressi bilan ishlash va motivatsiya suhbatlari — maktab ichida, alohida qatnovsiz." },
+          { label: "Motivatsiyasi tushib ketgan", tag: "Motivatsiya", title: "Tyutor + aniq maqsad tizimi", text: "Aniq maqsad (grant, universitet) va kichik g'alabalar zanjiri motivatsiyani qaytaradi." },
+          { label: "Yaxshi — tizimli rejim yetarli", tag: "Rejim", title: "09:00–17:00 barqaror tartib", text: "Barqaror kun tartibi va tizimli tayyorgarlik natijani beradi." },
+        ],
+      },
+      y7: {
+        q: "Qatnov yoki yashash masalasi qanday hal bo'lgani ma'qul?",
+        sub: "",
+        options: [
+          { label: "Transport bo'lsa juda qulay edi", tag: "Transport", title: "GPS-kuzatuvli 8 ta avtobus", text: "Ota-ona avtobusni real vaqtda kuzatadi, ertalabki nonushta maktabda." },
+          { label: "Uzoqdan kelamiz — yotoqxona kerak", tag: "Yotoqxona", title: "4-sinfdan o'g'il bolalar uchun", text: "Kutubxona, sport zal va to'garaklar bilan to'liq sharoit — imtihon davrida ayniqsa qulay." },
+          { label: "O'zimiz olib boramiz", tag: "To'liq kun", title: "09:00–17:00 — hammasi shu yerda", text: "Darslar, tayyorgarlik kurslari va to'garaklar bir joyda — qatnov vaqti tejaladi." },
+        ],
+      },
+      y8: {
+        q: "Sog'liq va xavfsizlikda ustuvoringiz nima?",
+        sub: "",
+        options: [
+          { label: "Tibbiy va psixologik xizmat", tag: "Sog'lik", title: "Shifokor, psixolog, logoped", text: "Maktab ichida doimiy tibbiy va psixologik xizmat — imtihon davrida ayniqsa muhim." },
+          { label: "Ovqat sifati", tag: "Ovqatlanish", title: "Dietolog nazoratida 3 mahal", text: "Nonushta, tushlik va poldnik. Menyu va sifatni dietolog nazorat qiladi." },
+          { label: "Qo'riqlash va sug'urta", tag: "Xavfsizlik", title: "Milliy gvardiya + 20 mln sug'urta", text: "Hudud Milliy gvardiya nazoratida, har bir o'quvchi sug'urtalangan." },
+        ],
+      },
+      y9: {
+        q: "Natija va rivojni qanday kuzatib bormoqchisiz?",
+        sub: "Xabardor ota-ona — xotirjam ota-ona.",
+        options: [
+          { label: "Telefonimda, real vaqtda", tag: "Durbin", title: "Hammasi bitta ilovada", text: "Durbin ilovasi: baholar, jadval, e'lonlar real vaqtda. AI kuchli va zaif tomonlarni ko'rsatadi." },
+          { label: "Jonli uchrashuvlar va hisobotlar", tag: "Muloqot", title: "Tyutor hisoboti + chorak majlislari", text: "Haftalik tyutor hisoboti, har chorakda direktor bilan majlis, administrator orqali murojaat." },
+          { label: "Ikkalasi ham bo'lsin", tag: "To'liq nazorat", title: "Ilova + jonli muloqot", text: "Raqamli kuzatuv va shaxsiy uchrashuvlar birga. 84% ota-ona muammolar o'z vaqtida hal bo'lishini tasdiqlagan." },
+        ],
+      },
+    },
     stages: {
       boshlangich: {
         tag: "Boshlang'ich bosqich · 1–4-sinf",
@@ -713,30 +937,48 @@ export const uz = {
         ],
       },
       ENG: {
-        title: "Ingliz tili: A1 dan C1 gacha",
+        title: "Ingliz tili: kuchli daraja",
         desc: "Til alohida fan emas — kundalik muloqot va akademik vosita sifatida o'rgatiladi.",
         facts: [
-          "CEFR tizimi 1-sinfdan boshlab",
-          "Maktab ichida kompyuter IELTS markazi va xorijiy ustoz",
-          "9–11-sinfda IELTS 6.0–7.5+ natijalar",
+          "Daraja testi asosida guruhlash — har kim o'z bosqichida",
+          "British Council bilan hamkorlik",
+          "Speaking, yozuv va grammatika birga rivojlanadi",
+        ],
+      },
+      ADAPT: {
+        title: "Yumshoq moslashish va g'amxo'rlik",
+        desc: "Birinchi yillar — maktabga muhabbat davri. Tizim bolaga moslashadi, aksincha emas.",
+        facts: [
+          "Montessori asosidagi yondashuv: bola o'z tezligida o'rganadi",
+          "Psixolog va logoped moslashuvni doimiy kuzatadi",
+          "Baho bosimisiz — o'rganishga tabiiy qiziqish shakllanadi",
+        ],
+      },
+      OLYMP: {
+        title: "Iqtidor va olimpiadalar",
+        desc: "Qobiliyat tizimli rivojlantiriladi — natija medallar va sertifikatlar bilan o'lchanadi.",
+        facts: [
+          "BOND tizimi orqali olimpiadaga tayyorgarlik",
+          "15+ xalqaro va respublika natijasi (Copernicus, SEAMO, Amakids)",
+          "Kuchli portfolio — universitet qabuli uchun ustunlik",
         ],
       },
       IND: {
-        title: "Individual e'tibor va tyutor",
+        title: "Individual e'tibor",
         desc: "Har bir bola alohida kuzatuvda — hech kim e'tibordan chetda qolmaydi.",
         facts: [
           "Sinflarda 20–24 o'quvchi",
-          "Yuqori sinflarga shaxsiy tyutor biriktiriladi",
-          "Har 2 oyda progress-test, natijalar Durbin ilovasida",
+          "Har 2 oyda progress-test",
+          "Natijalar Durbin ilovasida real vaqtda",
         ],
       },
       IT: {
         title: "IT va texnologik ta'lim",
-        desc: "Texnologiya 1-sinfdan bosqichma-bosqich o'rgatiladi — bugungi bola ertangi kasb egasi.",
+        desc: "Texnologiya yoshga mos bosqichlarda o'rgatiladi — bugungi bola ertangi kasb egasi.",
         facts: [
           "24 ta iMac, 60 ta notebook, VR sinf",
           "Code.org, AI va robototexnika dasturlari",
-          "9–11-sinfda full-stack va startap loyihalar",
+          "Loyiha asosida — bola yaratuvchi sifatida o'rganadi",
         ],
       },
       CARE: {
@@ -756,6 +998,97 @@ export const uz = {
           "Dietolog nazoratida 3 mahal issiq ovqat",
           "Yotoqxona, to'garaklar va 09:00–17:00 to'liq kun",
         ],
+      },
+    },
+    // Bosqichga moslashuvchi matnlar: ENG/IND/IT yoshga qarab boshqacha yangraydi.
+    // Mavjud bosqich uchun override topilmasa, dims[dim] (asosiy matn) ishlatiladi.
+    dimStages: {
+      boshlangich: {
+        ENG: {
+          title: "Ingliz tili: o'yin orqali boshlanish",
+          desc: "Boshlang'ichda til o'yin va qo'shiq orqali, bosimsiz o'rgatiladi.",
+          facts: [
+            "CEFR tizimi 1-sinfdan, o'yin va qo'shiq orqali",
+            "Bosimsiz muhit — bola tilni yashab o'rganadi",
+            "Tabiiy ravishda A1 darajaga chiqadi",
+          ],
+        },
+        IND: {
+          title: "Individual e'tibor va g'amxo'rlik",
+          desc: "Kichik sinflarda har bir kichkintoy alohida kuzatuvda bo'ladi.",
+          facts: [
+            "Kichik sinflar — o'qituvchi har bolaga yetib boradi",
+            "Psixolog moslashuv va xulqni kuzatadi",
+            "Progress-test bilan o'sish o'lchanadi",
+          ],
+        },
+        IT: {
+          title: "IT: algoritmik fikrlash asoslari",
+          desc: "Boshlang'ichda texnologiya — yaratuvchanlik va mantiq vositasi.",
+          facts: [
+            "1-sinfdan Scratch va Code.org",
+            "Mantiqiy o'yinlar orqali algoritmik fikrlash",
+            "Qurilmalar faqat nazoratli, ta'limiy muhitda",
+          ],
+        },
+      },
+      orta: {
+        ENG: {
+          title: "Ingliz tili: kuchli daraja",
+          desc: "O'rta bosqichda daraja test asosida guruhlanadi va speaking kuchayadi.",
+          facts: [
+            "Daraja testi asosida guruhlash",
+            "British Council bilan hamkorlik, xorijiy ustoz",
+            "Speaking, debat va akademik yozuv",
+          ],
+        },
+        IND: {
+          title: "Individual e'tibor",
+          desc: "Har bir o'quvchi progress-test orqali doimiy kuzatuvda.",
+          facts: [
+            "Sinflarda 20–24 o'quvchi",
+            "Har 2 oyda progress-test, har oyda level imtihon",
+            "Natijalar Durbin ilovasida",
+          ],
+        },
+        IT: {
+          title: "IT, robototexnika va AI",
+          desc: "Texnologiya loyiha va amaliyot orqali chuqurlashadi.",
+          facts: [
+            "24 iMac, 60 notebook, 20 VR ko'zoynak",
+            "Code.org sertifikati, robototexnika, AI yordamchi",
+            "Loyiha asosida o'rganish — natija ko'rinadi",
+          ],
+        },
+      },
+      yuqori: {
+        ENG: {
+          title: "Ingliz tili: IELTS yo'li",
+          desc: "Yuqori bosqichda maqsad aniq — IELTS va akademik ingliz tili.",
+          facts: [
+            "Maktab ichida kompyuter IELTS markazi",
+            "9–11-sinfda IELTS 6.0–7.5+ natijalar",
+            "Xorijiy ustoz bilan speaking va akademik yozuv",
+          ],
+        },
+        IND: {
+          title: "Individual e'tibor va tyutor",
+          desc: "Yuqori sinflarga shaxsiy tyutor biriktiriladi.",
+          facts: [
+            "Shaxsiy tyutor: har kuni bilim va intizom kuzatuvi",
+            "Sinflarda 20–24 o'quvchi, progress-test",
+            "Ota-ona bilan doimiy aloqa",
+          ],
+        },
+        IT: {
+          title: "IT va kasb ko'nikmalari",
+          desc: "Texnologiya real loyiha va portfolioga aylanadi.",
+          facts: [
+            "Full-stack va startap loyihalar",
+            "Portfolio — universitet qabulida ustunlik",
+            "Cyberpark rezidenti muhiti",
+          ],
+        },
       },
     },
     result: {
@@ -804,15 +1137,15 @@ export const uz = {
       file_name: "DATA-yol-xaritasi",
     },
     home_cta: {
-      badge: "Bepul mini-test",
+      badge: "Bepul aqlli test",
       title: "Farzandingizga mos maktab qanday bo'lishi kerak?",
-      desc: "8 ta savolga javob bering — farzandingiz ehtiyojiga mos shaxsiy DATA yo'l xaritasini oling va PDF shaklida saqlang.",
+      desc: "10 ta savolga javob bering — savollar farzandingiz yoshiga moslashadi. Shaxsiy DATA yo'l xaritasini oling va PDF shaklida saqlang.",
       btn: "Testni boshlash",
-      time: "Atigi 2 daqiqa",
+      time: "Atigi 3 daqiqa",
     },
     admission_banner: {
       title: "Qaysi yo'nalish farzandingizga mos — bilmayapsizmi?",
-      desc: "2 daqiqalik test orqali shaxsiy yo'l xarita oling.",
+      desc: "Yoshga moslashuvchi test orqali shaxsiy yo'l xarita oling.",
       btn: "Testdan o'tish",
     },
     footer_link: "Mos maktab testi",

@@ -579,10 +579,10 @@ export const en: Translations = {
   },
   quiz: {
     seo_title: "School Match Test for Your Child",
-    seo_desc: "Answer 8 questions and get a personal DATA International School roadmap tailored to your child's needs. Download the result as a PDF.",
-    badge: "2-minute test",
+    seo_desc: "Answer 10 questions that adapt to your child's age, and get a personal DATA International School roadmap. Download the result as a PDF.",
+    badge: "3-minute smart test",
     intro_title: "What should the right school for your child look like?",
-    intro_desc: "Answer 8 short questions — based on your answers we will build a personal DATA International School roadmap for your child.",
+    intro_desc: "Answer 10 short questions. The test is smart: after your first answer the questions adapt to your child's age and your needs — so you get an accurate, personal roadmap.",
     intro_stats: [
       { val: '95%', label: 'of parents recommend' },
       { val: '1–10', label: 'grades admission' },
@@ -594,81 +594,305 @@ export const en: Translations = {
     back: 'Back',
     next: 'Next question',
     see_result: 'See the result',
-    questions: [
-      {
-        q: "What grade is your child in right now?",
-        sub: "We have a separate educational roadmap for each stage.",
+    questions: {
+      start: {
+        q: "What stage is your child at right now?",
+        sub: "The next questions will adapt to your child's age.",
         options: [
           { label: "Preschool / grades 1–2", tag: "Primary", title: "A free and confident start", text: "Grades 1–4 follow a Montessori-based approach: the child chooses and acts independently. We adapt the system to the child — not the other way around." },
           { label: "Grades 3–6", tag: "Middle stage", title: "The period when foundations are built", text: "56% of class hours are devoted to mathematics, English and IT. Logic, language and technology develop together." },
-          { label: "Grades 7–10", tag: "Upper stage", title: "Focused university preparation", text: "IELTS, SAT and subject certificates, portfolio and applications to foreign universities — all managed systematically inside the school." },
+          { label: "Grades 7–10", tag: "Upper stage", title: "Focused university preparation", text: "IELTS, SAT and subject certificates, portfolio and university applications — all managed systematically inside the school." },
         ],
       },
-      {
-        q: "What worries you most about your child's education?",
-        sub: "Choose your main concern.",
+
+      // ── PRIMARY ──
+      b1: {
+        q: "How do you think your child will adapt to school life?",
+        sub: "The first impression is the foundation of loving school.",
         options: [
-          { label: "Low level of English", tag: "English", title: "CEFR system: from A1 to C1", text: "Partnership with the British Council, an IELTS center inside the school. In grades 9–11 students reach IELTS 6.0–7.5+." },
-          { label: "Not enough individual attention", tag: "Individual approach", title: "20–24 students per class + a tutor", text: "Upper-grade students get a personal tutor who tracks knowledge, discipline and progress daily and stays in constant contact with parents." },
-          { label: "Will they get into university?", tag: "Future", title: "A path to grants and foreign universities", text: "We have an official SAT center: 1200+ points guarantees a state grant. With an SAT score students apply to universities in the US, UK and Asia." },
-          { label: "Character and safety", tag: "Upbringing", title: "We build character, not just knowledge", text: "Doctor, psychologist, speech therapist, dietitian, insurance and National Guard security. A safe, values-based environment." },
+          { label: "They may find a new environment hard", tag: "Gentle adaptation", title: "The system adapts to the child", text: "Grades 1–4 use a Montessori-based approach: the child learns at their own pace. The school psychologist supports each little one's adaptation individually." },
+          { label: "Very active and curious — must not get bored", tag: "Active child", title: "An environment where curiosity never fades", text: "In a Montessori environment no ready answers are given — the child explores. Chess, robotics and sports channel the energy the right way." },
+          { label: "I think they're ready — the right school matters most", tag: "Right choice", title: "Grade 1 admission starts with getting to know the child", text: "At admission the child is understood through conversation: readiness and interests are identified, and a suitable class is formed." },
         ],
       },
-      {
-        q: "Does your child get enough attention at their current school?",
-        sub: "Answer honestly — we will show a solution based on it.",
+      b2: {
+        q: "What matters most to you in the primary grades?",
+        sub: "Pick the single most important one.",
         options: [
-          { label: "No, often left without attention", tag: "Solution", title: "No one is left behind", text: "At DATA there is a progress test every 2 months and a level exam every month. A student's growth is visible in numbers, weak spots are spotted immediately." },
-          { label: "I don't know, it's not clear", tag: "Transparency", title: "Your child's progress — on your phone", text: "Through the Durbin app you see grades, schedule and announcements in real time. AI finds strengths and weaknesses." },
-          { label: "Yes, but I'd like more", tag: "High standard", title: "More than the best", text: "Teachers pass a strict 4-stage selection. 84% of parents confirmed that problems are resolved on time." },
+          { label: "Foundation of reading, writing and arithmetic", tag: "Foundation", title: "Growth shown in numbers", text: "Every 2 months a progress test measures reading, writing and arithmetic skills. A weak spot is identified at once and worked on." },
+          { label: "That my child comes to love school", tag: "Love of learning", title: "Not pressure — interest", text: "In Montessori classes the child chooses the activity. In the first years there is no grade pressure — a natural interest forms." },
+          { label: "Character and manners", tag: "Upbringing", title: "Character forms alongside knowledge", text: "Values-based upbringing: kindness, respect, responsibility. Psychologist and educators observe behaviour together." },
+          { label: "That English starts early", tag: "English", title: "CEFR system — from grade 1", text: "English starts in grade 1 through play and song. Along the CEFR steps the child naturally reaches level A1." },
         ],
       },
-      {
-        q: "Where do you dream of your child studying in the future?",
-        sub: "We direct the preparation according to the goal.",
+      b3: {
+        q: "How do you feel about starting English early?",
+        sub: "",
         options: [
-          { label: "An Uzbek university — with a grant", tag: "Grant", title: "SAT 1200+ = state grant", text: "The SAT is taken right at school, in a familiar environment. The grant guarantee works under Cabinet Resolution No. 578." },
-          { label: "A foreign university", tag: "International", title: "University applications — in grade 10", text: "In grade 10 the application stage begins: IELTS, SAT, subject certificates and a portfolio for universities in the US, UK and Asia." },
-          { label: "Not decided yet", tag: "Roadmap", title: "A complete plan for grades 1–11", text: "An integration of Finnish, US and Singaporean methodologies. A clear goal for every grade — the child graduates prepared." },
+          { label: "The earlier, the better", tag: "Early start", title: "Through play — no pressure", text: "From grade 1 by the CEFR system: song, play and conversation. The child doesn't 'study' the language — they live it." },
+          { label: "First let the mother tongue and basics get strong", tag: "Balance", title: "Each subject in its time", text: "The programme is balanced: mother tongue and mathematics come first, English is added in an age-appropriate amount." },
+          { label: "Useful, but I don't want to overload the child", tag: "No overload", title: "Language is play, not a burden", text: "In primary school language lessons run as games. Activities alternate through the day — the child doesn't tire." },
         ],
       },
-      {
+      b3x: {
+        q: "What result do you want in English?",
+        sub: "The programme is built around the goal.",
+        options: [
+          { label: "So they speak fluently", tag: "Speaking", title: "A natural communication environment", text: "Speaking sessions and a language environment from grade 1. By the upper stage the child is ready for the IELTS path." },
+          { label: "A base for future certificates", tag: "Outlook", title: "The path from A1 leads to IELTS", text: "The CEFR ladder: a foundation in primary school, a certificate at the in-school IELTS center in the upper grades." },
+          { label: "The school programme level is enough", tag: "Foundation", title: "The programme itself is strong", text: "23% of class hours go to English — the programme level alone gives a solid base." },
+        ],
+      },
+      b4: {
+        q: "How do you want your child to relate to technology?",
+        sub: "Today's child is tomorrow's professional.",
+        options: [
+          { label: "Let them learn the right way early", tag: "IT", title: "Algorithmic thinking from grade 1", text: "Through Scratch, Code.org and logic games the child learns technology as a creator, not a consumer." },
+          { label: "Channel it usefully — away from the phone", tag: "Right channel", title: "Technology — in a controlled environment", text: "At school devices are for learning only: 24 iMacs, 60 notebooks. The day is full of clubs — no time left for the phone." },
+          { label: "Not necessary yet", tag: "Step by step", title: "Foundation first", text: "Technology is not forced: in primary school basic skills come first, IT is introduced in an age-appropriate measure." },
+        ],
+      },
+      b5: {
+        q: "How do you feel about class size and attention?",
+        sub: "",
+        options: [
+          { label: "Small class — more attention. This is decisive", tag: "Small classes", title: "20–24 students per class", text: "The teacher reaches every child. The child does not become 'one of many'." },
+          { label: "The teacher's skill matters most", tag: "Teachers", title: "A strict 4-stage selection", text: "Teachers pass a 4-stage selection on knowledge, methodology, psychology and practice. Lesson quality is constantly monitored." },
+          { label: "My child is active — they'll find their way", tag: "Tracking still matters", title: "An active child also needs a system", text: "Progress tests measure each child's growth — so even an active child uses their full potential." },
+        ],
+      },
+      b6: {
+        q: "Which school facility matters more to you?",
+        sub: "Convenience is also part of a child's success.",
+        options: [
+          { label: "School transport — to make the commute easy", tag: "Transport", title: "8 GPS-tracked buses", text: "The child is supervised on the way too: parents track the bus in real time. Breakfast is at school." },
+          { label: "Full day — a schedule filled with clubs", tag: "Full day", title: "A meaningful 09:00–17:00 day", text: "After lessons — chess, robotics, programming and creative clubs, all inside the school." },
+          { label: "Facilities for sports and active rest", tag: "Sports", title: "A gym and active areas", text: "Physical activity is part of the daily routine — energy is spent the right way, health gets stronger." },
+        ],
+      },
+      b7: {
+        q: "What do you focus on most in your child's health?",
+        sub: "",
+        options: [
+          { label: "Food quality", tag: "Nutrition", title: "3 meals under a dietitian's control", text: "Breakfast, lunch and an afternoon snack — the dietitian designs the menu and checks quality daily." },
+          { label: "Constant medical supervision", tag: "Medical", title: "Doctor, psychologist, speech therapist", text: "All three work in the school permanently. At primary age speech-therapy support is especially important." },
+          { label: "Clean air and hygiene", tag: "Air system", title: "Separate ventilation in each class", text: "Supply-exhaust ventilation and a chiller: classes always have clean air — less spread of illness." },
+        ],
+      },
+      b8: {
+        q: "What comes first when you think of safety?",
+        sub: "",
+        options: [
+          { label: "Grounds and physical safety", tag: "Security", title: "National Guard + cameras + SOS", text: "The grounds are under National Guard protection, with cameras and an SOS system everywhere." },
+          { label: "Insurance and medical protection", tag: "Insurance", title: "Each student insured up to 20 million", text: "Every student is protected by insurance, the medical service is inside the school." },
+          { label: "Emotional climate — no pressure on the child", tag: "Emotional safety", title: "A pressure-free, values-based environment", text: "The psychologist watches relationships among children. Small classes and the upbringing system prevent bullying." },
+        ],
+      },
+      b9: {
+        q: "How do you want to follow your child's development?",
+        sub: "An informed parent is a calm parent.",
+        options: [
+          { label: "On my phone, in real time", tag: "Durbin", title: "Everything in one app", text: "The Durbin app: grades, schedule and announcements in real time. DATA built its own software." },
+          { label: "Live meetings and conversations", tag: "Communication", title: "A 4-level communication system", text: "Class teacher, tutor reports, parent meetings and the administrator level — a problem is solved at the right level." },
+          { label: "Both", tag: "Full control", title: "App + live communication", text: "Digital tracking and personal meetings together. 84% of parents confirmed that problems are resolved on time." },
+        ],
+      },
+
+      // ── MIDDLE ──
+      m1: {
+        q: "What worries you most about their current studies?",
+        sub: "Choose the main one.",
+        options: [
+          { label: "Weak mathematics and basics", tag: "Foundation", title: "56% of class hours — to core subjects", text: "Mathematics, English and IT are taught together. A level exam every month — it's clear exactly where the gap is." },
+          { label: "Weak English", tag: "English", title: "We start with a level test", text: "The child's level is determined by a test and they join their group — no 'one lesson for everyone'." },
+          { label: "Interest and motivation have dropped", tag: "Motivation", title: "An environment where interest returns", text: "Interactive lessons, VR, project work and clubs — the child sees their result, and interest returns." },
+          { label: "Not enough individual attention", tag: "Attention", title: "20–24 students + progress test", text: "Every 2 months growth is measured, a weak spot is worked on separately. No one is left behind." },
+        ],
+      },
+      m2: {
         q: "How important is English for your family?",
         sub: "",
         options: [
-          { label: "Very important — a priority", tag: "Language", title: "23% of class hours — English", text: "Academic writing, speaking and debate. The school has a computer-based IELTS center and a foreign teacher." },
-          { label: "Important, but not the main thing", tag: "Balance", title: "Language + mathematics + IT", text: "Language is not taught in isolation — it develops together with IT and mathematics as a global competency." },
-          { label: "An average level is enough", tag: "Foundation", title: "A solid foundation", text: "The CEFR system from grade 1: the child gradually reaches fluent communication, without pressure." },
+          { label: "Very important — a priority", tag: "Language", title: "23% of class hours — English", text: "In grades 3–6 grammar, speaking and writing develop together. Partnership with the British Council." },
+          { label: "Important, but not the main thing", tag: "Balance", title: "Language + mathematics + IT", text: "Language is not taught in isolation — it develops with IT and mathematics as a global competency." },
+          { label: "An average level is enough", tag: "Foundation", title: "A solid foundation", text: "The CEFR system still works: the child rises from their level step by step, without pressure." },
         ],
       },
-      {
-        q: "How pressing is the school commute issue for you?",
-        sub: "Convenience is also part of a child's success.",
+      m2x: {
+        q: "What goal do you set in English?",
+        sub: "The group and programme depend on the level.",
         options: [
-          { label: "Transport would be very convenient", tag: "Facilities", title: "Transport and 3 meals a day", text: "GPS-tracked school buses, breakfast, lunch and an afternoon snack. A dietitian controls food quality." },
-          { label: "A dormitory option is interesting", tag: "Dormitory", title: "A dormitory for those coming from afar", text: "The dormitory is organized for boys from grade 4 and above — fully equipped, with a library, gym and clubs." },
-          { label: "We drive the child ourselves", tag: "Time", title: "09:00–17:00 — a full day", text: "After-school clubs are right here: chess, robotics, programming, sports. The child's day is spent meaningfully." },
+          { label: "Fluent speech — strengthen speaking", tag: "Speaking", title: "Language environment and foreign teacher", text: "Speaking clubs, debate and live practice with a foreign teacher — the language leaves the book and enters life." },
+          { label: "A base for future IELTS", tag: "IELTS path", title: "IELTS center inside the school", text: "A systematic path from grades 3–6 leads to IELTS 6.0–7.5+ in grades 9–11." },
+          { label: "First we need to spark interest", tag: "Interest", title: "A sense of success sparks interest", text: "The child joins a group at their level — no struggle, small wins build a love of the language." },
         ],
       },
-      {
-        q: "Are modern technology and IT education important to you?",
-        sub: "Today's child is tomorrow's professional.",
-        options: [
-          { label: "Very important — the profession of the future", tag: "IT", title: "Code.org, AI, robotics", text: "24 iMacs, 60 notebooks. Algorithms from grade 1, full-stack and startup projects in grades 9–11. A Cyberpark resident." },
-          { label: "Important, but in moderation", tag: "Balance", title: "Technology is a tool", text: "IT is not a separate subject but an everyday learning tool. Office software, Scratch and logical thinking — step by step." },
-          { label: "Core subjects come first", tag: "Foundation", title: "Foundation first, then technology", text: "Mathematics and language are strengthened while technology supports them — the child is not overloaded." },
-        ],
-      },
-      {
-        q: "What do you focus on most in your child's health and safety?",
+      m3: {
+        q: "How do you rate their ability in the exact sciences?",
         sub: "",
         options: [
-          { label: "Medical and psychological support", tag: "Health", title: "Doctor, psychologist, speech therapist", text: "A permanent medical and psychological service inside the school. Attention to the child's mental and physical condition." },
-          { label: "Food quality", tag: "Nutrition", title: "3 meals under a dietitian's control", text: "Breakfast, lunch and an afternoon snack. Food quality is monitored by a dietitian." },
-          { label: "Overall security", tag: "Security", title: "Insurance + National Guard", text: "The grounds are guarded by the National Guard and students are insured. Parents have peace of mind." },
+          { label: "Strong — needs olympiad preparation", tag: "Olympiad", title: "The BOND system: 15+ international results", text: "Copernicus (US) 10 bronzes, 23 places at Amakids, 'Daho Bolalar' champions — talent is prepared systematically." },
+          { label: "Good — needs systematic development", tag: "Growth", title: "A level exam every month", text: "Ability is measured regularly: a strong student is directed to the olympiad group." },
+          { label: "Struggles — needs to strengthen the basics", tag: "Solution", title: "No one is left behind", text: "The progress test pinpoints the gap, a separate plan is made, and the result is measured again." },
         ],
       },
-    ],
+      m4: {
+        q: "Is there an interest in IT and programming?",
+        sub: "DATA is a Cyberpark resident school.",
+        options: [
+          { label: "Yes — let them learn seriously", tag: "Programming", title: "Code.org: 50 students earned a certificate", text: "24 iMacs, 60 notebooks. From Scratch to real programming in the upper grades." },
+          { label: "Robotics and technical creativity interest us", tag: "Robotics", title: "Robotics, VR and AI", text: "20 VR headsets, an AI assistant in every class — technology is learned hands-on." },
+          { label: "In moderation is enough", tag: "Tool", title: "IT — an everyday learning tool", text: "Office software, safe internet and logical thinking — for every student." },
+        ],
+      },
+      m5: {
+        q: "How should after-school time be spent?",
+        sub: "",
+        options: [
+          { label: "Let them do sports", tag: "Sports", title: "Gym and sections", text: "Physical activity is part of the daily routine — energy is spent the right way, health gets stronger." },
+          { label: "Intellectual activities: chess, logic", tag: "Chess", title: "Chess and logic clubs", text: "Strategic thinking lays the base for olympiad mathematics." },
+          { label: "Let them love books", tag: "Library", title: "4,603 books in 7 languages", text: "In Uzbek, Russian, English, Korean, Chinese, German and Braille. A reading culture is built by a dedicated programme." },
+        ],
+      },
+      m6: {
+        q: "How pressing is the commute issue?",
+        sub: "",
+        options: [
+          { label: "Transport would be very convenient", tag: "Transport", title: "8 GPS-tracked buses", text: "Parents track the bus in real time. Breakfast is at school — no morning rush." },
+          { label: "We come from afar — a dormitory interests us", tag: "Dormitory", title: "For boys from grade 4", text: "Full facilities with a library, gym and clubs. Under constant supervision of educators." },
+          { label: "We drive the child ourselves", tag: "Full day", title: "A meaningful 09:00–17:00 day", text: "After-school clubs are right here: chess, robotics, programming, sports." },
+        ],
+      },
+      m7: {
+        q: "What is your priority in health and safety?",
+        sub: "",
+        options: [
+          { label: "Medical and psychological service", tag: "Health", title: "Doctor, psychologist, speech therapist", text: "A permanent medical and psychological service inside the school — attention to the child's mental and physical state." },
+          { label: "Food quality", tag: "Nutrition", title: "3 meals under a dietitian's control", text: "Breakfast, lunch and an afternoon snack. The dietitian controls the menu and quality." },
+          { label: "Security and insurance", tag: "Security", title: "National Guard + 20M insurance", text: "The grounds are under National Guard protection, every student is insured." },
+        ],
+      },
+      m8: {
+        q: "How are things with phones and games?",
+        sub: "The most common problem at this age.",
+        options: [
+          { label: "It's eating their time — needs a measure", tag: "Solution", title: "A busy day + technology in the right channel", text: "A meaningful 09:00–17:00 schedule: programming, sports and chess take the phone's place. Interest in technology turns into benefit." },
+          { label: "We control it, but it's worrying", tag: "Partnership", title: "School and family in one system", text: "Through Durbin the day's routine is transparent. Educators and the psychologist correct gadget habits together with the family." },
+          { label: "This is under control with us", tag: "We continue", title: "A good habit is reinforced", text: "The school environment supports this discipline — the children around are also busy and purposeful." },
+        ],
+      },
+      m9: {
+        q: "How do you want to follow your child's development?",
+        sub: "An informed parent is a calm parent.",
+        options: [
+          { label: "On my phone, in real time", tag: "Durbin", title: "Everything in one app", text: "The Durbin app: grades, schedule and announcements in real time. AI shows strengths and weaknesses." },
+          { label: "Live meetings and conversations", tag: "Communication", title: "A 4-level communication system", text: "Class teacher, reports, parent meetings and the administrator level." },
+          { label: "Both", tag: "Full control", title: "App + live communication", text: "Digital tracking and personal meetings together. 84% of parents confirmed that problems are resolved on time." },
+        ],
+      },
+
+      // ── UPPER ──
+      y1: {
+        q: "What goal do you have for your child's future?",
+        sub: "Preparation is built around the goal.",
+        options: [
+          { label: "An Uzbek university — with a grant", tag: "Grant", title: "SAT 1200+ = state grant", text: "Under Cabinet Resolution No. 578 an SAT score of 1200+ guarantees a state grant. The SAT is taken right at school." },
+          { label: "A foreign university", tag: "International", title: "The application stage begins in grade 10", text: "With IELTS, SAT, subject certificates and a portfolio, applications go to universities in the US, UK and Asia." },
+          { label: "Not clear yet — need help finding a direction", tag: "Roadmap", title: "A tutor helps find the direction", text: "Based on an analysis of interests and abilities a personal plan is made — the child chooses their path consciously." },
+        ],
+      },
+      y2a: {
+        q: "How familiar are you with the SAT exam?",
+        sub: "The SAT is the key to the grant path.",
+        options: [
+          { label: "We know it — time to start preparing", tag: "SAT center", title: "Official SAT center — inside the school", text: "Both the prep course and the exam itself are here: the child takes it in a familiar environment, without extra stress." },
+          { label: "We've heard — want to know more", tag: "We'll explain", title: "SAT — the key to a grant", text: "An international test in mathematics and English. 1200+ points gives a state grant under Resolution No. 578." },
+          { label: "Hearing it for the first time", tag: "Opportunity", title: "A path to study without a contract", text: "With an SAT score you can get a grant instead of a contract. A specialist will explain it fully by phone." },
+        ],
+      },
+      y2b: {
+        q: "At what stage is the IELTS preparation?",
+        sub: "The main requirement of foreign universities.",
+        options: [
+          { label: "Started — needs to continue", tag: "Continue", title: "Computer-based IELTS center at school", text: "Mock tests and a real exam environment are here — the result grows faster, no time spent on other centers." },
+          { label: "Not started yet", tag: "We'll start", title: "IELTS 6.0–7.5+ in grades 9–11", text: "It starts with a level test and leads systematically, by CEFR steps, to IELTS." },
+          { label: "We need both IELTS and SAT", tag: "Both", title: "Both centers — in one school", text: "IELTS and SAT preparation run in parallel — without extra learning centers, saving time." },
+        ],
+      },
+      y2c: {
+        q: "Which directions are closer to your child?",
+        sub: "Choose even approximately — we'll help refine it.",
+        options: [
+          { label: "IT and technology", tag: "IT path", title: "Full-stack and startup projects", text: "In grades 9–11 real projects and a portfolio — the profession starts already at school." },
+          { label: "Languages and the humanities", tag: "Languages", title: "IELTS + academic writing", text: "In the language direction IELTS, debate and academic writing are studied in depth." },
+          { label: "Exact sciences", tag: "Exact sciences", title: "Olympiads and subject certificates", text: "Olympiads through the BOND system — a strong portfolio for admission." },
+          { label: "We don't know — need to identify it", tag: "Diagnostics", title: "Interests are analysed", text: "The tutor and psychologist build an ability map; there are various clubs to try." },
+        ],
+      },
+      y3: {
+        q: "Can you say their current level is under systematic control?",
+        sub: "",
+        options: [
+          { label: "No — we don't know exactly where the gaps are", tag: "Diagnostics", title: "Progress test + AI analysis", text: "Every 2 months a measurement is taken, the AI in Durbin shows strengths and weaknesses precisely." },
+          { label: "We rely on tutors", tag: "One system", title: "No tutors — everything inside the school", text: "Preparation for IELTS, SAT and subjects is in the school programme itself. Time and money are saved." },
+          { label: "Under control, but a stronger system is needed", tag: "Tutor", title: "A personal tutor is assigned", text: "The tutor tracks knowledge, discipline and progress daily and stays in constant contact with parents." },
+        ],
+      },
+      y4: {
+        q: "How do you view modern professional skills?",
+        sub: "Universities now ask not only for grades but a portfolio.",
+        options: [
+          { label: "IT skills are definitely needed", tag: "IT", title: "Full-stack + startup projects", text: "In grades 9–11 real projects: code, design, presentation. In the environment of a Cyberpark resident." },
+          { label: "Projects and a portfolio matter", tag: "Portfolio", title: "A portfolio — an advantage in admission", text: "A collection of projects is submitted to foreign university admissions committees." },
+          { label: "Exam results first", tag: "Balance", title: "Exam + skill together", text: "Certificates come first, while projects add strength to the application." },
+        ],
+      },
+      y5: {
+        q: "Is participation in olympiads planned?",
+        sub: "",
+        options: [
+          { label: "Yes — a result is needed", tag: "Champions", title: "15+ international and national results", text: "Copernicus, SEAMO, the coding olympiad (4 golds, 1 silver) — preparation runs in the BOND system." },
+          { label: "Interesting, but not the main thing", tag: "Extra weight", title: "Olympiad — a plus to the portfolio", text: "Foreign universities value olympiad results highly — extra weight for the application." },
+          { label: "No — focus on certificates", tag: "Focus", title: "IELTS/SAT priority", text: "Effort goes to certificates — that too is a completely valid strategy." },
+        ],
+      },
+      y6: {
+        q: "How are things with exam pressure and well-being?",
+        sub: "The upper stage is the period of greatest pressure.",
+        options: [
+          { label: "Pressure is noticeable — support is needed", tag: "Psychologist", title: "A permanent psychological service", text: "Working with exam stress and motivational talks — inside the school, with no separate trips." },
+          { label: "Motivation has dropped", tag: "Motivation", title: "Tutor + a clear-goal system", text: "A clear goal (grant, university) and a chain of small wins bring motivation back." },
+          { label: "Good — a systematic routine is enough", tag: "Routine", title: "A stable 09:00–17:00 routine", text: "A stable daily routine and systematic preparation deliver the result." },
+        ],
+      },
+      y7: {
+        q: "How is the commute or accommodation best resolved?",
+        sub: "",
+        options: [
+          { label: "Transport would be very convenient", tag: "Transport", title: "8 GPS-tracked buses", text: "Parents track the bus in real time, breakfast is at school." },
+          { label: "We come from afar — a dormitory is needed", tag: "Dormitory", title: "For boys from grade 4", text: "Full facilities with a library, gym and clubs — especially convenient during exam season." },
+          { label: "We drive the child ourselves", tag: "Full day", title: "09:00–17:00 — everything is here", text: "Lessons, prep courses and clubs in one place — commute time is saved." },
+        ],
+      },
+      y8: {
+        q: "What is your priority in health and safety?",
+        sub: "",
+        options: [
+          { label: "Medical and psychological service", tag: "Health", title: "Doctor, psychologist, speech therapist", text: "A permanent medical and psychological service inside the school — especially important during exam season." },
+          { label: "Food quality", tag: "Nutrition", title: "3 meals under a dietitian's control", text: "Breakfast, lunch and an afternoon snack. The dietitian controls the menu and quality." },
+          { label: "Security and insurance", tag: "Security", title: "National Guard + 20M insurance", text: "The grounds are under National Guard protection, every student is insured." },
+        ],
+      },
+      y9: {
+        q: "How do you want to follow results and development?",
+        sub: "An informed parent is a calm parent.",
+        options: [
+          { label: "On my phone, in real time", tag: "Durbin", title: "Everything in one app", text: "The Durbin app: grades, schedule, announcements in real time. AI shows strengths and weaknesses." },
+          { label: "Live meetings and reports", tag: "Communication", title: "Tutor report + quarterly meetings", text: "A weekly tutor report, a meeting with the director each quarter, requests via the administrator." },
+          { label: "Both", tag: "Full control", title: "App + live communication", text: "Digital tracking and personal meetings together. 84% of parents confirmed that problems are resolved on time." },
+        ],
+      },
+    },
     stages: {
       boshlangich: {
         tag: "Primary stage · Grades 1–4",
@@ -715,30 +939,48 @@ export const en: Translations = {
         ],
       },
       ENG: {
-        title: "English: from A1 to C1",
+        title: "English: a strong level",
         desc: "Language is not a separate subject — it is a tool for everyday communication and study.",
         facts: [
-          "The CEFR system from grade 1",
-          "A computer-based IELTS center and a foreign teacher at school",
-          "IELTS 6.0–7.5+ results in grades 9–11",
+          "Grouping by level test — everyone at their own step",
+          "Partnership with the British Council",
+          "Speaking, writing and grammar develop together",
+        ],
+      },
+      ADAPT: {
+        title: "Gentle adaptation and care",
+        desc: "The first years are the time to love school. The system adapts to the child, not the other way around.",
+        facts: [
+          "Montessori-based approach: the child learns at their own pace",
+          "Psychologist and speech therapist support adaptation continuously",
+          "No grade pressure — a natural interest forms",
+        ],
+      },
+      OLYMP: {
+        title: "Talent and olympiads",
+        desc: "Ability is developed systematically — results are measured in medals and certificates.",
+        facts: [
+          "Olympiad preparation through the BOND system",
+          "15+ international and national results (Copernicus, SEAMO, Amakids)",
+          "A strong portfolio — an advantage for admission",
         ],
       },
       IND: {
-        title: "Individual attention and tutoring",
+        title: "Individual attention",
         desc: "Every child is monitored individually — no one is left without attention.",
         facts: [
           "20–24 students per class",
-          "Upper grades get a personal tutor",
-          "A progress test every 2 months, results in the Durbin app",
+          "A progress test every 2 months",
+          "Results in the Durbin app in real time",
         ],
       },
       IT: {
         title: "IT and technology education",
-        desc: "Technology is taught step by step from grade 1 — today's child is tomorrow's professional.",
+        desc: "Technology is taught step by step by age — today's child is tomorrow's professional.",
         facts: [
           "24 iMacs, 60 notebooks, a VR classroom",
           "Code.org, AI and robotics programs",
-          "Full-stack and startup projects in grades 9–11",
+          "Project-based learning — the child learns as a creator",
         ],
       },
       CARE: {
@@ -758,6 +1000,95 @@ export const en: Translations = {
           "3 hot meals a day under a dietitian's control",
           "Dormitory, clubs and a full 09:00–17:00 day",
         ],
+      },
+    },
+    dimStages: {
+      boshlangich: {
+        ENG: {
+          title: "English: starting through play",
+          desc: "In primary school the language is taught through play and song, without pressure.",
+          facts: [
+            "The CEFR system from grade 1, through play and song",
+            "A pressure-free environment — the child lives the language",
+            "Naturally reaches level A1",
+          ],
+        },
+        IND: {
+          title: "Individual attention and care",
+          desc: "In small classes every little one is monitored individually.",
+          facts: [
+            "Small classes — the teacher reaches every child",
+            "The psychologist observes adaptation and behaviour",
+            "Progress tests measure growth",
+          ],
+        },
+        IT: {
+          title: "IT: foundations of algorithmic thinking",
+          desc: "In primary school technology is a tool for creativity and logic.",
+          facts: [
+            "Scratch and Code.org from grade 1",
+            "Algorithmic thinking through logic games",
+            "Devices only in a controlled learning environment",
+          ],
+        },
+      },
+      orta: {
+        ENG: {
+          title: "English: a strong level",
+          desc: "At the middle stage students are grouped by level test and speaking is strengthened.",
+          facts: [
+            "Grouping by level test result",
+            "Partnership with the British Council, a foreign teacher",
+            "Speaking, debate and academic writing",
+          ],
+        },
+        IND: {
+          title: "Individual attention",
+          desc: "Every student is under constant control through progress tests.",
+          facts: [
+            "20–24 students per class",
+            "A progress test every 2 months, a level exam every month",
+            "Results in the Durbin app",
+          ],
+        },
+        IT: {
+          title: "IT, robotics and AI",
+          desc: "Technology deepens through projects and practice.",
+          facts: [
+            "24 iMacs, 60 notebooks, 20 VR headsets",
+            "Code.org certificate, robotics, AI assistant",
+            "Project-based learning — the result is visible",
+          ],
+        },
+      },
+      yuqori: {
+        ENG: {
+          title: "English: the path to IELTS",
+          desc: "At the upper stage the goal is clear — IELTS and academic English.",
+          facts: [
+            "A computer-based IELTS center inside the school",
+            "IELTS 6.0–7.5+ results in grades 9–11",
+            "Speaking and academic writing with a foreign teacher",
+          ],
+        },
+        IND: {
+          title: "Individual attention and a tutor",
+          desc: "Upper grades get a personal tutor.",
+          facts: [
+            "A personal tutor: daily control of knowledge and discipline",
+            "20–24 students per class, progress tests",
+            "Constant contact with parents",
+          ],
+        },
+        IT: {
+          title: "IT and professional skills",
+          desc: "Technology turns into real projects and a portfolio.",
+          facts: [
+            "Full-stack and startup projects",
+            "A portfolio — an advantage in admission",
+            "The environment of a Cyberpark resident",
+          ],
+        },
       },
     },
     result: {
@@ -806,15 +1137,15 @@ export const en: Translations = {
       file_name: "DATA-roadmap",
     },
     home_cta: {
-      badge: "Free mini-test",
+      badge: "Free smart test",
       title: "What should the right school for your child look like?",
-      desc: "Answer 8 questions — get a personal DATA roadmap tailored to your child and save it as a PDF.",
+      desc: "Answer 10 questions that adapt to your child's age. Get a personal DATA roadmap and save it as a PDF.",
       btn: "Start the test",
-      time: "Just 2 minutes",
+      time: "Just 3 minutes",
     },
     admission_banner: {
       title: "Not sure which direction suits your child?",
-      desc: "Take the 2-minute test and get a personal roadmap.",
+      desc: "Take the adaptive test and get a personal roadmap.",
       btn: "Take the test",
     },
     footer_link: "School match test",
