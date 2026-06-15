@@ -540,7 +540,7 @@ export const en: Translations = {
     tech_extras: [
       { icon: 'video_camera_front', label: 'Interactive Video Studio', desc: 'The only interactive recording studio in Khorezm' },
       { icon: 'menu_book', label: '4603 Books — 7 Languages', desc: 'Uzbek, Russian, English, Korean, Chinese, German and Braille' },
-      { icon: 'air', label: 'Scientific Air System', desc: 'Separate supply and exhaust ventilation per classroom, heating and cooling via chiller' },
+      { icon: 'air', label: 'Smart Air System', desc: 'Separate supply and exhaust ventilation per classroom, heating and cooling via chiller' },
     ],
     olympiad_badge: '2025–2026 Academic Year',
     olympiad_title: 'School of',
