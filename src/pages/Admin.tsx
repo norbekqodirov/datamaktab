@@ -4,7 +4,7 @@ import {
   LogOut, Plus, Edit, Trash2, FileText, Settings as SettingsIcon,
   LayoutDashboard, Users, MessageSquare, CheckCircle, XCircle,
   Home as HomeIcon, BookOpen, School, ClipboardList, Upload, Image, Save,
-  ChevronRight, Bell, Menu, X, Pencil
+  ChevronRight, Bell, Menu, X, Pencil, Copy
 } from 'lucide-react';
 import { useEditMode } from '../context/EditModeContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -629,6 +629,7 @@ function ArticleList() {
                 <td className="px-5 py-3 text-slate-400 text-xs">{new Date(article.created_at).toLocaleDateString('uz-UZ')}</td>
                 <td className="px-5 py-3 text-right">
                   <div className="flex items-center justify-end gap-3">
+                    <button onClick={() => navigator.clipboard.writeText(`https://datamaktab.uz/blog/${article.id}`)} className="text-slate-400 hover:text-slate-600" title="Havolani nusxalash"><Copy size={16}/></button>
                     <button onClick={() => navigate(`/maktabpanel/article/edit/${article.id}`)} className="text-[#062bad] hover:text-[#051fa0]"><Edit size={16}/></button>
                     <button onClick={() => del(article.id)} className="text-red-400 hover:text-red-600"><Trash2 size={16}/></button>
                   </div>

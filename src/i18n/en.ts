@@ -495,6 +495,10 @@ export const en: Translations = {
     desc: 'The latest news, events and analytical articles from school life.',
     empty: 'No news yet',
     read_more: 'Read more',
+    copy_link: 'Copy link',
+    link_copied: 'Copied!',
+    share: 'Share',
+    share_telegram: 'Share on Telegram',
   },
   footer: {
     desc: 'International school of Khorezm specialising in IT and English language education.',

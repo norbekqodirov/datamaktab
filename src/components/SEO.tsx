@@ -16,7 +16,7 @@ export default function SEO({ title, description, url, image, schema }: SEOProps
   const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
   const desc = description || DEFAULT_DESC;
   const canonical = url ? `${DOMAIN}${url}` : DOMAIN;
-  const ogImage = image || `${DOMAIN}/og-image.png`;
+  const ogImage = image ? (image.startsWith('http') ? image : `${DOMAIN}${image}`) : `${DOMAIN}/og-image.png`;
 
   return (
     <Helmet>

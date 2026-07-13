@@ -493,6 +493,10 @@ export const uz = {
     desc: "Maktabimiz hayotidagi eng so'nggi yangiliklar, tadbirlar va ta'limga oid maqolalar.",
     empty: 'Hozircha yangiliklar yo\'q',
     read_more: "Batafsil o'qish",
+    copy_link: 'Havolani nusxalash',
+    link_copied: 'Nusxalandi!',
+    share: 'Ulashish',
+    share_telegram: "Telegram'da ulashish",
   },
   footer: {
     desc: "Xorazmning IT va ingliz tili ta'limiga ixtisoslashgan xalqaro maktabi.",

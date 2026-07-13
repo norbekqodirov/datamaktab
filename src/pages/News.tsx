@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEvent } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight, Copy, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
@@ -12,6 +12,36 @@ interface Article {
   content: string;
   image_url: string;
   created_at: string;
+}
+
+function CopyLinkButton({ articleId, label, copiedLabel }: { articleId: number; label: string; copiedLabel: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = `https://datamaktab.uz/blog/${articleId}`;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const el = document.createElement('textarea');
+      el.value = url;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      onClick={copy}
+      aria-label={copied ? copiedLabel : label}
+      className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-50 hover:bg-primary/5 text-slate-400 hover:text-primary transition-colors"
+    >
+      {copied ? <Check size={13} /> : <Copy size={13} />}
+    </button>
+  );
 }
 
 export default function News() {
@@ -79,13 +109,16 @@ export default function News() {
                     <p className="text-on-surface-muted text-sm leading-relaxed mb-6 line-clamp-3">
                       {article.excerpt}
                     </p>
-                    <Link
-                      to={`/blog/${article.id}`}
-                      className="inline-flex items-center gap-2 font-headline font-bold text-sm text-[#062bad] hover:text-secondary transition-colors group/link"
-                    >
-                      {t.news.read_more}
-                      <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
-                    </Link>
+                    <div className="flex items-center justify-between gap-2">
+                      <Link
+                        to={`/blog/${article.id}`}
+                        className="inline-flex items-center gap-2 font-headline font-bold text-sm text-[#062bad] hover:text-secondary transition-colors group/link"
+                      >
+                        {t.news.read_more}
+                        <ArrowRight size={15} className="group-hover/link:translate-x-1 transition-transform" />
+                      </Link>
+                      <CopyLinkButton articleId={article.id} label={t.news.copy_link} copiedLabel={t.news.link_copied} />
+                    </div>
                   </div>
                 </article>
               ))}

@@ -1,9 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Calendar, ArrowLeft, Clock } from 'lucide-react';
+import { Calendar, ArrowLeft, Clock, Copy, Check, Share2, Send } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
+
+function useCopyLink(url: string) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const el = document.createElement('textarea');
+      el.value = url;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return { copied, copy };
+}
 
 interface Article {
   id: number;
@@ -19,6 +38,7 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
+  const { copied, copy } = useCopyLink(article ? `https://datamaktab.uz/blog/${article.id}` : '');
 
   useEffect(() => {
     fetch(`/api/articles/${id}`)
@@ -50,6 +70,12 @@ export default function ArticleDetail() {
   }
 
   const readTimeMin = Math.max(1, Math.ceil(article.content.split(' ').length / 200));
+  const shareUrl = `https://datamaktab.uz/blog/${article.id}`;
+  const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(article.title)}`;
+  const canNativeShare = typeof navigator !== 'undefined' && !!navigator.share;
+  const nativeShare = () => {
+    navigator.share({ title: article.title, text: article.excerpt, url: shareUrl }).catch(() => {});
+  };
 
   return (
     <>
@@ -101,6 +127,34 @@ export default function ArticleDetail() {
               <Clock size={14} />
               {readTimeMin} daqiqa
             </span>
+
+            <div className="inline-flex items-center gap-2 ml-auto">
+              <button
+                onClick={copy}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-primary transition-colors bg-slate-50 hover:bg-primary/5 px-3 py-1.5 rounded-full"
+              >
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+                {copied ? t.news.link_copied : t.news.copy_link}
+              </button>
+              <a
+                href={telegramShareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-50 hover:bg-primary/5 text-slate-500 hover:text-primary transition-colors"
+                aria-label={t.news.share_telegram}
+              >
+                <Send size={14} />
+              </a>
+              {canNativeShare && (
+                <button
+                  onClick={nativeShare}
+                  className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-50 hover:bg-primary/5 text-slate-500 hover:text-primary transition-colors"
+                  aria-label={t.news.share}
+                >
+                  <Share2 size={14} />
+                </button>
+              )}
+            </div>
           </div>
 
           <h1 className="font-headline text-3xl md:text-5xl font-extrabold text-slate-900 leading-[1.2] mb-6 tracking-tight">

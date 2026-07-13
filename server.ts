@@ -30,6 +30,43 @@ const uploadMemory = multer({ storage: multer.memoryStorage() });
 const dbPath = path.join(process.cwd(), 'database.sqlite');
 const db = new Database(dbPath);
 
+// --- Article meta injection (for Telegram/Facebook/Twitter link previews) ---
+const SITE_NAME = 'DATA Xalqaro Maktabi';
+const SITE_DOMAIN = 'https://datamaktab.uz';
+const DEFAULT_OG_IMAGE = `${SITE_DOMAIN}/og-image.png`;
+
+function escapeHtml(str: string): string {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function absoluteUrl(maybeRelative: string | null | undefined): string {
+  if (!maybeRelative) return DEFAULT_OG_IMAGE;
+  return maybeRelative.startsWith('http') ? maybeRelative : `${SITE_DOMAIN}${maybeRelative}`;
+}
+
+function injectArticleMeta(html: string, article: { id: number | string; title: string; excerpt: string; image_url: string | null }): string {
+  const fullTitle = escapeHtml(`${article.title} | ${SITE_NAME}`);
+  const desc = escapeHtml((article.excerpt || '').slice(0, 160));
+  const url = `${SITE_DOMAIN}/blog/${article.id}`;
+  const image = escapeHtml(absoluteUrl(article.image_url));
+
+  return html
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${fullTitle}</title>`)
+    .replace(/(<meta name="description" content=")[^"]*(")/, `$1${desc}$2`)
+    .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`)
+    .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${fullTitle}$2`)
+    .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${desc}$2`)
+    .replace(/(<meta property="og:image" content=")[^"]*(")/, `$1${image}$2`)
+    .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${fullTitle}$2`)
+    .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${desc}$2`)
+    .replace(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${image}$2`);
+}
+
 // Initialize tables
 db.exec(`
   CREATE TABLE IF NOT EXISTS articles (
@@ -319,9 +356,26 @@ async function startServer() {
     app.use(express.static(process.cwd() + '/dist'));
     // Valid SPA routes — serve index.html with 200
     const SPA_ROUTES = /^(\/?|\/maktab-haqida(\/jamoa)?|\/talim|\/qabul|\/blog(\/[^/]+)?|\/aloqa|\/mos-maktab|\/maktabpanel(\/.*)?)\/?$/;
+    const BLOG_ARTICLE_ROUTE = /^\/blog\/([^/]+)\/?$/;
+    const indexHtmlPath = path.resolve(process.cwd(), 'dist', 'index.html');
+    const indexHtmlTemplate = fs.readFileSync(indexHtmlPath, 'utf-8');
+
     app.get('*', (req, res) => {
       const status = SPA_ROUTES.test(req.path) ? 200 : 404;
-      res.status(status).sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));
+
+      if (status === 200) {
+        const blogMatch = req.path.match(BLOG_ARTICLE_ROUTE);
+        if (blogMatch) {
+          const article = db.prepare('SELECT id, title, excerpt, image_url FROM articles WHERE id = ?').get(blogMatch[1]) as any;
+          if (article) {
+            const html = injectArticleMeta(indexHtmlTemplate, article);
+            res.status(200).set('Content-Type', 'text/html; charset=utf-8').send(html);
+            return;
+          }
+        }
+      }
+
+      res.status(status).sendFile(indexHtmlPath);
     });
   }
 
