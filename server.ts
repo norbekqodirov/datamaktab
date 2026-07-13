@@ -49,7 +49,34 @@ function absoluteUrl(maybeRelative: string | null | undefined): string {
   return maybeRelative.startsWith('http') ? maybeRelative : `${SITE_DOMAIN}${maybeRelative}`;
 }
 
-function injectArticleMeta(html: string, article: { id: number | string; title: string; excerpt: string; image_url: string | null }): string {
+const MONTHS_UZ = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+
+function formatDateUz(iso: string | null | undefined): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return `${d.getDate()} ${MONTHS_UZ[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function renderArticleBodyHtml(article: { title: string; excerpt: string; content: string; image_url: string | null; created_at: string }): string {
+  const title = escapeHtml(article.title);
+  const excerpt = escapeHtml(article.excerpt || '');
+  const dateStr = formatDateUz(article.created_at);
+  const readTime = Math.max(1, Math.ceil((article.content || '').split(' ').length / 200));
+  const image = article.image_url ? absoluteUrl(article.image_url) : '';
+
+  return `<div class="ssr-article"><div class="ssr-article-inner">` +
+    `<header>` +
+    `<div class="ssr-meta"><span class="ssr-date">${dateStr}</span> <span class="ssr-readtime">${readTime} daqiqa</span></div>` +
+    `<h1>${title}</h1>` +
+    (excerpt ? `<p class="ssr-excerpt">${excerpt}</p>` : '') +
+    `</header>` +
+    (image ? `<div class="ssr-hero"><img src="${escapeHtml(image)}" alt="${title}"></div>` : '') +
+    `<div class="prose">${article.content || ''}</div>` +
+    `</div></div>`;
+}
+
+function injectArticleMeta(html: string, article: { id: number | string; title: string; excerpt: string; content: string; image_url: string | null; created_at: string }): string {
   const fullTitle = escapeHtml(`${article.title} | ${SITE_NAME}`);
   const desc = escapeHtml((article.excerpt || '').slice(0, 160));
   const url = `${SITE_DOMAIN}/blog/${article.id}`;
@@ -64,7 +91,8 @@ function injectArticleMeta(html: string, article: { id: number | string; title: 
     .replace(/(<meta property="og:image" content=")[^"]*(")/, `$1${image}$2`)
     .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${fullTitle}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${desc}$2`)
-    .replace(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${image}$2`);
+    .replace(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${image}$2`)
+    .replace('<div id="root"></div>', `<div id="root">${renderArticleBodyHtml(article)}</div>`);
 }
 
 // Initialize tables
@@ -366,7 +394,7 @@ async function startServer() {
       if (status === 200) {
         const blogMatch = req.path.match(BLOG_ARTICLE_ROUTE);
         if (blogMatch) {
-          const article = db.prepare('SELECT id, title, excerpt, image_url FROM articles WHERE id = ?').get(blogMatch[1]) as any;
+          const article = db.prepare('SELECT id, title, excerpt, content, image_url, created_at FROM articles WHERE id = ?').get(blogMatch[1]) as any;
           if (article) {
             const html = injectArticleMeta(indexHtmlTemplate, article);
             res.status(200).set('Content-Type', 'text/html; charset=utf-8').send(html);
