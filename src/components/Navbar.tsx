@@ -93,7 +93,7 @@ export default function Navbar() {
             </div>
 
             <a
-              href="tel:+998556020055"
+              href="tel:+998785550555"
               className={`flex items-center gap-2 font-headline font-bold text-sm tracking-widest transition-colors ${isLight ? 'text-primary hover:text-secondary' : 'text-white hover:text-secondary-light'}`}
             >
               <Phone size={16} strokeWidth={2.5} />
@@ -155,9 +155,9 @@ export default function Navbar() {
                 );
               })}
               <div className="pt-8 mt-6 border-t border-slate-200/50 flex flex-col gap-4">
-                <a href="tel:+998556020055" className="flex items-center justify-center gap-3 text-primary font-headline font-bold text-sm tracking-widest bg-primary/5 py-4 rounded-2xl">
+                <a href="tel:+998785550555" className="flex items-center justify-center gap-3 text-primary font-headline font-bold text-sm tracking-widest bg-primary/5 py-4 rounded-2xl">
                   <Phone size={20} />
-                  <span>+998 55 602 00 55</span>
+                  <span>+998 78 555 05 55</span>
                 </a>
                 <button
                   onClick={() => { setIsOpen(false); window.dispatchEvent(new Event('open-enroll-modal')); }}

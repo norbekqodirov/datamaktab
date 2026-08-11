@@ -520,7 +520,7 @@ export default function SchoolMatch() {
                 {q.thanks.desc_before} <b className="text-primary">{q.result.time_opts[timeIdx].split('(')[0].trim()}</b> {q.thanks.desc_after}
               </p>
               <p className="flex items-center justify-center gap-2 font-headline font-bold text-primary mt-4 mb-8">
-                <Phone size={16} /> +998 55 602 00 55
+                <Phone size={16} /> +998 78 555 05 55
               </p>
 
               <p className="text-xs text-on-surface-muted mb-3">{q.thanks.pdf_hint}</p>

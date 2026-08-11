@@ -236,10 +236,6 @@ export default function Admission() {
                     {get('adm_price_val', a.fee)}
                   </EditableText>
                 </div>
-                <div className="p-6 md:p-8 bg-[#03caff]/20 border border-[#03caff]/30 rounded-3xl shadow-lg">
-                  <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">{a.discount_label}</p>
-                  <p className="text-3xl md:text-5xl font-headline font-extrabold text-[#03caff]">{a.discount_price}</p>
-                </div>
               </div>
               <div className="p-5 bg-white/10 rounded-2xl">
                 <p className="text-white/80 text-sm leading-relaxed">
@@ -247,9 +243,9 @@ export default function Admission() {
                 </p>
               </div>
               <div className="mt-8 pt-4 border-t border-white/10">
-                <a href="tel:+998556020055" className="inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-transform w-max">
+                <a href="tel:+998785550555" className="inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-transform w-max">
                   <span className="material-symbols-outlined">phone</span>
-                  +998 55 602 00 55
+                  +998 78 555 05 55
                 </a>
               </div>
             </div>
@@ -395,9 +391,9 @@ export default function Admission() {
                   <button onClick={openEnrollModal} className="bg-white text-primary hover:bg-slate-50 transition-colors px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">
                     {t.cta.primary}
                   </button>
-                  <a href="tel:+998556020055" className="bg-white/10 border border-white/30 backdrop-blur-lg text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all flex items-center gap-2 justify-center">
+                  <a href="tel:+998785550555" className="bg-white/10 border border-white/30 backdrop-blur-lg text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all flex items-center gap-2 justify-center">
                     <span className="material-symbols-outlined text-lg">phone</span>
-                    +998 55 602 00 55
+                    +998 78 555 05 55
                   </a>
                 </div>
               </div>

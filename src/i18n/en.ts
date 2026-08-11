@@ -391,8 +391,6 @@ export const en: Translations = {
     pricing_title: 'Fees & Terms',
     fee_title: 'Annual Fee',
     fee: '50,000,000 UZS',
-    discount_label: '10% discount for early payment',
-    discount_price: '45,000,000 UZS',
     extra_title: 'Services requiring separate payment:',
     extra_desc: 'school uniform, study camps, olympiads, extra tutoring, sports kit, dormitory, class events.',
     covers_title: 'What does the fee cover?',
@@ -440,8 +438,6 @@ export const en: Translations = {
     prohib_safe_desc: 'A fair, equal and comfortable environment for every student',
     cta_title: 'Choose the best education for your child',
     cta_desc: 'Limited spots available each year. Apply now and join the DATA International School family.',
-    discount_title: 'Discount',
-    discount: '10% discount for early payment (45,000,000 UZS)',
   },
   contact: {
     title: 'Contact',
@@ -1137,7 +1133,7 @@ export const en: Translations = {
       dims_label: "Top 3 matching directions",
       chart_label: "Priority map",
       answers_label: "Your answers",
-      footer: "DATA International School · datamaktab.uz · +998 55 602 00 55 · Urgench",
+      footer: "DATA International School · datamaktab.uz · +998 78 555 05 55 · Urgench",
       file_name: "DATA-roadmap",
     },
     home_cta: {

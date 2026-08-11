@@ -79,7 +79,6 @@ export const maktabData = {
   },
   admission: {
     fee: "50,000,000 so'm (Shartnoma asosida)",
-    discount: "Oldindan to'lov uchun 10% chegirma (45,000,000 so'm).",
     covers: [
       "O'quv qurollari, Kitoblar, To'garaklar",
       "3 mahal issiq ovqat",

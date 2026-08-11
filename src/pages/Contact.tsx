@@ -54,7 +54,7 @@ export default function Contact() {
   };
 
   const infoCards = [
-    { icon: <Phone size={20} />, label: c.phone, val: '+998 55 602 00 55', href: 'tel:+998556020055', color: 'from-primary to-[#041c80]' },
+    { icon: <Phone size={20} />, label: c.phone, val: '+998 78 555 05 55', href: 'tel:+998785550555', color: 'from-primary to-[#041c80]' },
     { icon: <MapPin size={20} />, label: c.address, val: "Xorazm vil., Urganch tum., Oyoqbog' MFY, Xiva shox ko'cha", href: 'https://yandex.uz/maps/-/CPSM76-k', color: 'from-[#03caff] to-primary' },
     { icon: <Mail size={20} />, label: 'Email', val: 'info@datamaktab.uz', href: 'mailto:info@datamaktab.uz', color: 'from-[#041c80] to-secondary' },
     { icon: <Clock size={20} />, label: c.hours, val: c.hours_val, href: null, color: 'from-secondary to-primary' },

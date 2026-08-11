@@ -389,8 +389,6 @@ export const uz = {
     pricing_title: "To'lov va shartlar",
     fee_title: "Yillik to'lov",
     fee: "50,000,000 so'm",
-    discount_label: "Oldindan to'lovda 10% chegirma",
-    discount_price: "45 000 000 so'm",
     extra_title: "Alohida to'lov talab qilinadigan xizmatlar:",
     extra_desc: "maktab formasi, ta'lim lagerlari, olimpiadalar, qo'shimcha ustoz, sport formasi, yotoqxona, sinf tadbirlari.",
     covers_title: "To'lov nimani qamrab oladi?",
@@ -438,8 +436,6 @@ export const uz = {
     prohib_safe_desc: "Har bir o'quvchi uchun adolatli, teng va qulay sharoit",
     cta_title: "Farzandingiz uchun eng yaxshi ta'limni tanlang",
     cta_desc: "Har yili sanoqli o'rinlar mavjud. Hoziroq ariza to'ldiring va DATA Xalqaro Maktabi oilasiga qo'shiling.",
-    discount_title: "Chegirma",
-    discount: "Oldindan to'lov uchun 10% chegirma (45,000,000 so'm)",
   },
   contact: {
     title: 'Aloqa',
@@ -1137,7 +1133,7 @@ export const uz = {
       dims_label: "Sizga eng mos 3 yo'nalish",
       chart_label: "Ustuvorliklar xaritasi",
       answers_label: "Sizning javoblaringiz",
-      footer: "DATA Xalqaro maktabi · datamaktab.uz · +998 55 602 00 55 · Urganch shahri",
+      footer: "DATA Xalqaro maktabi · datamaktab.uz · +998 78 555 05 55 · Urganch shahri",
       file_name: "DATA-yol-xaritasi",
     },
     home_cta: {

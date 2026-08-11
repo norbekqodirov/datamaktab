@@ -72,7 +72,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-4 hover:text-white transition-colors">
                 <Phone className="text-secondary shrink-0" size={18} />
-                <a href="tel:+998556020055">+998 55 602 00 55</a>
+                <a href="tel:+998785550555">+998 78 555 05 55</a>
               </li>
               <li className="flex items-center gap-4 hover:text-white transition-colors">
                 <Mail className="text-secondary shrink-0" size={18} />
@@ -88,7 +88,7 @@ export default function Footer() {
                 2026–2027
               </h4>
               <p className="text-sm text-white/70 mb-6 font-semibold">
-                {t.admission?.discount?.split('(')[0] ?? 'Qabul jarayoni ochiq.'}
+                {t.admission?.cta_desc ?? 'Qabul jarayoni ochiq.'}
               </p>
               <button
                 onClick={() => window.dispatchEvent(new Event('open-enroll-modal'))}

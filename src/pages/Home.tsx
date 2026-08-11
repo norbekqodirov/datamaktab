@@ -60,7 +60,7 @@ export default function Home() {
           logo: 'https://datamaktab.uz/icon.svg',
           image: 'https://datamaktab.uz/og-image.png',
           description: "Urganch shahridagi zamonaviy xalqaro maktab. Sifatli ta'lim, ingliz tili, sport va ijodiy rivojlanish.",
-          telephone: '+998556020055',
+          telephone: '+998785550555',
           email: 'info@datamaktab.uz',
           address: {
             '@type': 'PostalAddress',
