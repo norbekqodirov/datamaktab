@@ -14,6 +14,7 @@ import Education from './Education';
 import Admission from './Admission';
 import Team from './Team';
 import ConfirmDialog from '../components/ConfirmDialog';
+import { adminFetch } from '../lib/adminFetch';
 
 // ────────────────────────────────────────────────
 // Helpers
@@ -29,7 +30,7 @@ function ImageUploader({ value, onChange, label }: { value: string; onChange: (u
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      const res = await adminFetch('/api/upload', { method: 'POST', body: form });
       const data = await res.json();
       onChange(data.url);
     } catch (err) {
@@ -447,7 +448,7 @@ function Settings() {
     setSaving(true);
     setSaved(false);
     try {
-      await fetch('/api/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) });
+      await adminFetch('/api/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch { alert('Xatolik yuz berdi'); }
@@ -601,7 +602,7 @@ function ArticleList() {
   useEffect(() => { fetch_(); }, []);
   const del = async (id: number) => {
     if (!confirm("O'chirilsinmi?")) return;
-    await fetch(`/api/articles/${id}`, { method: 'DELETE' });
+    await adminFetch(`/api/articles/${id}`, { method: 'DELETE' });
     fetch_();
   };
 
@@ -676,7 +677,7 @@ function ArticleForm() {
     const url = isEdit ? `/api/articles/${id}` : '/api/articles';
     const method = isEdit ? 'PUT' : 'POST';
     try {
-      const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, excerpt, content, image_url: imageUrl }) });
+      const res = await adminFetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, excerpt, content, image_url: imageUrl }) });
       if (!res.ok) throw new Error();
       navigate('/maktabpanel/articles');
     } catch { alert('Xatolik yuz berdi'); }

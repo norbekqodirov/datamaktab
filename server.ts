@@ -6,14 +6,52 @@ import fs from 'fs';
 import multer from 'multer';
 import sharp from 'sharp';
 import compression from 'compression';
+import crypto from 'crypto';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.set('trust proxy', true);
 
 // Gzip compression — critical for production
 app.use(compression());
 app.use(express.json({ limit: '10mb' }));
+
+// --- Admin auth ---
+// ADMIN_PASSWORD must be set via env (see ecosystem.config.cjs). No hardcoded fallback:
+// an unset password disables login rather than silently accepting a known-weak default.
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+const activeTokens = new Map<string, number>(); // token -> expiry (ms epoch)
+const TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
+
+function requireAdmin(req: any, res: any, next: any) {
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+  const expiry = activeTokens.get(token);
+  if (!token || !expiry || expiry < Date.now()) {
+    if (token) activeTokens.delete(token);
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+}
+
+// Basic brute-force throttle for login (not a substitute for fail2ban, but cheap and effective)
+const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+function loginRateLimit(req: any, res: any, next: any) {
+  const ip = req.ip || 'unknown';
+  const now = Date.now();
+  const entry = loginAttempts.get(ip);
+  if (!entry || entry.resetAt < now) {
+    loginAttempts.set(ip, { count: 1, resetAt: now + 15 * 60 * 1000 });
+    return next();
+  }
+  if (entry.count >= 10) {
+    return res.status(429).json({ error: 'Too many attempts, try again later' });
+  }
+  entry.count++;
+  next();
+}
 
 // Redirect www → non-www (301 permanent)
 app.use((req: any, res: any, next: any) => {
@@ -141,7 +179,7 @@ db.exec(`
 const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
-app.post('/api/upload', uploadMemory.single('file'), async (req, res) => {
+app.post('/api/upload', requireAdmin, uploadMemory.single('file'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'Fayl yuklanmadi' });
 
   try {
@@ -170,7 +208,7 @@ app.post('/api/upload', uploadMemory.single('file'), async (req, res) => {
 });
 
 // --- One-time existing image WebP optimizer ---
-app.get('/api/optimize-existing', async (_req, res) => {
+app.get('/api/optimize-existing', requireAdmin, async (_req, res) => {
   const publicDir = path.join(process.cwd(), 'public');
   const dirs = [publicDir, uploadDir];
   const results: string[] = [];
@@ -243,66 +281,72 @@ app.get('/api/articles/:id', (req, res) => {
   }
 });
 
-app.post('/api/articles', (req, res) => {
+app.post('/api/articles', requireAdmin, (req, res) => {
   const { title, excerpt, content, image_url } = req.body;
   const stmt = db.prepare('INSERT INTO articles (title, excerpt, content, image_url) VALUES (?, ?, ?, ?)');
   const info = stmt.run(title, excerpt, content, image_url);
   res.json({ id: info.lastInsertRowid, title, excerpt, content, image_url });
 });
 
-app.put('/api/articles/:id', (req, res) => {
+app.put('/api/articles/:id', requireAdmin, (req, res) => {
   const { title, excerpt, content, image_url } = req.body;
   const stmt = db.prepare('UPDATE articles SET title = ?, excerpt = ?, content = ?, image_url = ? WHERE id = ?');
   stmt.run(title, excerpt, content, image_url, req.params.id);
   res.json({ success: true });
 });
 
-app.delete('/api/articles/:id', (req, res) => {
+app.delete('/api/articles/:id', requireAdmin, (req, res) => {
   const stmt = db.prepare('DELETE FROM articles WHERE id = ?');
   stmt.run(req.params.id);
   res.json({ success: true });
 });
 
 // --- Enrollments ---
-app.get('/api/enrollments', (req, res) => {
+app.get('/api/enrollments', requireAdmin, (req, res) => {
   const enrollments = db.prepare('SELECT * FROM enrollments ORDER BY created_at DESC').all();
   res.json(enrollments);
 });
 
 app.post('/api/enrollments', (req, res) => {
   const { child_name, birth_date, grade, language, parent_name, phone, email, source, message } = req.body;
+  if (!child_name || !grade || !parent_name || !phone) {
+    return res.status(400).json({ error: 'Required fields missing' });
+  }
   const stmt = db.prepare('INSERT INTO enrollments (child_name, birth_date, grade, language, parent_name, phone, email, source, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
   const info = stmt.run(child_name, birth_date, grade, language, parent_name, phone, email, source, message);
   res.json({ id: info.lastInsertRowid, success: true });
 });
 
-app.put('/api/enrollments/:id/status', (req, res) => {
+app.put('/api/enrollments/:id/status', requireAdmin, (req, res) => {
   const { status } = req.body;
   const stmt = db.prepare('UPDATE enrollments SET status = ? WHERE id = ?');
   stmt.run(status, req.params.id);
   res.json({ success: true });
 });
 
-app.delete('/api/enrollments/:id', (req, res) => {
+app.delete('/api/enrollments/:id', requireAdmin, (req, res) => {
   const stmt = db.prepare('DELETE FROM enrollments WHERE id = ?');
   stmt.run(req.params.id);
   res.json({ success: true });
 });
 
 // --- Messages ---
-app.get('/api/messages', (req, res) => {
+app.get('/api/messages', requireAdmin, (req, res) => {
   const messages = db.prepare('SELECT * FROM messages ORDER BY created_at DESC').all();
   res.json(messages);
 });
 
 app.post('/api/messages', (req, res) => {
   const { name, phone, message } = req.body;
+  if (!name || !phone || !message) {
+    return res.status(400).json({ error: 'Required fields missing' });
+  }
   const stmt = db.prepare('INSERT INTO messages (name, phone, message) VALUES (?, ?, ?)');
   const info = stmt.run(name, phone, message);
   res.json({ id: info.lastInsertRowid, success: true });
 });
 
-app.delete('/api/messages/:id', (req, res) => {
+app.delete('/api/messages/:id', requireAdmin, (req, res) => {
   const stmt = db.prepare('DELETE FROM messages WHERE id = ?');
   stmt.run(req.params.id);
   res.json({ success: true });
@@ -318,7 +362,7 @@ app.get('/api/settings', (req, res) => {
   res.json(settingsObj);
 });
 
-app.put('/api/settings', (req, res) => {
+app.put('/api/settings', requireAdmin, (req, res) => {
   const settings = req.body;
   const stmt = db.prepare('INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)');
   const insertMany = db.transaction((settingsObj) => {
@@ -359,11 +403,17 @@ app.get('/sitemap.xml', (req, res) => {
   res.send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`);
 });
 
-// Simple Auth for Admin
-app.post('/api/auth/login', (req, res) => {
+// Auth for Admin
+app.post('/api/auth/login', loginRateLimit, (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === 'datamaktab2025') {
-    res.json({ token: 'fake-jwt-token-admin' });
+  if (!ADMIN_PASSWORD) {
+    console.error('ADMIN_PASSWORD is not set — refusing all admin logins. Set it in ecosystem.config.cjs.');
+    return res.status(500).json({ error: 'Server misconfigured' });
+  }
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    const token = crypto.randomBytes(32).toString('hex');
+    activeTokens.set(token, Date.now() + TOKEN_TTL_MS);
+    res.json({ token });
   } else {
     res.status(401).json({ error: 'Invalid credentials' });
   }

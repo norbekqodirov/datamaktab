@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useId, useCallback } from 'react';
 import { useEditMode } from '../context/EditModeContext';
 import { Camera, Move } from 'lucide-react';
+import { adminFetch } from '../lib/adminFetch';
 
 interface ImageStyle {
   scale: number;
@@ -97,7 +98,7 @@ export default function EditableImage({
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      const res = await adminFetch('/api/upload', { method: 'POST', body: form });
       const data = await res.json();
       const newStyle: ImageStyle = { scale: 1, posX: 50, posY: 50, rotation: 0 };
       setImgUrl(data.url);

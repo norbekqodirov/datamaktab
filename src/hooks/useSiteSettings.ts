@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useGlobalState } from '../context/GlobalStateContext';
 import { useEditMode } from '../context/EditModeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { adminFetch } from '../lib/adminFetch';
 
 // Keys that refer to images (shared across all languages)
 const IMAGE_KEY_PATTERNS = ['_img', '_bg', '_image', 'hero_student'];
@@ -55,7 +56,7 @@ export function useSiteSettings() {
     // 2. Defer actual server save to the unified Save All button
     registerPendingSave('global_settings_save', async () => {
       const latestData = getLatestSiteData();
-      await fetch('/api/settings', {
+      await adminFetch('/api/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ maktab_global: JSON.stringify(latestData) }),

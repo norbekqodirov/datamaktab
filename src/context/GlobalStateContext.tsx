@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { maktabData as fallbackData } from '../data/content';
+import { adminFetch } from '../lib/adminFetch';
 
 export const GlobalStateContext = createContext<any>(null);
 
@@ -67,7 +68,7 @@ export const GlobalStateProvider = ({ children }: { children: React.ReactNode })
 
   const saveGlobalData = async (newGlobalData: any) => {
     try {
-      const res = await fetch('/api/settings', {
+      const res = await adminFetch('/api/settings', {
          method: 'PUT',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify({ maktab_global: JSON.stringify(newGlobalData) })

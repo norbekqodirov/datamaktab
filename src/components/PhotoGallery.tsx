@@ -4,6 +4,7 @@ import { useEditMode } from '../context/EditModeContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import { Plus, Trash2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import EditableImage from './EditableImage';
+import { adminFetch } from '../lib/adminFetch';
 
 function decodePhotoSrc(raw: string) {
   const def = { scale: 1, posX: 50, posY: 50, rotation: 0 };
@@ -56,7 +57,7 @@ export default function PhotoGallery() {
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      const res = await adminFetch('/api/upload', { method: 'POST', body: form });
       const data = await res.json();
       savePhotos([...photosRef.current, data.url]);
     } catch {
