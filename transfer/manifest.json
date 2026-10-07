@@ -1,0 +1,19 @@
+{
+  "format": "AES-256-GCM + ZIP, split into 40 MiB chunks",
+  "project": "datamaktab",
+  "created": "2026-10-07",
+  "file_count": 54,
+  "archive_sha256": "3bd68b3edec33153bcfbd23f87fd06b8f07600a6610f66cc64cbf056fc500980",
+  "parts": [
+    {
+      "file": "local-state.part001.enc",
+      "bytes": 41943076,
+      "sha256": "6337b833212d8f25e450cf1144f0b823099d52ed7256fdf1bd75ae65255ee8f7"
+    },
+    {
+      "file": "local-state.part002.enc",
+      "bytes": 35813793,
+      "sha256": "7dc6e8ab273287f6a56bda89602f86cb3d163956166979bdec5d4560fc43aa9e"
+    }
+  ]
+}
